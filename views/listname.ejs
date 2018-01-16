@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include head.ejs %>
+</head>
+
+<body>
+    <% include navbar.ejs %>
+        <div style="margin: 2%;">
+            <H1> สมาชิกทั้งหมด </H1>
+            <hr>
+
+
+            <ul class="nav nav-tabs">
+                <li id="noneadmit" class="active">
+                    <a href="#">ยังไม่อนุญาต</a>
+                </li>
+                <li id="admit">
+                    <a href="#">อนุญาตแล้ว</a>
+                </li>
+                <li id="all">
+                    <a href="#">สมาชิกทั้งหมด</a>
+                </li>
+            </ul>
+            <div id="tableJS">
+                <table class="ui selectable celled table">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RQTH00001</td>
+                            <td>
+                                <a href="/listname/001">นาย ตนุภัทร บุญรักษา</td>
+                            </a>
+                            <td>
+                                <font color="green">
+                                    <i class="checkmark icon"></i>
+                                </font>
+                                <a href="#">อนุญาต</a>
+                                <font color="red">
+                                    <i class="remove icon"></i>
+                                </font>
+                                <a href="#">ไม่อนุญาต</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>RQTH00002</td>
+                            <td>นาย อารมดี มีชัย</td>
+                            <td>
+                                <font color="green">
+                                    <i class="checkmark icon"></i>
+                                </font>
+                                <a href="#">อนุญาต</a>
+                                <font color="red">
+                                    <i class="remove icon"></i>
+                                </font>
+                                <a href="#">ไม่อนุญาต</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>RQTH00003</td>
+                            <td>นาย อุอิ ฮิฮ่า</td>
+                            <td>
+                                <font color="green">
+                                    <i class="checkmark icon"></i>
+                                </font>
+                                <a href="#">อนุญาต</a>
+                                <font color="red">
+                                    <i class="remove icon"></i>
+                                </font>
+                                <a href="#">ไม่อนุญาต</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <script>
+            var noneadmit = [
+                '<table class="ui selectable celled table"><thead><tr><th>Request ID</th><th>Name</th><th>Status</th></tr></thead>',
+                '<tbody>',
+                '<tr><td>RQTH00001</td><td>นาย ตนุภัทร บุญรักษา</td><td><font color="green"><i class="checkmark icon"></i></font><a href="#">อนุญาต</a><font color="red"><i class="remove icon"></i></font><a href="#">ไม่อนุญาต</a></td></tr>',
+                '<tr><td>RQTH00002</td><td>นาย อารมดี มีชัย</td><td><font color="green"><i class="checkmark icon"></i></font><a href="#">อนุญาต</a><font color="red"><i class="remove icon"></i></font><a href="#">ไม่อนุญาต</a></td></tr>',
+                '<tr><td>RQTH00003</td><td>นาย อุอิ ฮิฮ่า</td><td><font color="green"><i class="checkmark icon"></i></font><a href="#">อนุญาต</a><font color="red"><i class="remove icon"></i></font><a href="#">ไม่อนุญาต</a></td></tr>',
+                '</tbody></table>',
+            ].join('');
+            var admit = [
+                '<table class="ui selectable celled table"><thead><tr><th>User ID</th><th>Name</th><th>Phone Number</th><th>E-Mail</th></tr></thead>',
+                '<tbody>',
+                '<tr><td>EN00001</td><td>นาย John Snow</td><td>0801234567</td><td>John@bike.com</td></tr>',
+                '<tr><td>US00002</td><td>นาย Smith Simson</td><td>0819876543</td><td>Smith@bike.com</td></tr>',
+                '<tr><td>TH00003</td><td>นาย Alan Wake</td><td>0895678912</td><td>Alan@bike.com</td></tr>',
+                '</tbody></table>',
+            ].join('');
+            var all = [
+                '<table class="ui selectable celled table"><thead><tr><th>User ID/Request ID</th><th>Name</th><th>Phone Number</th><th>E-Mail</th></tr></thead>',
+                '<tbody>',
+                '<tr><td>EN00001</td><td>นาย John Snow</td><td>0801234567</td><td>John@bike.com</td></tr>',
+                '<tr><td>US00002</td><td>นาย Smith Simson</td><td>0819876543</td><td>Smith@bike.com</td></tr>',
+                '<tr><td>TH00003</td><td>นาย Alan Wake</td><td>0895678912</td><td>Alan@bike.com</td></tr>',
+                '<tr><td>RQTH00001</td><td>นาย ตนุภัทร บุญรักษา</td><td>0875663888</td><td>tanupat@bike.com</td></tr>',
+                '<tr><td>RQTH00002</td><td>นาย อารมดี มีชัย</td><td>0825663991</td><td>arromdee@bike.com</td></tr>',
+                '<tr><td>RQTH00003</td><td>นาย อุอิ ฮิฮ่า</td><td>0955663377</td><td>euei@bike.com</td></tr>',
+                '</tbody></table>',
+            ].join('');
+            $(document).on("click", "#noneadmit", function () {
+                $("#noneadmit").attr("class", "active");
+                $("#admit").attr("class", "");
+                $("#all").attr("class", "");
+                document.getElementById('tableJS').innerHTML = "";
+                document.getElementById('tableJS').innerHTML = noneadmit;
+            });
+            $(document).on("click", "#admit", function () {
+                $("#noneadmit").attr("class", "");
+                $("#admit").attr("class", "active");
+                $("#all").attr("class", "");
+                document.getElementById('tableJS').innerHTML = "";
+                document.getElementById('tableJS').innerHTML = admit;
+            });
+            $(document).on("click", "#all", function () {
+                $("#noneadmit").attr("class", "s");
+                $("#admit").attr("class", "");
+                $("#all").attr("class", "active");
+                document.getElementById('tableJS').innerHTML = "";
+                document.getElementById('tableJS').innerHTML = all;
+            });
+
+        </script>
+
+</body>
+
+</html>

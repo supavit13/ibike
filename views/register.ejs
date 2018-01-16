@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include head.ejs %>
+</head>
+
+<body>
+    <% include navbar.ejs %>
+        <div style="margin: 5%">
+            <form class="ui form">
+                <h1 class="ui dividing header">สมัครสมาชิก</h1>
+                <div class="field">
+                    <label>Name</label>
+                    <div class="two fields">
+
+                        <div class="field">
+                            <input type="text" name="shipping[first-name]" placeholder="First Name">
+                        </div>
+
+                        <div class="field">
+                            <input type="text" name="shipping[last-name]" placeholder="Last Name">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="two fields">
+                    <div class="field">
+                        <label>E-Mail</label>
+                        <input type="text" name="shipping[last-name]" placeholder="E-Mail">
+                    </div>
+
+                    <div class="field">
+                        <label>เบอร์ติดต่อ</label>
+                        <input type="text" name="shipping[last-name]" placeholder="088-2370814">
+                    </div>
+
+                </div>
+
+                <div class="two fields">
+
+                    <div class="field">
+                        <label>UserName</label>
+                        <input type="text" name="shipping[last-name]" placeholder="UserName">
+                    </div>
+
+                    <div class="field">
+                        <label>Password</label>
+                        <div class="two fields">
+
+                            <div class="field">
+                                <input type="text" name="shipping[first-name]" placeholder="Password">
+                            </div>
+
+                            <div class="field">
+                                <input type="text" name="shipping[last-name]" placeholder="Confirm Password">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="two fields">
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>บ้านเลขที่</label>
+                                <input type="text" name="shipping[last-name]" placeholder="21/252">
+                            </div>
+
+                            <div class="field">
+                                <label>หมู่</label>
+                                <input type="text" name="shipping[last-name]" placeholder="3 ริมลาว">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>ตำบล</label>
+                                <input type="text" name="shipping[last-name]" placeholder="ป่าอ้อดอยชัย">
+                            </div>
+
+                            <div class="field">
+                                <label>อำเภอ</label>
+                                <input type="text" name="shipping[last-name]" placeholder="เมือง">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>จังหวัด</label>
+                                <input type="text" name="shipping[last-name]" placeholder="เชียงราย">
+                            </div>
+
+                            <div class="field">
+                                <label>รหัสไปรษณีย์</label>
+                                <input type="text" name="shipping[last-name]" placeholder="57000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                    </div>
+
+                </div>
+
+            </form>
+
+            <div>
+                <div class="file-upload">
+                    1.ภาพด้านหน้าบัตรใบขับขี่
+                    <br>
+                    <input id="upload" class="file-upload__input" type="file" name="file-upload" style="width: 225px">
+                    <br>
+                    <br> 2.ภาพด้านหลังบัตรใบขับขี่
+                    <br>
+                    <input id="upload" class="file-upload__input" type="file" name="file-upload" style="width: 225px">
+                    <br>
+                    <br> 3.ภาพเจ้าของบัตรถือใบขับขี่(เห็นหน้าในบัตรกับตัวจริงชัดเจน)
+                    <br>
+                    <input id="upload" class="file-upload__input" type="file" name="file-upload" style="width: 225px">
+                </div>
+            </div>
+        </div>
+
+
+        <center>
+            <a href="/">
+                <button class="positive ui button">สมัคร</button>
+            </a>
+            <br>
+            <br>
+        </center>
+</body>
+
+</html>

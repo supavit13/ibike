@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include head.ejs %>
+</head>
+
+<body>
+    <% include navbar.ejs %>
+        <H1> รถจักรยานยนต์ทั้งหมด </H1>
+
+
+        <table class="ui selectable celled table">
+            <thead>
+                <tr>
+                    <th>ชื่อ</th>
+                    <th>สถานะ</th>
+                    <th>ตำแหน่ง</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="/listmotorcycle/001">001</a>
+                    </td>
+                    <td>
+                        ไม่พร้อม
+                        <div class="ui fitted slider checkbox">
+                            <input type="checkbox">
+                            <label></label>
+                        </div>
+                        พร้อม
+                    </td>
+                    <td>X:150.555 Y:200.354</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>
+                        ไม่พร้อม
+                        <div class="ui fitted slider checkbox">
+                            <input type="checkbox">
+                            <label></label>
+                        </div>
+                        พร้อม
+                    </td>
+                    <td>X:150.555 Y:200.354</td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>
+                        ไม่พร้อม
+                        <div class="ui fitted slider checkbox">
+                            <input type="checkbox">
+                            <label></label>
+                        </div>
+                        พร้อม
+                    </td>
+                    <td>X:150.555 Y:200.354</td>
+                </tr>
+                <!--     <tr class="warning">
+              <td>John</td>
+              <td>No Action</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td>Jamie</td>
+              <td class="positive">Approved</td>
+              <td class="warning">Requires call</td>
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td class="negative">Denied</td>
+              <td>None</td>
+            </tr> -->
+            </tbody>
+        </table>
+
+</body>
+
+</html>

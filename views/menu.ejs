@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include head.ejs %>
+</head>
+
+<body>
+    <% include navbar.ejs %>
+    <div class="row">
+
+        <div class="col-md-6">
+            <!-- เว้นบรรทัด -->
+            <div style="margin-top: 10%;"></div>
+            <!-- เว้นบรรทัด -->
+            <center>
+                <img src="/images/cafe2.png" style="height: 50%; width: 80%">
+            </center>
+        </div>
+
+
+        <div class="col-md-6">
+            <!-- เว้นบรรทัด -->
+            <div style="margin-top: 10%;"></div>
+            <!-- เว้นบรรทัด -->
+            <center>
+                <div class="ui large buttons">
+                    <button class="ui button" id="login" style="border-radius: 5px;">L o g i n</button>
+                    <div class="or"></div>
+                    <a href="/register">
+                        <button class="ui button">Register</button>
+                    </a>
+                </div>
+                <div id="fromlogin2"></div>
+            </center>
+
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        var fromlogin = [
+
+            '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
+            '<H1> LOG-IN </H1>',
+
+            '<div class="ui left icon input fluid" style="width:230px"><i class="user icon"></i><input type="text" name="email" placeholder="E-mail address" id="email"></div>', '<br>',
+            '<div class="ui left icon input fluid" style="width:230px"><i class="lock icon"></i><input type="password" name="password" placeholder="Password"></div>',
+
+            '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
+
+            '<a href="/showbike" class="ui fluid button" style="width:50%;" id="login2">Login</a>',
+
+        ].join('');
+        var loginByUser = '<a href="/showbike" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
+        var loginByAdmin = '<a href="/admin" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
+
+
+        $('#login').click(function () {
+            // alert(document.getElementById('pauseValue').innerHTML);
+            if (document.getElementById('fromlogin2').innerHTML == "") {
+                document.getElementById('fromlogin2').innerHTML = fromlogin;
+                // timer.pause();
+            } else if (document.getElementById('fromlogin2').innerHTML != "") {
+                document.getElementById('fromlogin2').innerHTML = "";
+                // timer.start();
+            }
+
+        });
+
+        $(document).on('change', '#email', function () {
+            if (document.getElementById('email').value == "admin") {
+                // alert(document.getElementById('email').value);
+                document.getElementById("login2").remove();
+                // $("#login2").attr("href",'{{ url("/admin") }}');
+                $("#fromlogin2").append(loginByAdmin);
+                // timer.pause();
+            } else {
+                document.getElementById("login2").remove();
+                $("#fromlogin2").append(loginByUser);
+            }
+
+        });
+
+
+    </script>
+</body>
+
+</html>

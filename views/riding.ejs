@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include head.ejs %>
+</head>
+
+<body>
+    <% include navbar.ejs %>
+        <div align="center" class="top">
+            <div style="display: inline-block; margin:0%; width:49%;">
+                <font size=5>ระยะทาง</font>
+                <br>
+                <font size=6>00.00</font>
+                <br>
+                <font size=2>กิโลเมตร</font>
+            </div>
+            <div style=" display: inline-block; margin:0%; width:49%;">
+                <font size=5>ระยะเวลา</font>
+                <br>
+                <font size=6 id="timer">00:00:00</font>
+                <br>
+                <font size=2>hh:mm:ss</font>
+            </div>
+        </div>
+        <div id="ridingMap"></div>
+        <div align="center" class="bot">
+            <a class="button green ui" id="pauseButton" style="display: inline-block; margin:0%; width:49%;">
+                <p style="font-size:150%;" id="pauseValue">Pause</p>
+            </a>
+            <a href="/showbike" class="button red ui" style="display: inline-block; margin:0%; width:49%;">
+                <p style="font-size:150%;">Stop</p>
+            </a>
+        </div>
+
+        <script>
+            var marker;
+
+            function initMap() {
+                var myLatLng = { lat: 13.120, lng: 100.919 };
+
+                var map = new google.maps.Map(document.getElementById('ridingMap'), {
+                    zoom: 16,
+                    center: myLatLng
+                });
+
+                marker = new google.maps.Marker({
+                    position: { lat: 13.120, lng: 100.919 },
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    title: 'you are here'
+                });
+                marker.addListener('click', toggleBounce);
+            }
+
+            function toggleBounce() {
+                if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3gga67g_fXhRofEIdiQOXv8Yqf9vDkdc&callback=initMap">
+        </script>
+
+        <script>
+            var timer = new Timer();
+            timer.start();
+            timer.addEventListener('secondsUpdated', function (e) {
+                var fulltime = timer.getTimeValues().toString();
+                var delTime = fulltime.split(':')[0] + ":" + fulltime.split(':')[1];
+                $('#timer').html(fulltime);
+            });
+
+            $('#pauseButton').click(function () {
+                // alert(document.getElementById('pauseValue').innerHTML);
+                if (document.getElementById('pauseValue').innerHTML == "Pause") {
+                    $("#pauseButton").attr("class", "button blue ui");
+                    document.getElementById('pauseValue').innerHTML = "";
+                    document.getElementById('pauseValue').innerHTML = "Continue";
+                    // timer.pause();
+                } else if (document.getElementById('pauseValue').innerHTML == "Continue") {
+                    $("#pauseButton").attr("class", "button green ui");
+                    document.getElementById('pauseValue').innerHTML = "";
+                    document.getElementById('pauseValue').innerHTML = "Pause";
+                    // timer.start();
+                }
+
+            });
+
+        </script>
+</body>
+
+</html>
