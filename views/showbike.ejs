@@ -24,6 +24,23 @@
                 minZoom: 6,
                 type: 'roadmap' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
             }).addTo(mymap);
+
+            // var lc = L.control.locate({
+            //     position: 'topright',
+            //     strings: {
+            //         title: "Show me where I am, yo!"
+            //     }
+            // }).addTo(mymap);
+
+            mymap.addControl(L.control.locate({
+                locateOptions: {
+                        enableHighAccuracy: true
+            }}));
+
+
+            L.marker([13.1192, 100.92066]).addTo(mymap)
+            .bindPopup(' Hi ')
+            .openPopup();
             
         </script>
 
