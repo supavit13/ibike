@@ -25,23 +25,33 @@
                 type: 'roadmap' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
             }).addTo(mymap);
 
-            // var lc = L.control.locate({
-            //     position: 'topright',
-            //     strings: {
-            //         title: "Show me where I am, yo!"
-            //     }
-            // }).addTo(mymap);
+            // var greenIcon = new LeafIcon({iconUrl: '/images/markar.png'});
 
             mymap.addControl(L.control.locate({
+                // iconUrl: '/images/markar.png',
                 locateOptions: {
                         enableHighAccuracy: true
             }}));
 
+            var greenIcon = L.icon({
+                iconUrl: '/images/rsz_blue.png',
+                // shadowUrl: 'leaf-shadow.png',
+                iconSize:     [42, 94], // size of the icon
+            });
 
-            L.marker([13.1192, 100.92066]).addTo(mymap)
-            .bindPopup(' Hi ')
-            .openPopup();
             
+            L.marker([13.1192, 100.92066],{icon: greenIcon}).addTo(mymap)
+                .bindPopup(' Hi, I LOVE YOU ');
+                // .openPopup();
+            L.marker([13.1193, 100.92062],{icon: greenIcon}).addTo(mymap)
+                .bindPopup(' Hi, I LOVE YOU ');
+            L.marker([13.1194, 100.92059],{icon: greenIcon}).addTo(mymap)
+                .bindPopup(' Hi, I LOVE YOU ');
+            L.marker([13.1195, 100.92055],{icon: greenIcon}).addTo(mymap)
+                .bindPopup(' Hi, I LOVE YOU ');
+            L.marker([13.1196, 100.92051],{icon: greenIcon}).addTo(mymap)
+                .bindPopup(' Hi, I LOVE YOU ');
+
         </script>
 
         <div>
