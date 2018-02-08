@@ -7,90 +7,33 @@
 
 <body>
     <% include navbar.ejs %>
-    <div id="map"></div>
+        <div id="map"></div>
 
-    <script>
-        var latlnglst = [
-            [13.120, 100.919],
-            [13.116, 100.922],
-            [13.121, 100.920]
-        ];
-        var marker;
-        var circle;
-        var map;
-        var motorcycle;
-        var bikes = [
-            'Game Bike',
-            'Jay Bike',
-            'Ter Bike'
-        ];
-        function initMap() {
-            var myLatLng = { lat: 13.120, lng: 100.919 };
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 16,
-                center: myLatLng
+        <script>
+            var mymap = L.map('map', {
+                center: new L.LatLng(13.1192, 100.92066),
+                zoom: 16
             });
-            marker = new google.maps.Marker({
-                animation: google.maps.Animation.DROP,
-                map: map,
-                title: 'you are here'
-            });
-            setMotorcycle(map);
-            locationDefault(map);
+            mymap.setMaxBounds([
+                [21.22794, 90.79102],
+                [21.30985, 115.00488],
+                [3.73271, 90.79102],
+                [4.82826, 115.00488]
+            ]);
+            L.gridLayer.googleMutant({
+                minZoom: 6,
+                type: 'roadmap' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+            }).addTo(mymap);
+            
+        </script>
 
-        }
-        function setMotorcycle(map) {
-            var image = {
-                url: '/images/rsz_blue.png',
-                // This marker is 20 pixels wide by 32 pixels high.
-                size: new google.maps.Size(20, 32),
-                // The origin for this image is (0, 0).
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at (0, 32).
-                anchor: new google.maps.Point(0, 32)
-            };
-
-            for (var i = 0; i < latlnglst.length; i++) {
-                motorcycle = new google.maps.Marker({
-                    position: { lat: latlnglst[i][0], lng: latlnglst[i][1] },
-                    icon: image,
-                    map: map,
-                    title: bikes[i]
-                });
-            }
-        }
-        function locationDefault(map) {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    marker.setPosition(pos);
-                    map.setCenter(pos);
-                }, function () {
-                    handleLocationError(true, marker, map.getCenter());
-                });
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, marker, map.getCenter());
-            }
-        }
-
-        function handleLocationError(browserHasGeolocation, marker, pos) {
-            marker.setPosition(pos);
-        }
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3gga67g_fXhRofEIdiQOXv8Yqf9vDkdc&callback=initMap">
-    </script>
-
-    <div>
-        <center>
-            <a href="/price">
-                <button class="ui primary button"> Booking </button>
-            </a>
-        </center>
-    </div>
+        <div>
+            <center>
+                <a href="/price">
+                    <button class="ui primary button"> Booking </button>
+                </a>
+            </center>
+        </div>
 </body>
 
 </html>
