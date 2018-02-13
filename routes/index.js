@@ -19,9 +19,9 @@ router.get('/start', function(req, res, next) {
 router.get('/riding', function(req, res, next) {
   res.render("riding");
 });
-router.get('/register', function(req, res, next) {
-  res.render("register");
-});
+// router.get('/register', function(req, res, next) {
+//   res.render("register");
+// });
 router.get('/admin', function(req, res, next) {
   res.render("admin");
 });

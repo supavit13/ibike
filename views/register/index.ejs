@@ -2,24 +2,24 @@
 <html>
 
 <head>
-    <% include head.ejs %>
+    <% include ../head.ejs %>
 </head>
 
 <body>
-    <% include navbar.ejs %>
+    <% include ../navbar.ejs %>
         <div style="margin: 5%">
             <form class="ui form" method="POST" action="/register">
-                <h1 class="ui dividing header">สมัครสมาชิก</h1>
+                <h1 class="ui dividing header">Register</h1>
                 <div class="field">
-                    <label>Name</label>
+                    <label>Name*</label>
                     <div class="two fields">
 
                         <div class="field">
-                            <input type="text" name="firstName" placeholder="First Name">
+                            <input type="text" name="firstName" placeholder="First Name" required>
                         </div>
 
                         <div class="field">
-                            <input type="text" name="lastName" placeholder="Last Name">
+                            <input type="text" name="lastName" placeholder="Last Name" required>
                         </div>
 
                     </div>
@@ -27,13 +27,13 @@
 
                 <div class="two fields">
                     <div class="field">
-                        <label>E-Mail</label>
-                        <input type="text" name="email" placeholder="E-Mail">
+                        <label>E-Mail*</label>
+                        <input type="text" name="email" placeholder="E-Mail" required>
                     </div>
 
                     <div class="field">
-                        <label>เบอร์ติดต่อ</label>
-                        <input type="text" name="tel" placeholder="088-2370814">
+                        <label>Tel*</label>
+                        <input type="text" name="tel" placeholder="088-2370814" required>
                     </div>
 
                 </div>
@@ -41,20 +41,20 @@
                 <div class="two fields">
 
                     <div class="field">
-                        <label>UserName</label>
-                        <input type="text" name="username" placeholder="UserName">
+                        <label>UserName*</label>
+                        <input type="text" name="username" placeholder="UserName" required>
                     </div>
 
                     <div class="field">
-                        <label>Password</label>
+                        <label>Password*</label>
                         <div class="two fields">
 
                             <div class="field">
-                                <input type="text" name="password" placeholder="Password">
+                                <input type="password" name="password" placeholder="Password" required>
                             </div>
 
                             <div class="field">
-                                <input type="text" name="passwordConf" placeholder="Confirm Password">
+                                <input type="password" name="passwordConf" placeholder="Confirm Password" required>
                             </div>
 
                         </div>
@@ -66,12 +66,12 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>บ้านเลขที่</label>
+                                <label>House No.*</label>
                                 <input type="text" name="number" placeholder="21/252">
                             </div>
 
                             <div class="field">
-                                <label>หมู่</label>
+                                <label>Vilage No.*</label>
                                 <input type="text" name="moo" placeholder="3 ริมลาว">
                             </div>
 
@@ -81,13 +81,13 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>ตำบล</label>
-                                <input type="text" name="tumbol" placeholder="ป่าอ้อดอยชัย">
+                                <label>Sub-district*</label>
+                                <input type="text" name="tumbol" placeholder="ป่าอ้อดอยชัย" required>
                             </div>
 
                             <div class="field">
-                                <label>อำเภอ</label>
-                                <input type="text" name="district" placeholder="เมือง">
+                                <label>District*</label>
+                                <input type="text" name="district" placeholder="เมือง" required>
                             </div>
                         </div>
                     </div>
@@ -96,13 +96,13 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>จังหวัด</label>
-                                <input type="text" name="province" placeholder="เชียงราย">
+                                <label>Province*</label>
+                                <input type="text" name="province" placeholder="เชียงราย" required>
                             </div>
 
                             <div class="field">
-                                <label>รหัสไปรษณีย์</label>
-                                <input type="text" name="postcode" placeholder="57000">
+                                <label>Postal Code*</label>
+                                <input type="text" name="postcode" placeholder="57000" required>
                             </div>
                         </div>
                     </div>
@@ -116,24 +116,24 @@
 
                 <div>
                     <div class="file-upload">
-                        1.ภาพด้านหน้าบัตรใบขับขี่
+                        <b>1.Front of driving license</b>
                         <br>
-                        <input id="upload" class="file-upload__input" type="file" name="picFront" style="width: 225px">
+                        <input id="upload" class="file-upload__input" type="file" name="picFront" style="width: 225px" required>
                         <br>
-                        <br> 2.ภาพด้านหลังบัตรใบขับขี่
+                        <br> <b>2.Backside driving license</b>
                         <br>
-                        <input id="upload" class="file-upload__input" type="file" name="picBack" style="width: 225px">
+                        <input id="upload" class="file-upload__input" type="file" name="picBack" style="width: 225px" required>
                         <br>
-                        <br> 3.ภาพเจ้าของบัตรถือใบขับขี่(เห็นหน้าในบัตรกับตัวจริงชัดเจน)
+                        <br> <b>3.Driving license and Owner driving license(your face and driving license)</b>
                         <br>
-                        <input id="upload" class="file-upload__input" type="file" name="picOwn" style="width: 225px">
+                        <input id="upload" class="file-upload__input" type="file" name="picOwn" style="width: 225px" required>
                     </div>
                 </div>
         </div>
 
 
         <center>
-            <button type="submit" class="positive ui button">สมัคร</button>
+            <button type="submit" class="positive ui button">Submit</button>
             <br>
             <br>
         </center>
