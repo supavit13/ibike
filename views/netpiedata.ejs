@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include head.ejs %>
+</head>
+
+<body>
+    <% include navbar.ejs %>
+        <!-- microgear -->
+        <script src="https://cdn.netpie.io/microgear.js"></script>
+        <script src="https://raw.githubusercontent.com/netpieio/microgear-html5/master/src/index.js"></script>
+        <!-- microgear END -->
+        <h1>latlng</h1>
+        <div id="data"></div>
+        <h1 id="data2"></h1>
+        <script>
+            const APPID = "TestMotorcleRental";
+            const APPKEY = "BpQM0wjsyAiEwmk";
+            const APPSECRET = "5Iq2qgCgJIdHL4b0mmfShWKAM";
+
+            var microgear = Microgear.create({
+                key: APPKEY,
+                secret: APPSECRET,
+                alias: "web"         /*  optional  */
+            });
+
+            microgear.on('message', function (topic, msg) {
+                document.getElementById("data").innerHTML = msg;
+            });
+
+            microgear.on('connected', function () {
+                // microgear.setAlias('htmlgear');    /* alias can be renamed anytime with this function */
+                document.getElementById("data").innerHTML = "Now I am connected with netpie...";
+                setInterval(function () {
+                    // microgear.chat("GPS_Testing","Hello from myself at ");
+                    // microgear.subscribe("/lng");
+                    microgear.publish("/web", "Connected with ibike");
+                }, 1000);
+            });
+
+            microgear.on('present', function (event) {
+                console.log(event);
+            });
+
+            microgear.on('absent', function (event) {
+                console.log(event);
+            });
+
+            microgear.connect(APPID);
+        </script>
+</body>
+
+</html>

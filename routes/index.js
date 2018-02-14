@@ -6,6 +6,10 @@ router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
   res.render("menu");
 });
+router.get('/netpie', function(req, res, next) {
+  // res.render('index', { title: 'Express' });
+  res.render("netpiedata");
+});
 router.get('/showbike', function(req, res, next) {
   res.render("showbike");
 });
