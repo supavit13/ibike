@@ -4,18 +4,24 @@ var express = require('express');
 var bcrypt = require('bcrypt');
 var MotorSchema = new Schema({
     motorID: {
-        type: Number
+        type: Number,
+        unique: true,
+        required :true
     },
     name: {
-        type: String
+        type: String,
+        unique: true,
+        required :true
          //required :true
     },
     brand: {
-        type: String
+        type: String,
+        required :true
          //required :true
     },
     latlng: {
-        type: Object
+        type: Object,
+        required :true
     },
     history: {
         type: Object
@@ -24,7 +30,8 @@ var MotorSchema = new Schema({
         type: Object
     },
     pictures: {
-        type: Object
+        type: Object,
+        required :true
     },
     date: {
         type: String,
