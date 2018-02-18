@@ -13,7 +13,7 @@
                 <div class="field">
                     <label>Name*</label>
                     <div class="two fields">
-
+                        <input type="hidden" name="pass" value="Requestor">
                         <div class="field">
                             <input type="text" name="firstName" placeholder="First Name" required>
                         </div>
@@ -104,10 +104,15 @@
                                 <label>Postal Code*</label>
                                 <input type="text" name="postcode" placeholder="57000" required>
                             </div>
+
                         </div>
                     </div>
 
                     <div class="field">
+                        <div class="field">
+                            <label>Country*</label>
+                            <input type="text" name="country" placeholder="Thailand" required>
+                        </div>
                     </div>
 
                 </div>
@@ -120,11 +125,13 @@
                         <br>
                         <input id="upload" class="file-upload__input" type="file" name="picFront" style="width: 225px" required>
                         <br>
-                        <br> <b>2.Backside driving license</b>
+                        <br>
+                        <b>2.Backside driving license</b>
                         <br>
                         <input id="upload" class="file-upload__input" type="file" name="picBack" style="width: 225px" required>
                         <br>
-                        <br> <b>3.Driving license and Owner driving license(your face and driving license)</b>
+                        <br>
+                        <b>3.Driving license and Owner driving license(your face and driving license)</b>
                         <br>
                         <input id="upload" class="file-upload__input" type="file" name="picOwn" style="width: 225px" required>
                     </div>

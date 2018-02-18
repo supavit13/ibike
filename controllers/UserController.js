@@ -17,13 +17,16 @@ UserController.create = function (req, res) {
             tumbol: req.body.tumbol,
             district: req.body.district,
             province: req.body.province,
-            postcode: req.body.postcode
+            postcode: req.body.postcode,
+            country: req.body.country
+
         },
         license: {
             picFront: req.body.picFront,
             picBack: req.body.picBack,
             picOwn: req.body.picOwn
-        }
+        },
+        pass: req.body.pass
     }
     var user = new User(schema);
     console.log(user);
@@ -34,6 +37,18 @@ UserController.create = function (req, res) {
         } else {
             console.log("Successfully created a user.");
             res.redirect("/");
+        }
+    });
+};
+
+UserController.userList = function(req,res){
+    User.find({}).exec(function(err,users){
+        if(err){
+          console.log("Error:",err);  
+        } 
+        else{
+            // res.send(users);
+            res.render("../views/admin/listname",{users:users});
         }
     });
 };

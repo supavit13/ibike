@@ -31,7 +31,8 @@
                         <button class="ui button">Register</button>
                     </a>
                 </div>
-                <div id="fromlogin2"></div>
+                <form action="/login" method="post">
+                <div id="fromlogin2"></div></form>
             </center>
 
 
@@ -52,7 +53,7 @@
 
             '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
 
-            '<a href="/showbike" class="ui fluid button" style="width:50%;" id="login2">Login</a>',
+            '<button type="submit" class="ui fluid button" style="width:50%;" id="login2">Login</button>',
 
         ].join('');
         var loginByUser = '<a href="/showbike" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
@@ -71,19 +72,19 @@
 
         });
 
-        $(document).on('change', '#email', function () {
-            if (document.getElementById('email').value == "admin") {
-                // alert(document.getElementById('email').value);
-                document.getElementById("login2").remove();
-                // $("#login2").attr("href",'{{ url("/admin") }}');
-                $("#fromlogin2").append(loginByAdmin);
-                // timer.pause();
-            } else {
-                document.getElementById("login2").remove();
-                $("#fromlogin2").append(loginByUser);
-            }
+        // $(document).on('change', '#email', function () {
+        //     if (document.getElementById('email').value == "admin") {
+        //         // alert(document.getElementById('email').value);
+        //         document.getElementById("login2").remove();
+        //         // $("#login2").attr("href",'{{ url("/admin") }}');
+        //         $("#fromlogin2").append(loginByAdmin);
+        //         // timer.pause();
+        //     } else {
+        //         document.getElementById("login2").remove();
+        //         $("#fromlogin2").append(loginByUser);
+        //     }
 
-        });
+        // });
 
 
     </script>

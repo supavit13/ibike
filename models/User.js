@@ -6,7 +6,7 @@ var moment = require('moment');
 var strinput = Date.now();
 var strdate = new Date(strinput);
 var dateeee = moment(strdate).format("YYYY-MM-DD HH:mm:ss");
-var UserSchema = new Schema({
+var Users = new Schema({
     userID: {
         type: Number
     },
@@ -37,19 +37,45 @@ var UserSchema = new Schema({
         required :true
     },
     address: {
-        type: Object,
-        required :true
+        postcode: {
+            type: Number,
+            required :true
+        },
+        province: {
+            type: String,
+            required :true
+        },
+        district: {
+            type: String,
+            required :true
+        },
+        moo: {
+            type: String,
+            required :true
+        },
+        number: {
+            type: String,
+            required :true
+        },
+        country: {
+            type: String,
+            required :true
+        }
     },
     license: {
         type: Object,
         required :true
+    },
+    pass: {
+        type: String,
+        require: true
     },
     date: {
         type: String,
         default: dateeee
     }
 });
-UserSchema.pre('save', function (next) {
+Users.pre('save', function (next) {
     var user = this;
     bcrypt.hash(user.password, 8, function (err, hash) {
       if (err) {
@@ -60,4 +86,4 @@ UserSchema.pre('save', function (next) {
     })
   });
 
-module.exports = mongoose.model('UserSchema', UserSchema);
+module.exports = mongoose.model('Users', Users);

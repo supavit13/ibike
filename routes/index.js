@@ -1,10 +1,15 @@
 var express = require('express');
+var login = require("../controllers/LoginController.js");
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
   res.render("menu");
+});
+router.post('/login', function(req, res, next) {
+  login.authenticate(req,res);
+  // res.render('index', { title: 'Express' });
 });
 router.get('/netpie', function(req, res, next) {
   // res.render('index', { title: 'Express' });
@@ -26,9 +31,9 @@ router.get('/riding', function(req, res, next) {
 // router.get('/register', function(req, res, next) {
 //   res.render("register");
 // });
-router.get('/admin', function(req, res, next) {
-  res.render("admin");
-});
+// router.get('/admin', function(req, res, next) {
+//   res.render("admin");
+// });
 router.get('/listname', function(req, res, next) {
   res.render("listname");
 });

@@ -26,15 +26,17 @@
             });
 
             microgear.on('message', function (topic, msg) {
+                console.log("in receive");
+                console.log(topic);
                 document.getElementById("data").innerHTML = msg;
             });
 
             microgear.on('connected', function () {
-                // microgear.setAlias('htmlgear');    /* alias can be renamed anytime with this function */
+                microgear.setAlias('web');    /* alias can be renamed anytime with this function */
                 document.getElementById("data").innerHTML = "Now I am connected with netpie...";
                 setInterval(function () {
                     // microgear.chat("GPS_Testing","Hello from myself at ");
-                    // microgear.subscribe("/lng");
+                    microgear.subscribe("/latlng");
                     microgear.publish("/web", "Connected with ibike");
                 }, 1000);
             });

@@ -5,19 +5,35 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://admin:admin@ds129428.mlab.com:29428/ibike')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
+  var db = mongoose.connection;
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var register = require('./routes/register');
+var admin = require('./routes/admin');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(session({
+  secret: 'ibike',
+  resave: true,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
+}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -30,6 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/register', register);
+app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
