@@ -16,8 +16,8 @@
         <h1 id="data2"></h1>
         <script>
             const APPID = "TestMotorcleRental";
-            const APPKEY = "BpQM0wjsyAiEwmk";
-            const APPSECRET = "5Iq2qgCgJIdHL4b0mmfShWKAM";
+            const APPKEY = "Y2namlNHkTnJDmo";
+            const APPSECRET = "Ndkj0aIOUy0Vn3Xcrdm1BEWDk";
 
             var microgear = Microgear.create({
                 key: APPKEY,
@@ -36,7 +36,7 @@
                 document.getElementById("data").innerHTML = "Now I am connected with netpie...";
                 setInterval(function () {
                     // microgear.chat("GPS_Testing","Hello from myself at ");
-                    microgear.subscribe("/latlng");
+                    //microgear.subscribe("/latlng");
                     microgear.publish("/web", "Connected with ibike");
                 }, 1000);
             });

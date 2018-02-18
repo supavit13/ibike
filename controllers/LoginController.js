@@ -18,7 +18,10 @@ LoginController.authenticate = function(req,res){
                 if(user.pass == "Requestor"){
                     res.redirect("/");
                 }
-                else if(result == true){
+                else if(user.pass == "Admin" && result == true){
+                    res.redirect("/admin");
+                }
+                else if(user.pass == "User" && result == true){
                     req.session.userId = user._id;
                     // console.log("pass session");
                     res.redirect("/showbike");
