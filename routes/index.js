@@ -46,5 +46,8 @@ router.get('/listmotorcycle', function(req, res, next) {
 router.get('/listmotorcycle/001', function(req, res, next) {
   res.render("bikestatus");
 });
+router.get('/morcyc', function(req, res, next) {
+  res.render("morcyc");
+});
 
 module.exports = router;
