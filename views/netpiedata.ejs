@@ -26,6 +26,7 @@
                 console.log("start engine");
                 console.log(command);
                 microgear.publish("/startengine",command);
+                ackDevice="0";
                 
             });
             $("#unlock").change(function(){
@@ -51,7 +52,7 @@
             microgear.on('message', function (topic, msg) {
                 //console.log("in receive");
                 console.log(topic);
-                if(msg != "1"){
+                if(msg == "0"){
                     ackDevice = "0";
                     console.log("ack "+ ackDevice);
                     document.getElementById("data2").innerHTML = msg;
