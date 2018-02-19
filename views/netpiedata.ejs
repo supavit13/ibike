@@ -21,7 +21,7 @@
         <h1 id="data2"></h1>
         <br>
         <script>
-            $("#start").onClick(function(){
+            $("#start").on("click",function(){
                 console.log("start engine");
                 microgear.publish("/startengine", "ON");
 
