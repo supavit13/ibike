@@ -13,12 +13,30 @@
         <!-- microgear END -->
 
         <h1>NetpieData</h1>
+        <input type="checkbox" id="unlock">
+        <button id="start">Start Engine</button>
         <br>
         <div id="data"></div>
         <br>
         <h1 id="data2"></h1>
         <br>
         <script>
+            $("#start").onClick(function(){
+                console.log("start engine");
+                microgear.publish("/startengine", "ON");
+
+            });
+            $("#unlock").change(function(){
+                if(this.checked){
+                    console.log("unlock");
+                    microgear.publish("/keyunlock", "ON");
+                }else{
+                    console.log("lock");
+                    microgear.publish("/keyunlock", "OFF");
+                }
+                
+
+            });
             var APPID = "CMRM";
             var APPKEY = "Q22q476p7toHHLD";
             var APPSECRET = "x2ttOOD1vJqbqN5M9sJFdJO6Q";
