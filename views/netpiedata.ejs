@@ -34,6 +34,12 @@
                 APPSECRET = document.getElementById("secret").value;
                 ALIAS = document.getElementById("alias").value;
                 console.log(APPID + " " + APPKEY + " " + APPSECRET + " " + ALIAS);
+                microgear = Microgear.create({
+                    key: APPKEY,
+                    secret: APPSECRET,
+                    alias: ALIAS         /*  optional  */
+                });
+                microgear.connect(APPID);
             });
             console.log(APPID + " " + APPKEY + " " + APPSECRET + " " + ALIAS);
 
