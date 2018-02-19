@@ -52,7 +52,7 @@
                 console.log(topic);
                 if(msg != "1"){
                     ackDevice = "0";
-                }else{
+                }else if(msg == "1"){
                     ackDevice = "1";
                 }
                 document.getElementById("data").innerHTML = msg;
