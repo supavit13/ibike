@@ -13,16 +13,16 @@
         <!-- microgear END -->
         <h1>NetpieData</h1>
         <span>AppID</span>
-        <input type="text" id="appid">
+        <input type="text" id="appid"><br>
         <span>Key</span>
-        <input type="text" id="key">
+        <input type="text" id="key"><br>
         <span>Secret</span>
-        <input type="text" id="secret">
+        <input type="text" id="secret"><br>
         <span>Alias</span>
-        <input type="text" id="alias">
-        <button id="submit">Submit</button>
-        <div id="data"></div>
-        <h1 id="data2"></h1>
+        <input type="text" id="alias"><br>
+        <button id="submit">Submit</button><br>
+        <div id="data"></div><br>
+        <h1 id="data2"></h1><br>
         <script>
             var APPID = "CMRM";
             var APPKEY = "Q22q476p7toHHLD";
@@ -34,7 +34,7 @@
                 APPSECRET = document.getElementById("secret").value;
                 ALIAS = document.getElementById("alias").value;
             });
-            
+            console.log(APPID + " " + APPKEY + " " + APPSECRET + " " + ALIAS);
 
             var microgear = Microgear.create({
                 key: APPKEY,
