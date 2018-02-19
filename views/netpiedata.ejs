@@ -18,7 +18,7 @@
         <br>
         <div id="data"></div>
         <br>
-        <h1 id="data2"></h1>
+        <div id="data2">wait</div>
         <br>
         <script>
             var command = "";
@@ -26,6 +26,7 @@
                 console.log("start engine");
                 console.log(command);
                 microgear.publish("/startengine",command);
+                microgear.subscribe("/ackDevice");
             });
             $("#unlock").change(function(){
                 if(this.checked){
@@ -52,8 +53,11 @@
                 console.log(topic);
                 if(msg != "1"){
                     ackDevice = "0";
+                    document.getElementById("data2").innerHTML = msg;
                 }else if(msg == "1"){
+                    microgear.unsubscribe("/ackDevice");
                     ackDevice = "1";
+                    document.getElementById("data2").innerHTML = msg;
                 }
                 document.getElementById("data").innerHTML = msg;
             });
@@ -64,7 +68,7 @@
                 setInterval(function () {
                     // microgear.chat("GPS_Testing","Hello from myself at ");
                     microgear.subscribe("/TestPub");
-                    microgear.subscribe("/ToWeb");
+                    
                     microgear.publish("/ByWeb", "Connected with ibike");
                     microgear.chat("CMRM_Web", "Chat with ibike");
                     if(ackDevice == "0"){
