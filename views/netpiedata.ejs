@@ -26,7 +26,6 @@
                 console.log("start engine");
                 console.log(command);
                 microgear.publish("/startengine",command);
-                ackDevice="0";
                 
             });
             $("#unlock").change(function(){
@@ -48,19 +47,10 @@
                 secret: APPSECRET,
                 alias: ALIAS /*  optional  */
             });
-            var ackDevice = "";
+            // var ackDevice = "";
             microgear.on('message', function (topic, msg) {
                 //console.log("in receive");
                 console.log(topic);
-                if(msg == "0"){
-                    ackDevice = "";
-                    console.log("ack "+ ackDevice);
-                    document.getElementById("data2").innerHTML = msg;
-                }else if(msg == "1"){
-                    ackDevice = "1";
-                    console.log("ack "+ ackDevice);
-                    document.getElementById("data2").innerHTML = msg;
-                }
                 document.getElementById("data").innerHTML = msg;
             });
 
@@ -69,13 +59,13 @@
                 document.getElementById("data").innerHTML = "Now I am connected with netpie...";
                 setInterval(function () {
                     // microgear.chat("GPS_Testing","Hello from myself at ");
-                    microgear.subscribe("/TestPub");
-                    microgear.subscribe("/ackDevice");
-                    microgear.publish("/ByWeb", "Connected with ibike");
-                    microgear.chat("CMRM_Web", "Chat with ibike");
-                    if(ackDevice == "0"){
-                        microgear.publish("/startengine", command); 
-                    }
+                    //microgear.subscribe("/TestPub");
+                    // microgear.subscribe("/ackDevice");
+                    //microgear.publish("/ByWeb", "Connected with ibike");
+                    //microgear.chat("CMRM_Web", "Chat with ibike");
+                    // if(ackDevice == "0"){
+                    //     microgear.publish("/startengine", command); 
+                    // }
                     // microgear.publish("/outdoor/humid","56");
                     // microgear.chat("GPSTesting","ON");
                 }, 1000);
