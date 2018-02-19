@@ -11,42 +11,23 @@
         <script src="https://cdn.netpie.io/microgear.js"></script>
         <script src="https://raw.githubusercontent.com/netpieio/microgear-html5/master/src/index.js"></script>
         <!-- microgear END -->
+
         <h1>NetpieData</h1>
-        <span>AppID</span>
-        <input type="text" id="appid"><br>
-        <span>Key</span>
-        <input type="text" id="key"><br>
-        <span>Secret</span>
-        <input type="text" id="secret"><br>
-        <span>Alias</span>
-        <input type="text" id="alias"><br>
-        <button id="submit">Submit</button><br>
-        <div id="data"></div><br>
-        <h1 id="data2"></h1><br>
+        <br>
+        <div id="data"></div>
+        <br>
+        <h1 id="data2"></h1>
+        <br>
         <script>
             var APPID = "CMRM";
             var APPKEY = "Q22q476p7toHHLD";
             var APPSECRET = "x2ttOOD1vJqbqN5M9sJFdJO6Q";
             var ALIAS = "web";
-            $("#submit").on("click",function(){
-                APPID = document.getElementById("appid").value;
-                APPKEY = document.getElementById("key").value;
-                APPSECRET = document.getElementById("secret").value;
-                ALIAS = document.getElementById("alias").value;
-                console.log(APPID + " " + APPKEY + " " + APPSECRET + " " + ALIAS);
-                microgear = Microgear.create({
-                    key: APPKEY,
-                    secret: APPSECRET,
-                    alias: ALIAS         /*  optional  */
-                });
-                microgear.connect(APPID);
-            });
-            console.log(APPID + " " + APPKEY + " " + APPSECRET + " " + ALIAS);
 
             var microgear = Microgear.create({
                 key: APPKEY,
                 secret: APPSECRET,
-                alias: ALIAS         /*  optional  */
+                alias: ALIAS /*  optional  */
             });
 
             microgear.on('message', function (topic, msg) {
@@ -56,14 +37,14 @@
             });
 
             microgear.on('connected', function () {
-                microgear.setAlias(ALIAS);    /* alias can be renamed anytime with this function */
+                microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
                 document.getElementById("data").innerHTML = "Now I am connected with netpie...";
                 setInterval(function () {
                     // microgear.chat("GPS_Testing","Hello from myself at ");
                     microgear.subscribe("/TestPub");
                     microgear.subscribe("/ToWeb");
                     microgear.publish("/ByWeb", "Connected with ibike");
-                    microgear.chat("CMRM_Web","Chat with ibike");
+                    microgear.chat("CMRM_Web", "Chat with ibike");
                     // microgear.publish("/outdoor/humid","56");
                     // microgear.chat("GPSTesting","ON");
                 }, 1000);
