@@ -46,10 +46,15 @@
                 secret: APPSECRET,
                 alias: ALIAS /*  optional  */
             });
-
+            var ackDevice = "";
             microgear.on('message', function (topic, msg) {
                 //console.log("in receive");
                 console.log(topic);
+                if(msg != "1"){
+                    ackDevice = "0";
+                }else{
+                    ackDevice = "1";
+                }
                 document.getElementById("data").innerHTML = msg;
             });
 
@@ -62,6 +67,9 @@
                     microgear.subscribe("/ToWeb");
                     microgear.publish("/ByWeb", "Connected with ibike");
                     microgear.chat("CMRM_Web", "Chat with ibike");
+                    if(ackDevice == "0"){
+                        microgear.publish("/startengine", command); 
+                    }
                     // microgear.publish("/outdoor/humid","56");
                     // microgear.chat("GPSTesting","ON");
                 }, 1000);
