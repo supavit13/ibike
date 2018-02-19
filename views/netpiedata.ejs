@@ -23,16 +23,16 @@
         <script>
             $("#start").on("click",function(){
                 console.log("start engine");
-                microgear.publish("/startengine", "ON");
+                microgear.publish("/startengine", "Start");
 
             });
             $("#unlock").change(function(){
                 if(this.checked){
                     console.log("unlock");
-                    microgear.publish("/keyunlock", "ON");
+                    microgear.publish("/keyunlock", "Unlock");
                 }else{
                     console.log("lock");
-                    microgear.publish("/keyunlock", "OFF");
+                    microgear.publish("/keyunlock", "Lock");
                 }
                 
 
