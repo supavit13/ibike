@@ -10,10 +10,10 @@
         <center>
 
 
-
+                <div id="data"></div>
             <div style="width:300px">
 
-                <a href="/riding">
+                <a id="start">
                     <img src="/images/start1.gif" onmouseover="  src = '/images/start2.gif'  " onmouseout="  src = '/images/start1.gif'  " style="width: 80%">
                 </a>
 
@@ -28,7 +28,7 @@
                 <br>
                 <a> OFF </a>
                 <div class="ui fitted toggle checkbox">
-                    <input type="checkbox">
+                    <input type="checkbox" id="checkbox">
                     <label></label>
                 </div>
                 <a> ON </a>
@@ -40,5 +40,56 @@
         </center>
 
 </body>
+
+<script src="https://cdn.netpie.io/microgear.js"></script>
+<script src="https://raw.githubusercontent.com/netpieio/microgear-html5/master/src/index.js"></script>
+<script>
+
+        $("#start").on("click",function(){
+            console.log("staaaart");
+            if(document.getElementById("checkbox").checked )
+            {
+                microgear.publish("/startengine","1");
+                console.log("staaaart1");
+            }else
+            {
+                microgear.publish("/startengine","0");
+                console.log("staaaart0");
+            }
+        });
+
+        var APPID = "CMRM";
+        var APPKEY = "Q22q476p7toHHLD";
+        var APPSECRET = "x2ttOOD1vJqbqN5M9sJFdJO6Q";
+        var ALIAS = "web";
+
+        var microgear = Microgear.create({
+            key: APPKEY,
+            secret: APPSECRET,
+            alias: ALIAS /*  optional  */
+        });
+        // var ackDevice = "";
+        microgear.on('message', function (topic, msg) {
+            //console.log("in receive");
+            console.log(topic);
+            document.getElementById("data").innerHTML = msg;
+        });
+
+        microgear.on('connected', function () {
+            microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
+            document.getElementById("data").innerHTML = "Now I am connected with netpie...";
+            setInterval(function () {}, 1000);
+        });
+
+        microgear.on('present', function (event) {
+            console.log(event);
+        });
+
+        microgear.on('absent', function (event) {
+            console.log(event);
+        });
+
+        microgear.connect(APPID);
+    </script>
 
 </html>
