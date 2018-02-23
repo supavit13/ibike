@@ -21,6 +21,7 @@ var register = require('./routes/register');
 var admin = require('./routes/admin');
 var morcyc = require('./routes/morcyc');
 
+
 var app = express();
 
 // view engine setup
@@ -49,6 +50,7 @@ app.use('/users', users);
 app.use('/register', register);
 app.use('/admin', admin);
 app.use('/', morcyc);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

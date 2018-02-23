@@ -44,5 +44,8 @@ router.get('/listmotorcycle/001', function(req, res, next) {
 router.get('/morcyc', function(req, res, next) {
   res.render("morcyc");
 });
+router.post("/",function(req,res,next){
+  console.log('right2222');
+});
 
 module.exports = router;
