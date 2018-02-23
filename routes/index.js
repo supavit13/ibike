@@ -1,5 +1,6 @@
 var express = require('express');
 var login = require("../controllers/LoginController.js");
+var motorcycle = require("../controllers/MotorController.js");
 var router = express.Router();
 
 /* GET home page. */
@@ -16,7 +17,7 @@ router.get('/netpie', function(req, res, next) {
   res.render("netpiedata");
 });
 router.get('/showbike', function(req, res, next) {
-  res.render("showbike");
+  motorcycle.plotToMap(req,res);
 });
 
 router.get('/price', function(req, res, next) {
@@ -28,12 +29,6 @@ router.get('/start', function(req, res, next) {
 router.get('/riding', function(req, res, next) {
   res.render("riding");
 });
-// router.get('/register', function(req, res, next) {
-//   res.render("register");
-// });
-// router.get('/admin', function(req, res, next) {
-//   res.render("admin");
-// });
 router.get('/listname', function(req, res, next) {
   res.render("listname");
 });

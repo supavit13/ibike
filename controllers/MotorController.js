@@ -27,7 +27,7 @@ MotorController.create=function( req , res )
             res.render("../views/morcyc.ejs");
         } else {
             console.log("Successfully created a MotorcycDATA.");
-            res.redirect("/listmotorcycle");
+            res.redirect("/admin/listmotorcycle");
         }
     });
 
@@ -44,5 +44,17 @@ MotorController.morcycList = function(req,res){
         }
     });
 };
+
+MotorController.plotToMap = function(req,res){
+    Motorcycle.find({}).exec(function(err,morcyc){
+        if(err){
+          console.log("Error:",err);  
+        } 
+        else{
+            // res.send(users);
+            res.render("../views/showbike",{morcyc:morcyc});
+        }
+    });
+}
 
 module.exports = MotorController;

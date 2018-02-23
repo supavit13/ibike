@@ -3,6 +3,8 @@
 
 <head>
     <% include head.ejs %>
+        <% include mapscript.ejs %>
+
 </head>
 
 <body>
@@ -10,23 +12,30 @@
         <div id="map"></div>
 
         <script>
+
             var mymap = L.map('map', {
                 center: new L.LatLng(13.1192, 100.92066),
                 zoom: 16
             });
-            mymap.setMaxBounds([
-                [21.22794, 90.79102],
-                [21.30985, 115.00488],
-                [3.73271, 90.79102],
-                [4.82826, 115.00488]
-            ]);
+            var polygon = [[21.22794, 90.79102], [3.73271, 90.79102], [4.82826, 115.00488], [21.30985, 115.00488]];
+            var setArea = L.polygon([
+                [13.126104, 100.91776],
+                [13.119668, 100.917342],
+                [13.115237, 100.922792],
+                [13.115363, 100.9238],
+                [13.120733, 100.92114],
+                [13.123826, 100.919788],
+                [13.126062, 100.921086],
+                [13.126104, 100.91776]]).addTo(mymap);
+            setArea.setStyle({ "fillOpacity": 0 });
+            mymap.setMaxBounds(polygon);
+
             L.gridLayer.googleMutant({
                 minZoom: 6,
                 type: 'roadmap' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
             }).addTo(mymap);
 
             // var greenIcon = new LeafIcon({iconUrl: '/images/markar.png'});
-
             mymap.addControl(L.control.locate({
                 // iconUrl: '/images/markar.png',
                 locateOptions: {
@@ -34,32 +43,90 @@
                 }
             }));
 
+
+
+
             var greenIcon = L.icon({
                 iconUrl: '/images/rsz_blue.png',
                 // shadowUrl: 'leaf-shadow.png',
                 iconSize: [42, 94], // size of the icon
             });
 
-            L.Routing.control({
-                waypoints: [
-                    L.latLng(13.115, 100.9205),
-                    L.latLng(13.1192, 100.92066)
-                ]
-            }).addTo(mymap);
+            var mylat;
+            var mylng;
+            var current_position, current_accuracy;
 
+            function onLocationFound(e) {
+            // if position defined, then remove the existing position marker and accuracy circle from the map
+            if (current_position) {
+                mymap.removeLayer(current_position);
+                mymap.removeLayer(current_accuracy);
+            }
 
-            L.marker([13.1192, 100.92066], { icon: greenIcon }).addTo(mymap)
-                .bindPopup(' Hi, I LOVE YOU ');
-            // .openPopup();
-            L.marker([13.1193, 100.92062], { icon: greenIcon }).addTo(mymap)
-                .bindPopup(' Hi, I LOVE YOU ');
-            L.marker([13.1194, 100.92059], { icon: greenIcon }).addTo(mymap)
-                .bindPopup(' Hi, I LOVE YOU ');
-            L.marker([13.1195, 100.92055], { icon: greenIcon }).addTo(mymap)
-                .bindPopup(' Hi, I LOVE YOU ');
-            L.marker([13.1196, 100.92051], { icon: greenIcon }).addTo(mymap)
-                .bindPopup(' Hi, I LOVE YOU ');
+            var radius = e.accuracy / 2;
+            
+            mylat = e.latlng.lat;
+            mylng = e.latlng.lng;
+            current_position = L.marker(e.latlng).addTo(mymap)
+                .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
+            current_accuracy = L.circle(e.latlng, radius).addTo(mymap);
+            }
+
+            function onLocationError(e) {
+            alert(e.message);
+            }
+
+            mymap.on('locationfound', onLocationFound);
+            mymap.on('locationerror', onLocationError);
+
+            // wrap map.locate in a function    
+            function locate() {
+                mymap.locate({setView: true, maxZoom: 16});
+            }
+            
+            
+            var lat;
+            var lng;
+            var routing;
+            
+            var morcyc = JSON.parse('<%- JSON.stringify(morcyc) %>');
+            // console.log(morcyc);
+            locate();
+            for (var i = 0; i < morcyc.length; i++) {
+                var lat = parseFloat(morcyc[i]['latlng']['lat']);
+                var lng = parseFloat(morcyc[i]['latlng']['lng']);
+                var name = morcyc[i]['name'];
+                var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click',function(e){
+                    if(routing != null){
+                        routing.spliceWaypoints(0,2);
+                        mymap.removeControl(routing);
+                    }
+                    lat = e.latlng.lat;
+                    lng = e.latlng.lng;
+                    
+                    var ways = {
+                        waypoints:
+                            [
+                                L.latLng(mylat, mylng),
+                                L.latLng(lat, lng)
+                            ]
+                    };
+                    // alert(lat + "," + lng);
+                    routing = L.Routing.control(ways).addTo(mymap);
+                });
+                console.log("name: " + name + " " + setArea.contains(m1.getLatLng()));
+            }
+            
+            
+            
+            
+            function onMapClick(e) {
+                lat = e.latlng.lat;
+                lng = e.latlng.lng;
+                console.log(lat + "," + lng);
+            }
+            mymap.on('click', onMapClick);
         </script>
 
         <div>
