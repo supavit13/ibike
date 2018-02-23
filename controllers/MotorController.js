@@ -31,7 +31,18 @@ MotorController.create=function( req , res )
         }
     });
 
-}
 
+}
+MotorController.morcycList = function(req,res){
+    Motorcycle.find({}).exec(function(err,morcyc){
+        if(err){
+          console.log("Error:",err);  
+        } 
+        else{
+            // res.send(users);
+            res.render("../views/admin/listmotorcycle",{morcyc:morcyc});
+        }
+    });
+};
 
 module.exports = MotorController;
