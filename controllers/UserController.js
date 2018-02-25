@@ -9,7 +9,6 @@ UserController.create = function (req, res) {
         lastName: req.body.lastName,
         email: req.body.email,
         tel: req.body.tel,
-        username: req.body.username,
         password: req.body.password,
         address: {
             number: req.body.number,
@@ -41,15 +40,5 @@ UserController.create = function (req, res) {
     });
 };
 
-UserController.userList = function(req,res){
-    User.find({}).exec(function(err,users){
-        if(err){
-          console.log("Error:",err);  
-        } 
-        else{
-            // res.send(users);
-            res.render("../views/admin/listname",{users:users});
-        }
-    });
-};
+
 module.exports = UserController;

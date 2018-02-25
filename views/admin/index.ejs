@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <% include ../head.ejs %>
+        <% include ../head.ejs %>
+        <% include ../mapscript.ejs %>
 </head>
 
 <body>
@@ -14,8 +15,8 @@
 
 
         <div id="map"></div>
-
-        <script>
+        <% include ../mymap.ejs %>
+        <!-- <script>
 
             function initMap() {
                 var myLatLng = { lat: 13.120, lng: 100.919 };
@@ -43,7 +44,7 @@
             }
         </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3gga67g_fXhRofEIdiQOXv8Yqf9vDkdc&callback=initMap">
-        </script>
+        </script> -->
 
 
         <center>

@@ -10,8 +10,12 @@
         <div style="margin: 5%">
             <form class="ui form" method="POST" action="/register">
                 <h1 class="ui dividing header">Register</h1>
-                <div class="field">
-                    <label>Name*</label>
+                <!-- <div class="field">
+                    <label>Name
+                        <font color="red">
+                            <font color="red">*</font>
+                        </font>
+                    </label>
                     <div class="two fields">
                         <input type="hidden" name="pass" value="Requestor">
                         <div class="field">
@@ -23,16 +27,38 @@
                         </div>
 
                     </div>
+                </div> -->
+
+                <div class="two fields">
+                    <div class="field">
+                        <label>First Name
+                            <font color="red">*</font>
+                        </label>
+                        <input type="hidden" name="pass" value="Requestor">
+                        <input type="text" name="firstName" placeholder="First Name" required>
+                    </div>
+
+                    <div class="field">
+                        <label>Last Name
+                            <font color="red">*</font>
+                        </label>
+                        <input type="text" name="lastName" placeholder="Last Name" required>
+                    </div>
+
                 </div>
 
                 <div class="two fields">
                     <div class="field">
-                        <label>E-Mail*</label>
+                        <label>E-Mail
+                            <font color="red">*</font>
+                        </label>
                         <input type="text" name="email" placeholder="E-Mail" required>
                     </div>
 
                     <div class="field">
-                        <label>Tel*</label>
+                        <label>Tel
+                            <font color="red">*</font>
+                        </label>
                         <input type="text" name="tel" placeholder="088-2370814" required>
                     </div>
 
@@ -41,22 +67,18 @@
                 <div class="two fields">
 
                     <div class="field">
-                        <label>UserName*</label>
-                        <input type="text" name="username" placeholder="UserName" required>
+                        <label>Password
+                            <font color="red">*</font>
+                        </label>
+                        <input type="password" name="password" placeholder="Password" required>
                     </div>
 
                     <div class="field">
-                        <label>Password*</label>
-                        <div class="two fields">
-
-                            <div class="field">
-                                <input type="password" name="password" placeholder="Password" required>
-                            </div>
-
-                            <div class="field">
-                                <input type="password" name="passwordConf" placeholder="Confirm Password" required>
-                            </div>
-
+                        <label>Confirm Password
+                            <font color="red">*</font>
+                        </label>
+                        <div class="field">
+                            <input type="password" name="passwordConf" placeholder="Confirm Password" required>
                         </div>
                     </div>
                 </div>
@@ -66,12 +88,16 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>House No.*</label>
+                                <label>House No.
+                                    <font color="red">*</font>
+                                </label>
                                 <input type="text" name="number" placeholder="21/252">
                             </div>
 
                             <div class="field">
-                                <label>Vilage No.*</label>
+                                <label>Vilage No.
+                                    <font color="red">*</font>
+                                </label>
                                 <input type="text" name="moo" placeholder="3 ริมลาว">
                             </div>
 
@@ -81,12 +107,16 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>Sub-district*</label>
+                                <label>Sub-district
+                                    <font color="red">*</font>
+                                </label>
                                 <input type="text" name="tumbol" placeholder="ป่าอ้อดอยชัย" required>
                             </div>
 
                             <div class="field">
-                                <label>District*</label>
+                                <label>District
+                                    <font color="red">*</font>
+                                </label>
                                 <input type="text" name="district" placeholder="เมือง" required>
                             </div>
                         </div>
@@ -96,12 +126,16 @@
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>Province*</label>
+                                <label>Province
+                                    <font color="red">*</font>
+                                </label>
                                 <input type="text" name="province" placeholder="เชียงราย" required>
                             </div>
 
                             <div class="field">
-                                <label>Postal Code*</label>
+                                <label>Postal Code
+                                    <font color="red">*</font>
+                                </label>
                                 <input type="text" name="postcode" placeholder="57000" required>
                             </div>
 
@@ -110,7 +144,9 @@
 
                     <div class="field">
                         <div class="field">
-                            <label>Country*</label>
+                            <label>Country
+                                <font color="red">*</font>
+                            </label>
                             <input type="text" name="country" placeholder="Thailand" required>
                         </div>
                     </div>

@@ -54,7 +54,7 @@
                                     <font color="red">
                                         <i class="remove icon"></i>
                                     </font>
-                                    <button  id="wrong">ไม่อนุญาต</button>
+                                    <button  id="wrong" value="<%= users[i]['_id'] %>">ไม่อนุญาต</button>
                                 </td>
                             </tr>
                             <% } %>
@@ -69,7 +69,7 @@
 
             var users = JSON.parse('<%- JSON.stringify(users) %>');
             console.log(users);
-            var loadUserList = '<% for(var i=0;i<users.length;i++) { %><% if(users[i]["pass"] == "Requestor"){ %><tr><td><%= users[i]["_id"] %></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><font color="green"><i class="checkmark icon"></i></font><a href="#" id="right">อนุญาต</a><font color="red"><i class="remove icon"></i></font><a href="#" id="wrong">ไม่อนุญาต</a></td></tr><% } %><% } %>';
+            var loadUserList = '<% for(var i=0;i<users.length;i++) { %><% if(users[i]["pass"] == "Requestor"){ %><tr><td><%= users[i]["_id"] %></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><font color="green"><i class="checkmark icon"></i></font><button  id="right" value="<%= users[i]["_id"] %>">อนุญาต</button><font color="red"><i class="remove icon"></i></font><button  id="wrong" value="<%= users[i]["_id"] %>">ไม่อนุญาต</button></td></tr><% } %><% } %>';
             var noneadmit = [
                 '<table class="ui selectable celled table"><thead><tr><th>Request ID</th><th>Name</th><th>Status</th></tr></thead>',
                 '<tbody>',
@@ -91,17 +91,44 @@
 
             $("#right").on("click", function () {
                 console.log('Right333');
-                var $right = $(this).val();
-                console.log($right);
+                var $id = $(this).val();
+                console.log($id);
                 $.ajax({
                     type: 'POST' ,
-                    url : '/admin/list' ,
+                    url : '/admin/add' ,
                     data : {
                         '_token': $('input[name=_token]').val(),
-                        'right':$right
+                        'id':$id
                     },
                     success : function(data){
-                        location.reload();
+                        if(data == true){ // if true (1)
+                            // alert(data);
+                            setTimeout(function(){// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 1000); 
+                        }
+                    }
+                })
+            });
+
+            $("#wrong").on("click", function () {
+                console.log('del');
+                var $id = $(this).val();
+                console.log($id);
+                $.ajax({
+                    type: 'POST' ,
+                    url : '/admin/del' ,
+                    data : {
+                        '_token': $('input[name=_token]').val(),
+                        'id':$id
+                    },
+                    success : function(data){
+                        if(data == true){ // if true (1)
+                            // alert(data);
+                            setTimeout(function(){// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 1000); 
+                        }
                     }
                 })
             });

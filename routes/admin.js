@@ -3,34 +3,26 @@ var request = require('request-promise');
 var moment = require('moment');
 var router = express.Router();
 var User = require("../models/User");
-var user = require("../controllers/UserController.js");
 var morcyc = require("../controllers/MotorController.js");
+var admin = require("../controllers/AdminController.js");
 
 router.get('/', function (req, res, next) {
-    res.render("admin/index");
+    admin.plotToMapAdmin(req,res);
 });
 router.get("/listname",function(req,res,next){
-    user.userList(req,res);
+    admin.userList(req,res);
 });
 router.get("/listmotorcycle",function(req,res,next){
-    morcyc.morcycList(req,res);
+    admin.morcycList(req,res);
 });
-router.post("/list",function(req,res){
-    console.log(req.body.right);
-    User.where({_id:req.body.right}).update({ pass: "User"}, function(err, result) {
-        res.render('/admin/listname');
-      });
-    // User.find({_id:req.body.right}).exec(function(err,users){
-    //     if(err){
-    //       console.log("Error:",err);  
-    //     } 
-    //     else{
-            
-    //         // res.send(users);
-    //         res.send({users:users});
-    //     }
-    // });
-
+router.post("/add",function(req,res){
+    console.log(req.body.id);
+    User.where({_id:req.body.id}).update({ pass: "User"}, function(err, result) {
+        res.send(true);
+    });
+});
+router.post("/del",function(req,res){
+    admin.deleteUser(req,res);
 });
 
 module.exports = router;

@@ -6,7 +6,8 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
-  res.render("menu");
+  login.checksessions(req,res);
+  // res.render("menu");
 });
 router.post('/login', function(req, res, next) {
   login.authenticate(req,res);
@@ -17,11 +18,21 @@ router.get('/netpie', function(req, res, next) {
   res.render("netpiedata");
 });
 router.get('/showbike', function(req, res, next) {
-  motorcycle.plotToMap(req,res);
+  if(req.session.userId){
+    motorcycle.plotToMap(req,res);
+  }else{
+    res.redirect("/")
+  }
+  
 });
 
 router.get('/price', function(req, res, next) {
-  res.render("price");
+  if(req.session.userId){
+    res.render("price");
+  }else{
+    res.redirect("/")
+  }
+  
 });
 router.get('/start', function(req, res, next) {
   res.render("start");
@@ -43,6 +54,9 @@ router.get('/listmotorcycle/001', function(req, res, next) {
 });
 router.get('/morcyc', function(req, res, next) {
   res.render("morcyc");
+});
+router.get('/logout', function(req, res, next) {
+  login.logout(req,res);
 });
 router.post("/",function(req,res,next){
   console.log('right2222');
