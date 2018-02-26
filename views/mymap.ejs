@@ -15,7 +15,7 @@
         [13.123826, 100.919788],
         [13.126062, 100.921086],
         [13.126104, 100.91776]]).addTo(mymap);
-    setArea.setStyle({ "fillOpacity": 0 });
+    setArea.setStyle({ "fillOpacity": 0 ,color: 'red'});
     mymap.setMaxBounds(polygon);
 
     mymap.on('measurefinish', function (evt) {
@@ -71,7 +71,14 @@
     }
 
     function onLocationError(e) {
-        alert(e.message);
+        if(e.message != null){
+            if(e.message == "Geolocation error: Timeout expired."){
+                console.log(e.message);
+            }else{
+                alert(e.message);
+            }
+        }
+        
     }
 
     mymap.on('locationfound', onLocationFound);
