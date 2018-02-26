@@ -40,20 +40,20 @@ AdminController.morcycList = function (req, res) {
 };
 
 AdminController.deleteUser = function (req, res) {
-    var pwd = "1905306b";
+    var pwd = "kusrc150308";
     var email;
     User.findOne({_id : req.body.id}).exec(function(err,user){
         email=user['email'];
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'supavit13@gmail.com',
+                user: 'morcyc4you@gmail.com',
                 pass: pwd
             }
         });
 
         var mailOptions = {
-            from: 'supavit13@gmail.com',
+            from: 'morcyc4you@gmail.com',
             to: email,
             subject: 'เกิดข้อผิดพลาดในการสมัครสมาชิก',
             text: 'ลาก่อน'
@@ -62,19 +62,23 @@ AdminController.deleteUser = function (req, res) {
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
                 console.log(error);
+                res.send(error);
             } else {
+                
                 console.log('Email sent: ' + info.response);
+                res.send('Email sent: ' + info.response);
             }
         });
+        // res.send(true);
     });
-    // User.findByIdAndRemove(req.body.id, function (err, user) {
-    //     if (err) throw err;
-    //     console.log(req.body.id);
+    User.findByIdAndRemove(req.body.id, function (err, user) {
+        if (err) throw err;
+        console.log(req.body.id);
 
         
-    //     console.log('Removed !');
-    //     res.send(true);
-    // });
+        console.log('Removed !');
+        res.send(true);
+    });
 };
 module.exports = AdminController;
 
