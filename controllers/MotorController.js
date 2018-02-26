@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Motorcycle = require("../models/Motorcycle");
+var Zone = require("../models/MotorcycleZone");
 var moment = require("moment");
 var MotorController = {};
 
@@ -36,13 +37,20 @@ MotorController.create=function( req , res )
 
 
 MotorController.plotToMap = function(req,res){
+    var zone;
+    Zone.find({}).exec(function(err,zs){
+        if(err) console.log(err);
+        else zone = zs;
+    });
+    console.log(zone);
     Motorcycle.find({}).exec(function(err,morcyc){
         if(err){
           console.log("Error:",err);  
         } 
         else{
             // res.send(users);
-            res.render("../views/showbike",{morcyc:morcyc});
+            
+            res.render("../views/showbike",{morcyc:morcyc,zone:zone});
         }
     });
 }

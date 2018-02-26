@@ -1,17 +1,26 @@
 var mongoose = require("mongoose");
 var Motorcycle = require("../models/Motorcycle");
+var Zone = require("../models/MotorcycleZone");
 var User = require("../models/User");
 var nodemailer = require('nodemailer');
 var bcrypt = require('bcrypt');
 var AdminController = {};
 AdminController.plotToMapAdmin = function (req, res) {
+    var zone;
+    Zone.find({}).exec(function(err,zs){
+        console.log(zs);
+        if(err) console.log(err);
+        else zone=zs;
+    });
+    // console.log(zone);
     Motorcycle.find({}).exec(function (err, morcyc) {
         if (err) {
             console.log("Error:", err);
         }
         else {
             // res.send(users);
-            res.render("../views/admin/index", { morcyc: morcyc });
+            
+            res.render("../views/admin/index", { morcyc: morcyc,zone:zone });
         }
     });
 }
@@ -38,7 +47,37 @@ AdminController.morcycList = function (req, res) {
         }
     });
 };
+AdminController.setZone = function(req, res){
+    Zone.remove({}, function(err,removed) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Successfully");
+        }
+    });
+    var schema;
+    var zone = [];
+    var leng = parseInt(req.body.size);
+    // console(req.body.size);
+    for(var i=0;i<leng;i++){
+        zone[i] = req.body['zone['+ i +'][]'];
+    }
+    schema = {
+        zone : zone
+    };
+    var motor = new Zone(schema);
+    console.log(motor);
+    motor.save(function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Successfully");
+        }
+    });
 
+
+    res.send(true);
+}
 AdminController.deleteUser = function (req, res) {
     var pwd = "kusrc150308";
     var email;

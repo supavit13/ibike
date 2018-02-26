@@ -4,6 +4,9 @@
 <head>
         <% include ../head.ejs %>
         <% include ../mapscript.ejs %>
+        <link href="/leaflet-measure/dist/leaflet-measure.css" rel="stylesheet">
+        <script src="/leaflet-measure/dist/leaflet-measure.js" charset="utf-8"></script>
+
 </head>
 
 <body>
@@ -15,7 +18,7 @@
 
 
         <div id="map"></div>
-        <% include ../mymap.ejs %>
+        <% include ../mymapAdmin.ejs %>
         <!-- <script>
 
             function initMap() {

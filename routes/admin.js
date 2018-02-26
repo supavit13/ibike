@@ -24,5 +24,9 @@ router.post("/add",function(req,res){
 router.post("/del",function(req,res){
     admin.deleteUser(req,res);
 });
+router.post("/setZone",function(req,res){
+    console.log(req.body.size);
+    admin.setZone(req,res);
+});
 
 module.exports = router;

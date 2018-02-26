@@ -1,19 +1,18 @@
 <script>
+    var area;
+    var arrayArea = [];
     var mymap = L.map('map', {
         center: new L.LatLng(13.1192, 100.92066),
         zoom: 16,
+        measureControl: true
     });
     var polygon = [[21.22794, 90.79102], [3.73271, 90.79102], [4.82826, 115.00488], [21.30985, 115.00488]];
-
-    var json = '<%- JSON.stringify(zone) %>';
-    
-    // var json = JSON.parse(htmlDecode("<%= JSON.stringify(zone) %>"));
-    var dbzone = JSON.parse(json);
-    
+    var dbzone = JSON.parse('<%- JSON.stringify(zone) %>');
     dbzone = dbzone[0]['zone'];
     var setArea = L.polygon(dbzone).addTo(mymap);
-    setArea.setStyle({ "fillOpacity": 0 ,color: 'red'});
+    setArea.setStyle({ "fillOpacity": 0, color: 'red' });
     mymap.setMaxBounds(polygon);
+
 
 
     L.gridLayer.googleMutant({
@@ -65,14 +64,14 @@
     }
 
     function onLocationError(e) {
-        if(e.message != null){
-            if(e.message == "Geolocation error: Timeout expired."){
+        if (e.message != null) {
+            if (e.message == "Geolocation error: Timeout expired.") {
                 console.log(e.message);
-            }else{
+            } else {
                 alert(e.message);
             }
         }
-        
+
     }
 
     mymap.on('locationfound', onLocationFound);
@@ -98,24 +97,7 @@
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
         var name = morcyc[i]['name'];
-        var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click', function (e) {
-            if (routing != null) {
-                routing.spliceWaypoints(0, 2);
-                mymap.removeControl(routing);
-            }
-            lat = e.latlng.lat;
-            lng = e.latlng.lng;
-            clickMarker = true;
-            var ways = {
-                waypoints:
-                    [
-                        L.latLng(mylat, mylng),
-                        L.latLng(lat, lng)
-                    ]
-            };
-            // alert(lat + "," + lng);
-            routing = L.Routing.control(ways).addTo(mymap);
-        });
+        var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click');
         console.log("name: " + name + " " + setArea.contains(m1.getLatLng()));
     }
 
@@ -126,24 +108,42 @@
         lat = e.latlng.lat;
         lng = e.latlng.lng;
         console.log(lat + "," + lng);
-        if (routing != null) {
-            routing.spliceWaypoints(0, 2);
-            mymap.removeControl(routing);
-        }
-        lat = e.latlng.lat;
-        lng = e.latlng.lng;
-        clickMarker = true;
-        var ways = {
-            waypoints:
-                [
-                    L.latLng(mylat, mylng),
-                    L.latLng(lat, lng)
-                ]
-        };
-        // alert(lat + "," + lng);
-        routing = L.Routing.control(ways).addTo(mymap);
     }
     mymap.on('click', onMapClick);
+    mymap.on('measurefinish', function (evt) {
+        writeResults(evt);
+    });
+    function writeResults(results) {
+        area = results.points;
+        // console.log(area.length);
+        var sizeArea = area.length;
+        for (var i = 0; i < sizeArea; i++) {
+            arrayArea[i] = [area[i]['lat'], area[i]['lng']];
+        }
+        console.log(arrayArea);
+
+        mymap.removeLayer(setArea);
+        var $zone = arrayArea;
+        setArea = L.polygon(arrayArea).addTo(mymap);
+        setArea.setStyle({ "fillOpacity": 0, color: 'red' });
+        $.ajax({
+            type: 'POST',
+            url: '/admin/setZone',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                 zone : $zone,
+                size : sizeArea
+            },
+            success: function (data) {
+                if (data == true) { // if true (1)
+                    alert("setZone successed");
+                    setTimeout(function () {// wait for 1 secs(2)
+                        location.reload(); // then reload the page.(3)
+                    }, 5000);
+                }
+            }
+        })
+    }
 
 
 
