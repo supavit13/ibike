@@ -17,9 +17,7 @@ router.get("/listmotorcycle",function(req,res,next){
 });
 router.post("/add",function(req,res){
     console.log(req.body.id);
-    User.where({_id:req.body.id}).update({ pass: "User"}, function(err, result) {
-        res.send(true);
-    });
+    admin.insertUser(req,res);
 });
 router.post("/del",function(req,res){
     admin.deleteUser(req,res);

@@ -78,6 +78,42 @@ AdminController.setZone = function(req, res){
 
     res.send(true);
 }
+AdminController.insertUser = function(req,res){
+    var pwd = "kusrc150308";
+    var email;
+    User.findOne({_id : req.body.id}).exec(function(err,user){
+        email=user['email'];
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'morcyc4you@gmail.com',
+                pass: pwd
+            }
+        });
+
+        var mailOptions = {
+            from: 'morcyc4you@gmail.com',
+            to: email,
+            subject: '[Morcyc4you]รายงานการสมัครสมาชิก',
+            text: 'คุณได้รับการอนุมัติการใช้งาน Morcyc4you เรียบร้อยแล้ว'
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+                res.send(error);
+            } else {
+                
+                console.log('Email sent: ' + info.response);
+                res.send('Email sent: ' + info.response);
+            }
+        });
+        User.where({_id:req.body.id}).update({ pass: "User"}, function(err, result) {
+            res.send(true);
+        });
+        // res.send(true);
+    });
+}
 AdminController.deleteUser = function (req, res) {
     var pwd = "kusrc150308";
     var email;
@@ -94,8 +130,8 @@ AdminController.deleteUser = function (req, res) {
         var mailOptions = {
             from: 'morcyc4you@gmail.com',
             to: email,
-            subject: 'เกิดข้อผิดพลาดในการสมัครสมาชิก',
-            text: 'ลาก่อน'
+            subject: '[Morcyc4you]รายงานการสมัครสมาชิก',
+            text: 'คุณถูกปฏิเสธการใช้งาน Morcyc4you เนื่องจากข้อมูลไม่ครบถ้วนหรือเป็นเท็จ หากมีข้อสงสัยโปรดติดต่อ Morcyc4you@gmail.com'
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
@@ -116,8 +152,8 @@ AdminController.deleteUser = function (req, res) {
 
         
         console.log('Removed !');
-        res.send(true);
     });
+    res.send(true);
 };
 module.exports = AdminController;
 
