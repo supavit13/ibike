@@ -81,6 +81,7 @@
         microgear.on('connected', function () {
             microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
             document.getElementById("data").innerHTML = "Now I am connected with netpie...";
+            microgear.subscribe("/ackDevice");
         });
 
         microgear.on('present', function (event) {
