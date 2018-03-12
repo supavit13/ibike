@@ -72,13 +72,15 @@
         microgear.on('message', function (topic, msg) {
             //console.log("in receive");
             console.log(topic);
+            if(topic=="ackDevice"&&msg=="1"){
+                window.location.replace("/riding");
+            }
             document.getElementById("data").innerHTML = msg;
         });
 
         microgear.on('connected', function () {
             microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
             document.getElementById("data").innerHTML = "Now I am connected with netpie...";
-            setInterval(function () {}, 1000);
         });
 
         microgear.on('present', function (event) {
