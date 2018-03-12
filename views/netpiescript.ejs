@@ -9,13 +9,6 @@
             console.log("staaaart0");
         }
     });
-    $("#stopButton").on("click", function () {
-        console.log("stop");
-        if(confirm("Do you want to turn off engine?")){
-            timer.stop();
-            microgear.publish("/startengine", "0");
-        }
-    });
     var APPID = "CMRM";
     var APPKEY = "Q22q476p7toHHLD";
     var APPSECRET = "x2ttOOD1vJqbqN5M9sJFdJO6Q";
@@ -56,4 +49,11 @@
     });
 
     microgear.connect(APPID);
+    $("#stopButton").on("click", function () {
+        console.log("stop");
+        if(confirm("Do you want to turn off engine?")){
+            timer.stop();
+            microgear.publish("/startengine", "0");
+        }
+    });
 </script>
