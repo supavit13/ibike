@@ -13,7 +13,6 @@
         console.log("stop");
         if(confirm("Do you want to turn off engine?")){
             timer.stop();
-            window.location.href = "/showbike";
             microgear.publish("/startengine", "0");
         }
     });
@@ -33,6 +32,9 @@
         console.log(msg);
         if (msg == "1") {
             window.location.replace("/riding");
+        }
+        if(msg=="0"){
+            window.location.href = "/showbike";
         }
         document.getElementById("data").innerHTML = msg;
     });
