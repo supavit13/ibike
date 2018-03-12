@@ -72,7 +72,7 @@
         microgear.on('message', function (topic, msg) {
             //console.log("in receive");
             console.log(topic);
-            if(topic=="ackDevice"&&msg=="1"){
+            if(msg=="1"){
                 window.location.replace("/riding");
             }
             document.getElementById("data").innerHTML = msg;
