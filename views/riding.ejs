@@ -98,9 +98,9 @@
             },1000);
             function handleLocationError(browserHasGeolocation, marker, pos) {
                 marker.setPosition(pos);
-                alert(browserHasGeolocation ?
-                                    'Error: The Geolocation service failed.' :
-                                    'Error: Your browser doesn\'t support geolocation.');
+                // alert(browserHasGeolocation ?
+                //                     'Error: The Geolocation service failed.' :
+                //                     'Error: Your browser doesn\'t support geolocation.');
                 // infoWindow.open(map);
             }
         </script>
@@ -122,18 +122,6 @@
                 total = Math.round(total * 100) / 100;
                 $('#cost').html(total);
             },1000);
-            $('#stopButton').click(function(){
-                // var value = $('#timer').text();;
-                // var second = parseInt(value.split(":")[2]);
-                // var minute = parseInt(value.split(":")[1]);
-                // var hour = parseInt(value.split(":")[0]);
-                // second = second + minute*60 + hour*60*60;
-                // alert("Time : "+value+", Cost : "+ Math.round(second*0.03) +" Baht");
-                if(confirm("Do you want to turn off engine?")){
-                    timer.stop();
-                    window.location.href = "/showbike";
-                }
-            });
             $('#pauseButton').click(function () {
                 // alert(document.getElementById('pauseValue').innerHTML);
                 if (document.getElementById('pauseValue').innerHTML == "Pause") {
@@ -157,6 +145,7 @@
             });
 
         </script>
+        <% include netpiescript.ejs %>
 </body>
 
 </html>

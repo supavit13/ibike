@@ -43,56 +43,6 @@
 
 <script src="https://cdn.netpie.io/microgear.js"></script>
 <script src="https://raw.githubusercontent.com/netpieio/microgear-html5/master/src/index.js"></script>
-<script>
 
-        $("#start").on("click",function(){
-            console.log("staaaart");
-            if(document.getElementById("checkbox").checked )
-            {
-                microgear.publish("/startengine","1");
-                console.log("staaaart1");
-            }else
-            {
-                microgear.publish("/startengine","0");
-                console.log("staaaart0");
-            }
-        });
-
-        var APPID = "CMRM";
-        var APPKEY = "Q22q476p7toHHLD";
-        var APPSECRET = "x2ttOOD1vJqbqN5M9sJFdJO6Q";
-        var ALIAS = "web";
-
-        var microgear = Microgear.create({
-            key: APPKEY,
-            secret: APPSECRET,
-            alias: ALIAS /*  optional  */
-        });
-        // var ackDevice = "";
-        microgear.on('message', function (topic, msg) {
-            console.log("in receive");
-            console.log(msg);
-            if(msg=="1"){
-                window.location.replace("/riding");
-            }
-            document.getElementById("data").innerHTML = msg;
-        });
-
-        microgear.on('connected', function () {
-            microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
-            document.getElementById("data").innerHTML = "Now I am connected with netpie...";
-            microgear.subscribe("/ackDevice");
-        });
-
-        microgear.on('present', function (event) {
-            console.log(event);
-        });
-
-        microgear.on('absent', function (event) {
-            console.log(event);
-        });
-
-        microgear.connect(APPID);
-    </script>
-
+<% include netpiescript.ejs %>
 </html>
