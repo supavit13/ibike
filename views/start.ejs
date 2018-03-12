@@ -70,7 +70,7 @@
         });
         // var ackDevice = "";
         microgear.on('message', function (topic, msg) {
-            //console.log("in receive");
+            console.log("in receive");
             console.log(msg);
             if(msg=="1"){
                 window.location.replace("/riding");
