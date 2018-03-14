@@ -75,7 +75,7 @@ router.post("/", function (req, res, next) {
   console.log('right2222');
 });
 router.get('/repair', function (req, res) {
-  res.render("../views/repair.ejs");
+  res.render("repair.ejs");
 });
 
 module.exports = router;
