@@ -74,7 +74,7 @@ router.get('/logout', function (req, res, next) {
 router.post("/", function (req, res, next) {
   console.log('right2222');
 });
-router.get('/repair', function (req, res, next) {
+router.get('/repair', function (req, res) {
   res.render("repair");
 });
 
