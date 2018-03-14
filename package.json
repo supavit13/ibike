@@ -16,6 +16,8 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
+    "email-existence": "^0.1.6",
+    "email-validator": "^1.1.1",
     "express": "~4.15.5",
     "express-session": "^1.15.6",
     "leaflet-measure": "^3.0.3",

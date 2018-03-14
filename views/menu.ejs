@@ -7,87 +7,101 @@
 
 <body>
     <% include navbar.ejs %>
-    <div class="row">
+        <div class="row">
 
-        <div class="col-md-6">
-            <!-- เว้นบรรทัด -->
-            <div style="margin-top: 10%;"></div>
-            <!-- เว้นบรรทัด -->
-            <center>
-                <img src="/images/cafe2.png" style="height: 50%; width: 80%">
-            </center>
+            <div class="col-md-6">
+                <!-- เว้นบรรทัด -->
+                <div style="margin-top: 10%;"></div>
+                <!-- เว้นบรรทัด -->
+                <center>
+                    <img src="/images/cafe2.png" style="height: 50%; width: 80%">
+                </center>
+            </div>
+
+
+            <div class="col-md-6">
+                <!-- เว้นบรรทัด -->
+                <div style="margin-top: 10%;"></div>
+                <!-- เว้นบรรทัด -->
+                <center>
+                    <div class="ui large buttons">
+                        <button class="ui button" id="login" style="border-radius: 5px;">Sign in</button>
+                        <div class="or"></div>
+                        <a href="/register">
+                            <button class="ui button">Register</button>
+                        </a>
+                    </div>
+                    <!-- <form action="/login" method="post"> -->
+                    <div id="fromlogin2"></div>
+                    <!-- </form> -->
+                </center>
+
+
+            </div>
+
         </div>
 
 
-        <div class="col-md-6">
-            <!-- เว้นบรรทัด -->
-            <div style="margin-top: 10%;"></div>
-            <!-- เว้นบรรทัด -->
-            <center>
-                <div class="ui large buttons">
-                    <button class="ui button" id="login" style="border-radius: 5px;">L o g i n</button>
-                    <div class="or"></div>
-                    <a href="/register">
-                        <button class="ui button">Register</button>
-                    </a>
-                </div>
-                <form action="/login" method="post">
-                <div id="fromlogin2"></div></form>
-            </center>
+        <script>
+
+            var fromlogin = [
+
+                '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
+                '<H1> LOG-IN </H1>',
+
+                '<div class="ui left icon input fluid" style="width:230px"><i class="user icon"></i><input type="email" name="email" placeholder="E-mail address" id="email" required></div>', '<br>',
+                '<div class="ui left icon input fluid" style="width:230px"><i class="lock icon"></i><input type="password" name="password" placeholder="Password" id="password" required></div>',
+
+                '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
+
+                '<button type="submit" class="ui fluid button" onclick="submitlogin()" style="width:50%;" id="login2">Submit</button>',
+
+            ].join('');
+            var loginByUser = '<a href="/showbike" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
+            var loginByAdmin = '<a href="/admin" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
 
 
-        </div>
-
-    </div>
-
-
-    <script>
-
-        var fromlogin = [
-
-            '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
-            '<H1> LOG-IN </H1>',
-
-            '<div class="ui left icon input fluid" style="width:230px"><i class="user icon"></i><input type="text" name="email" placeholder="E-mail address" id="email"></div>', '<br>',
-            '<div class="ui left icon input fluid" style="width:230px"><i class="lock icon"></i><input type="password" name="password" placeholder="Password"></div>',
-
-            '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
-
-            '<button type="submit" class="ui fluid button" style="width:50%;" id="login2">Login</button>',
-
-        ].join('');
-        var loginByUser = '<a href="/showbike" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
-        var loginByAdmin = '<a href="/admin" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
-
-
-        $('#login').click(function () {
-            // alert(document.getElementById('pauseValue').innerHTML);
-            if (document.getElementById('fromlogin2').innerHTML == "") {
-                document.getElementById('fromlogin2').innerHTML = fromlogin;
-                // timer.pause();
-            } else if (document.getElementById('fromlogin2').innerHTML != "") {
-                document.getElementById('fromlogin2').innerHTML = "";
-                // timer.start();
+            $('#login').click(function () {
+                // alert(document.getElementById('pauseValue').innerHTML);
+                if (document.getElementById('fromlogin2').innerHTML == "") {
+                    document.getElementById('fromlogin2').innerHTML = fromlogin;
+                    // timer.pause();
+                } else if (document.getElementById('fromlogin2').innerHTML != "") {
+                    document.getElementById('fromlogin2').innerHTML = "";
+                    // timer.start();
+                }
+            });
+            function submitlogin() {
+                var $email=document.getElementById("email").value;
+                var $password=document.getElementById("password").value;
+                $.ajax({
+                    type: 'POST',
+                    url: '/login',
+                    data: {
+                        '_token': $('input[name=_token]').val(),
+                        'email': $email,
+                        'password': $password,
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data == "Admin") { // if true (1)
+                            setTimeout(function () {// wait for 1 secs(2)
+                                window.location.replace("/admin"); // then reload the page.(3)
+                            }, 1);
+                        }else if(data == "User"){
+                            setTimeout(function () {// wait for 1 secs(2)
+                                window.location.replace("/showbike"); // then reload the page.(3)
+                            }, 1);
+                        }else if(data == "Requestor"){
+                            swal("You have not been approved yet.", "Please keep up the email for a response from the admin.", "info");
+                        }else{
+                            swal("Error", data, "error");
+                        }
+                    }
+                });
             }
 
-        });
-
-        // $(document).on('change', '#email', function () {
-        //     if (document.getElementById('email').value == "admin") {
-        //         // alert(document.getElementById('email').value);
-        //         document.getElementById("login2").remove();
-        //         // $("#login2").attr("href",'{{ url("/admin") }}');
-        //         $("#fromlogin2").append(loginByAdmin);
-        //         // timer.pause();
-        //     } else {
-        //         document.getElementById("login2").remove();
-        //         $("#fromlogin2").append(loginByUser);
-        //     }
-
-        // });
-
-
-    </script>
+        </script>
 </body>
 
 </html>
