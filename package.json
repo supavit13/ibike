@@ -10,6 +10,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "aws-sdk": "^2.209.0",
     "bcrypt": "^1.0.3",
     "body-parser": "~1.18.2",
     "connect-mongo": "^2.0.0",
@@ -19,16 +20,20 @@
     "email-existence": "^0.1.6",
     "email-validator": "^1.1.1",
     "express": "~4.15.5",
+    "express-fileupload": "^0.4.0",
     "express-session": "^1.15.6",
+    "gcs-signed-urls": "^1.0.4",
     "leaflet-measure": "^3.0.3",
     "moment": "^2.20.1",
     "mongodb": "^3.0.0-rc0",
     "mongoose": "^4.13.7",
     "morgan": "~1.9.0",
     "nodemailer": "^4.6.0",
+    "password-hash": "^1.2.2",
     "point-in-polygon": "^1.0.1",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
+    "s3": "^4.4.0",
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
