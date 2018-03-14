@@ -1,6 +1,8 @@
 var express = require('express');
 var request = require('request-promise');
 var moment = require('moment');
+var validator = require("email-validator");
+var emailExistence = require("email-existence");
 var router = express.Router();
 var user = require("../controllers/UserController.js");
 router.get('/', function (req, res, next) {
@@ -14,5 +16,19 @@ router.post('/', function (req, res) {
         return next(err);
     }
     user.create(req, res);
+});
+router.post('/emailcheck', function (req, res) {
+    if (validator.validate(req.body.email)) {
+        emailExistence.check(req.body.email, function (error, response) {
+          if (error) res.send("Domain email is incorrect");
+          else {
+              user.checkDuplicateEmail(req,res);
+            // res.send("Email is correct");
+          }
+        });
+      } else {
+        res.send("Email is incorrect");
+      }
+    
 });
 module.exports = router;

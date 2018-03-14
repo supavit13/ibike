@@ -52,7 +52,7 @@
                         <label>E-Mail
                             <font color="red">*</font>
                         </label>
-                        <input type="text" name="email" placeholder="E-Mail" required>
+                        <input type="email" name="email" id="email" placeholder="E-Mail" onchange="emailcheck()" required>
                     </div>
 
                     <div class="field">
@@ -176,11 +176,46 @@
 
 
         <center>
-            <button type="submit" class="positive ui button">Submit</button>
+            <button type="submit" id="submit" class="positive ui button" disabled><font class="check" color="red">Please wait for check email</font></button>
             <br>
             <br>
         </center>
         </form>
 </body>
+<script>
+    var email=0;
+    var check = '<font class="check" color="red">Please wait for check email</font>';
+    var submit = '<font class="check">Submit</font>';
+    function emailcheck() {
+        document.getElementById("submit").disabled = true;
+        $(".check").remove();
+        $("#submit").append(check);
+        var $email=document.getElementById("email").value;
+        $.ajax({
+            type: 'POST',
+            url: '/register/emailcheck',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'email': $email,
+            },
+            success: function (data) {
+                console.log(data);
+                if (data == "Email is correct") { // if true (1)
+                    email = 1;
+                    document.getElementById("submit").disabled = false;
+                    $(".check").remove();
+                    $("#submit").append(submit);
+                    swal(data, "", "success");
+                } else {
+                    email = 0;
+                    document.getElementById("submit").disabled = true;
+                    $(".check").remove();
+                    $("#submit").append(check);
+                    swal("Error", data, "error");
+                }
+            }
+        });
+    }
+</script>
 
 </html>

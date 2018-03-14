@@ -37,12 +37,7 @@
     microgear.on('connected', function () {
         microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
         document.getElementById("data").innerHTML = "Now I am connected with netpie...";
-        
-        setInterval(function(){
-            console.log("working");
-            microgear.publish("/working", "1");
-            microgear.subscribe("/ackDevice");
-        },1000);
+        microgear.subscribe("/ackDevice");
         
     });
 
@@ -58,8 +53,10 @@
     $("#stopButton").on("click", function () {
         console.log("stop");
         if(confirm("Do you want to turn off engine?")){
-            timer.stop();
+            // time.stop();
+            money = 0;
             microgear.publish("/startengine", "0");
+            console.log("conf");
         }
     });
 </script>

@@ -6,6 +6,7 @@
 </head>
 <body>
     <% include navbar.ejs %>
+    <div id="data"></div>
         <div align="center" class="top">
             <div style="display: inline-block; margin:0%; width:29%;">
                 <font size=4>Distance</font>
@@ -146,6 +147,13 @@
 
         </script>
         <% include netpiescript.ejs %>
+        <script>
+            setInterval(function(){
+                console.log("working");
+                microgear.publish("/working", "1");
+                // microgear.subscribe("/ackDevice");
+            },1000);
+        </script>
 </body>
 
 </html>
