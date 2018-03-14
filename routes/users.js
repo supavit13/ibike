@@ -6,8 +6,8 @@ var User = require("../models/User");
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
 // });
-router.get('/:code/verify', function(req, res, next) {
-  User.where({password:req.params.code}).update({ pass: "User"}, function(err, result) {
+router.get('/:id/verify', function(req, res, next) {
+  User.where({_id:req.params.id}).update({ pass: "User"}, function(err, result) {
     res.send('verify complete');
   });
   
