@@ -33,6 +33,9 @@ var MotorSchema = new Schema({
         type: Object,
         required :true
     },
+    using: {
+        type: String
+    },
     date: {
         type: String,
         default: Date.now()

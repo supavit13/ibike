@@ -65,6 +65,9 @@ var Users = new Schema({
         type: String,
         require: true
     },
+    bookingID: {
+        type: String
+    },
     date: {
         type: String,
         default: dateeee

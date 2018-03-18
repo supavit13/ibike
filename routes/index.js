@@ -28,7 +28,12 @@ router.post('/login', function (req, res, next) {
 });
 router.get('/netpie', function (req, res, next) {
   // res.render('index', { title: 'Express' });
-  res.render("netpiedata");
+  
+  if (req.session.userId) {
+    res.render("netpiedata");
+  } else {
+    res.redirect("/")
+  }
 });
 router.get('/showbike', function (req, res, next) {
   if (req.session.userId) {
@@ -48,34 +53,59 @@ router.get('/price', function (req, res, next) {
 
 });
 router.get('/start', function (req, res, next) {
-  res.render("start");
+  if (req.session.userId) {
+    res.render("start");
+  } else {
+    res.redirect("/")
+  }
 });
 router.get('/riding', function (req, res, next) {
-  res.render("riding");
+  if (req.session.userId) {
+    res.render("riding");
+  } else {
+    res.redirect("/")
+  }
 });
-router.get('/listname', function (req, res, next) {
-  res.render("listname");
-});
+// router.get('/listname', function (req, res, next) {
+//   res.render("listname");
+// });
 router.get('/listname/001', function (req, res, next) {
   res.render("profile");
 });
-router.get('/listmotorcycle', function (req, res, next) {
-  res.render("listmotorcycle");
-});
+// router.get('/listmotorcycle', function (req, res, next) {
+//   res.render("listmotorcycle");
+// });
 router.get('/listmotorcycle/001', function (req, res, next) {
   res.render("bikestatus");
 });
-router.get('/morcyc', function (req, res, next) {
-  res.render("morcyc");
-});
+// router.get('/morcyc', function (req, res, next) {
+//   res.render("morcyc");
+// });
 router.get('/logout', function (req, res, next) {
-  login.logout(req, res);
+  if (req.session.userId) {
+    login.logout(req, res);
+  } else {
+    res.redirect("/")
+  }
+  
 });
-router.post("/", function (req, res, next) {
-  console.log('right2222');
+// router.post("/", function (req, res, next) {
+//   console.log('right2222');
+// });
+router.get('/repair/:id', function (req, res) {
+  if (req.session.userId) {
+    motorcycle.repairMorcyc(req,res);
+  } else {
+    res.redirect("/")
+  }
 });
-router.get('/repair', function (req, res) {
-  res.render("repair");
+router.post('/booking', function (req, res) {
+  if (req.session.userId) {
+    motorcycle.searchMorcyc(req,res);
+  } else {
+    res.redirect("/")
+  }
+  
 });
 
 module.exports = router;

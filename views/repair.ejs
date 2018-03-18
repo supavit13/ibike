@@ -10,7 +10,7 @@
 
 <body>
     <% include navbar.ejs %>
-        <form class="ui form">
+        <div class="ui form">
             <div class="row">
 
                 <div class="col-md-6">
@@ -22,7 +22,7 @@
                             <label>Bike ID
                                 <font color="red">*</font>
                             </label>
-                            <input>
+                            <input type="text" id="id">
                         </div>
                     </div>
                     <center>
@@ -35,73 +35,125 @@
                     <!-- เว้นบรรทัด -->
                     <div style="margin-top: 10%;"></div>
                     <!-- เว้นบรรทัด -->
-                    
+
                     <div style="margin:5%">
-                        <div style="display: inline-block; margin:0%; width:40%;" >
+                        <div style="display: inline-block; margin:0%; width:40%;">
                             <div>
-                                <input type="checkbox" name="example" class="ui checkbox">
+                                <input type="checkbox" name="BrakeLight" id="BrakeLight" class="ui checkbox">
                                 <label>Brake light</label>
                             </div>
                             <div>
-                                <input type="checkbox" name="example" class="ui checkbox">
+                                <input type="checkbox" name="Tire" id="Tire" class="ui checkbox">
                                 <label>Tire</label>
                             </div>
 
                             <div>
-                                <input type="checkbox" name="example" class="ui checkbox">
+                                <input type="checkbox" name="Dial" id="Dial" class="ui checkbox">
                                 <label>Dial</label>
                             </div>
                             <div>
-                                <input type="checkbox" name="example" class="ui checkbox">
+                                <input type="checkbox" name="Brake" id="Brake" class="ui checkbox">
                                 <label>Brake</label>
                             </div>
                         </div>
                         <div style="display: inline-block; margin:0%; width:40%;">
                             <div>
-                                <input type="checkbox" name="example" class="ui checkbox">
+                                <input type="checkbox" name="TurnSignal" id="TurnSignal" class="ui checkbox">
                                 <label>Turn signal</label>
                             </div>
                             <div>
-                                <input type="checkbox" name="example" class="ui checkbox">
+                                <input type="checkbox" name="Headlight" id="Headlight" class="ui checkbox">
                                 <label>Headlight</label>
                             </div>
 
                             <div>
-                                <input type="checkbox" name="example" class="ui checkbox">
+                                <input type="checkbox" name="Gasoline" id="Gasoline" class="ui checkbox">
                                 <label>Gasoline</label>
                             </div>
                             <div>
-                                <input type="checkbox" name="example" class="ui checkbox">
+                                <input type="checkbox" name="Horns" id="Horns" class="ui checkbox">
                                 <label>Horns</label>
                             </div>
                         </div>
                     </div>
                     <div class="ui from">
-                        <div class="field" style="margin:5%" >
+                        <div class="field" style="margin:5%">
                             <label>Detail</label>
-                            <textarea style="margin-top: 0px; margin-bottom: 0px; height: 50px;"></textarea>
+                            <textarea name="Detail" id="Detail" style="margin-top: 0px; margin-bottom: 0px; height: 50px;"></textarea>
                         </div>
                     </div>
                     <center>
-                    <div>
-                            <button class="ui primary button">
-                                    Submit
+                        <div>
+                            <button id="submit" class="ui primary button">
+                                Submit
                             </button>
-                            <button class="ui button">
-                                    Clear
-                                  </button>
-                    </div>
-                </center>
+                            <button id="clear" class="ui button">
+                                Clear
+                            </button>
+                        </div>
+                    </center>
 
 
 
                 </div>
 
             </div>
-        </form>
+        </div>
 
 
         <script>
+            var id = JSON.parse('<%- JSON.stringify(id) %>');
+            $("#id").val(id);
+            $("#id").prop('disabled', true);
+            $("#clear").on("click", function () {
+                $('input[type=checkbox]').each(function () {
+                    this.checked = false;
+                });
+                $("textarea").val("");
+            });
+            $("#submit").on("click", function () {
+                var BrakeLight = $("#BrakeLight").is(":checked");
+                var Tire = $("#Tire").is(":checked");
+                var Dial = $("#Dial").is(":checked");
+                var Brake = $("#Brake").is(":checked");
+                var TurnSignal = $("#TurnSignal").is(":checked");
+                var Headlight = $("#Headlight").is(":checked");
+                var Gasoline = $("#Gasoline").is(":checked");
+                var Horns = $("#Horns").is(":checked");
+                var Detail = $("#Detail").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/repair",
+                    data: {
+                        '_token': $('input[name=_token]').val(),
+                        id: id,
+                        BrakeLight: BrakeLight,
+                        Tire: Tire,
+                        Dial: Dial,
+                        Brake: Brake,
+                        TurnSignal: TurnSignal,
+                        Headlight: Headlight,
+                        Gasoline: Gasoline,
+                        Horns: Horns,
+                        Detail: Detail
+                    },
+                    success: function (data) {
+                        if (data) {
+                            swal("Thank you for help", "", "success")
+                                .then((value) => {
+                                    window.location.replace("/showbike");
+                                });
+
+                            // setInterval(function(){
+
+                            // },1000);
+                        } else {
+                            swal("Error", "", "warning");
+                        }
+                    }
+                });
+            });
+
 
         </script>
 </body>
