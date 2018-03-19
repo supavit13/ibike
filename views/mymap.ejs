@@ -98,7 +98,7 @@
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
         var name = morcyc[i]['name']+"<br><a href='/repair/"+morcyc[i]['_id']+"'>Repair</a><br><div class='ui fluid button' onclick='selectBike(\""+ morcyc[i]['_id']+"\")' data-id='"+ morcyc[i]['_id']+"'>Select</div>";
-        var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click', function (e) {
+        var m1 = L.marker([lat, lng], { icon: greenIcon, data : morcyc[i]['_id']  }).addTo(mymap).bindPopup(name).on('click', function (e) {
             document.getElementById("booking").disabled = true;
             if (routing != null) {
                 routing.spliceWaypoints(0, 2);
