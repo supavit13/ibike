@@ -97,7 +97,7 @@
     for (var i = 0; i < morcyc.length; i++) {
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
-        var name = morcyc[i]['name']+"<br><a href='/repair/"+morcyc[i]['_id']+"'><input type='button' class='morcyc' value='Repair'></a><br><input type='button' class='morcyc' onclick='selectBike(\""+ morcyc[i]['_id']+"\")' data-id='"+ morcyc[i]['_id']+"' value='select'>";
+        var name = morcyc[i]['name']+"<br><a href='/repair/"+morcyc[i]['_id']+"'><input type='button' class='morcyc' value='Repair'></a><br><button class='morcyc' onclick='selectBike(\""+ morcyc[i]['_id']+"\")' data-id='"+ morcyc[i]['_id']+"'>Select</button";
         var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click', function (e) {
             document.getElementById("booking").disabled = true;
             $("#booking").data('id',"");
