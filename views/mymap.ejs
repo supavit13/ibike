@@ -120,8 +120,8 @@
         });
         console.log("name: " + name + " " + setArea.contains(m1.getLatLng()));
     }
-    function selectBike(id){
-        var tmp = id;
+    function selectBike(){
+        var tmp = arguments[0];
         console.log(tmp);
         document.getElementById("booking").disabled = false;
         $("#booking").data('id',tmp);
