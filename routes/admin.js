@@ -20,11 +20,11 @@ function isAdmin(req,res){
     }
 }
 router.get('/', function (req, res, next) {
-    // if(isAdmin(req,res)){
+    if(isAdmin(req,res)){
         admin.plotToMapAdmin(req,res);
-    // }else {
-    //     res.redirect("/");
-    // }
+    }else {
+        res.redirect("/");
+    }
     
 });
 router.get("/listname",function(req,res,next){
