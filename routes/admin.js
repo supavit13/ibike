@@ -20,11 +20,18 @@ function isAdmin(req,res){
     }
 }
 router.get('/', function (req, res, next) {
-    if(isAdmin(req,res)){
-        admin.plotToMapAdmin(req,res);
+    if(req.session.userId){
+        User.findById({ _id : req.session.userId}).exec(function(err,user){
+            if(user["pass"] == "Admin"){
+                admin.plotToMapAdmin(req,res);
+            }else{
+                res.redirect("/");
+            }
+        });
     }else {
         res.redirect("/");
     }
+    
     
 });
 router.get("/listname",function(req,res,next){
