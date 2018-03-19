@@ -120,7 +120,7 @@
         });
         console.log("name: " + name + " " + setArea.contains(m1.getLatLng()));
     }
-    $(document).on("click",".morcyc",function(){
+    $(document).on("click touchstart",".morcyc",function(){
         var tmp = $(this).data('id');
         console.log(tmp);
         document.getElementById("booking").disabled = false;
