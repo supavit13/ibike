@@ -95,13 +95,14 @@
         locate();
     }, 1000);
     for (var i = 0; i < morcyc.length; i++) {
+        var eachMorcyc = morcyc[i]['_id'];
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
         var name = morcyc[i]['name']+"<br><a href='/repair/"+morcyc[i]['_id']+"'><input type='button' class='morcyc' value='Repair'></a><br><div class='ui fluid button' onclick='selectBike(\""+ morcyc[i]['_id']+"\")' data-id='"+ morcyc[i]['_id']+"'>Select</div>";
         var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click', function (e) {
             document.getElementById("booking").disabled = true;
             // $("#booking").data('id',morcyc[i]['_id']);
-            alert(morcyc[i]);
+            alert(eachMorcyc);
             if (routing != null) {
                 routing.spliceWaypoints(0, 2);
                 mymap.removeControl(routing);
