@@ -120,12 +120,12 @@
         });
         console.log("name: " + name + " " + setArea.contains(m1.getLatLng()));
     }
-    $(document).on("click",".morcyc",function(){
-        var tmp = $(this).data('id');
-        console.log(tmp);
-        document.getElementById("booking").disabled = false;
-        $("#booking").data('id',tmp);
-    });
+    // $(document).on("click",".morcyc",function(){
+    //     var tmp = $(this).data('id');
+    //     console.log(tmp);
+    //     document.getElementById("booking").disabled = false;
+    //     $("#booking").data('id',tmp);
+    // });
     $(document).bind("touchstart",".morcyc",function(){
         var tmp = $(this).data('id');
         console.log(tmp);
