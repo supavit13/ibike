@@ -156,6 +156,8 @@
     function onMapClick(e) {
         document.getElementById("booking").disabled = true;
         $("#booking").data('id',"");
+        document.getElementById("repairing").disabled = true;
+        $("#repairing").data('id',"");
         lat = e.latlng.lat;
         lng = e.latlng.lng;
         console.log(lat + "," + lng);
