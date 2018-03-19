@@ -97,9 +97,11 @@
     for (var i = 0; i < morcyc.length; i++) {
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
-        var name = morcyc[i]['name']+"<br><a href='/repair/"+morcyc[i]['_id']+"'>Repair</a><br><div class='ui fluid button' onclick='selectBike(\""+ morcyc[i]['_id']+"\")' data-id='"+ morcyc[i]['_id']+"'>Select</div>";
+        var name = morcyc[i]['name'];
         var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId : morcyc[i]['_id']  }).addTo(mymap).bindPopup(name).on('click', function (e) {
-            document.getElementById("booking").disabled = true;
+            document.getElementById("booking").disabled = false;
+            document.getElementById("repairing").disabled = false;
+            $("#repairing").data('id',e.target.options["morcycId"]);
             $("#booking").data('id',e.target.options["morcycId"]);
             console.log("morcycId : "+e.target.options["morcycId"]);
             if (routing != null) {
@@ -121,12 +123,8 @@
         });
         console.log("name: " + morcyc[i]['name'] + " " + setArea.contains(m1.getLatLng()));
     }
-    function selectBike(){
-        alert(arguments[0]);
-        var tmp = arguments[0];
-        console.log(tmp);
-        document.getElementById("booking").disabled = false;
-        $("#booking").data('id',tmp);
+    function clickRepair(){
+        window.location.replace("/repair/"+$("#repairing").data("id"));
     }
     // $(document).on("click touchstart tap",".morcyc",function(){
     //     var tmp = $(this).data('id');
