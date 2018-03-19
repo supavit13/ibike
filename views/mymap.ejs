@@ -97,7 +97,7 @@
     for (var i = 0; i < morcyc.length; i++) {
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
-        var name = morcyc[i]['name']+"<br><a href='/repair/"+morcyc[i]['_id']+"'><input type='button' class='morcyc' value='Repair'></a><br><input type='button' class='morcyc' data-id='"+ morcyc[i]['_id']+"' value='select'>";
+        var name = morcyc[i]['name']+"<br><a href='/repair/"+morcyc[i]['_id']+"'><input type='button' class='morcyc' value='Repair'></a><br><input type='button' class='morcyc' onclick='selectBike(this)' data-id='"+ morcyc[i]['_id']+"' value='select'>";
         var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click', function (e) {
             document.getElementById("booking").disabled = true;
             $("#booking").data('id',"");
@@ -120,12 +120,18 @@
         });
         console.log("name: " + name + " " + setArea.contains(m1.getLatLng()));
     }
-    $(document).on("click touchstart tap",".morcyc",function(){
+    function selectBike(this){
         var tmp = $(this).data('id');
         console.log(tmp);
         document.getElementById("booking").disabled = false;
         $("#booking").data('id',tmp);
-    });
+    }
+    // $(document).on("click touchstart tap",".morcyc",function(){
+    //     var tmp = $(this).data('id');
+    //     console.log(tmp);
+    //     document.getElementById("booking").disabled = false;
+    //     $("#booking").data('id',tmp);
+    // });
     
     $(document).on("click touchstart tap","#booking",function(){
         if(document.getElementById("booking").disabled==false){
