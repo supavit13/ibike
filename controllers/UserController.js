@@ -129,5 +129,16 @@ UserController.checkDuplicateEmail = function(req,res){
     });
 }
 
+UserController.getuser=function(req,res){
+    User.findOne({ _id:req.params.id }).exec(function(err,user){
+        if(err){
+            res.redirect("/");
+        }else{
+            console.log(user);
+            res.render("../views/profile.ejs",{user:user});
+        }
+    });
+}
+
 
 module.exports = UserController;
