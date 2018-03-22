@@ -5,20 +5,6 @@ var router = express.Router();
 var User = require("../models/User");
 var morcyc = require("../controllers/MotorController.js");
 var admin = require("../controllers/AdminController.js");
-
-function isAdmin(req,res){
-    if(req.session.userId){
-        User.findById({ _id : req.session.userId}).exec(function(err,user){
-            if(user["pass"] == "Admin"){
-                return true;
-            }else{
-                return false;
-            }
-        });
-    }else {
-        return false;
-    }
-}
 router.get('/', function (req, res, next) {
     if(req.session.userId){
         User.findById({ _id : req.session.userId}).exec(function(err,user){
@@ -35,16 +21,29 @@ router.get('/', function (req, res, next) {
     
 });
 router.get("/listname",function(req,res,next){
-    if(isAdmin(req,res)){
-        admin.userList(req,res);
+    if(req.session.userId){
+        User.findById({ _id : req.session.userId}).exec(function(err,user){
+            if(user["pass"] == "Admin"){
+                admin.userList(req,res);
+            }else{
+                res.redirect("/");
+            }
+        });
     }else {
         res.redirect("/");
     }
     
+    
 });
 router.get("/listmotorcycle",function(req,res,next){
-    if(isAdmin(req,res)){
-        admin.morcycList(req,res);
+    if(req.session.userId){
+        User.findById({ _id : req.session.userId}).exec(function(err,user){
+            if(user["pass"] == "Admin"){
+                admin.morcycList(req,res);
+            }else{
+                res.redirect("/");
+            }
+        });
     }else {
         res.redirect("/");
     }

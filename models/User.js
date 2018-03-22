@@ -55,6 +55,10 @@ var Users = new Schema({
         country: {
             type: String,
             required :true
+        },
+        tumbol: {
+            type: String,
+            required :true
         }
     },
     license: {
