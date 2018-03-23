@@ -1,7 +1,11 @@
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <div class="ui secondary pointing menu">
     <a class="item" HREF="javascript:history.back()">
         Back
     </a>
+    <center>
+        <div id="google_translate_element"></div>
+    </center>
     <div class="right menu">
         <a href="/logout" class="ui item">
             Logout
@@ -9,3 +13,8 @@
     </div>
 </div>
 </div>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+    }
+</script>
