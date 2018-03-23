@@ -6,13 +6,18 @@
     var polygon = [[21.22794, 90.79102], [3.73271, 90.79102], [4.82826, 115.00488], [21.30985, 115.00488]];
 
     var json = '<%- JSON.stringify(zone) %>';
-    
+    window.onload = function () {
+        if (json == '') {
+            location.reload();
+        }
+    };
+
     // var json = JSON.parse(htmlDecode("<%= JSON.stringify(zone) %>"));
     var dbzone = JSON.parse(json);
-    
     dbzone = dbzone[0]['zone'];
+    console.log(dbzone);
     var setArea = L.polygon(dbzone).addTo(mymap);
-    setArea.setStyle({ "fillOpacity": 0 ,color: 'red'});
+    setArea.setStyle({ "fillOpacity": 0, color: 'red' });
     mymap.setMaxBounds(polygon);
 
 
@@ -65,14 +70,14 @@
     }
 
     function onLocationError(e) {
-        if(e.message != null){
-            if(e.message == "Geolocation error: Timeout expired."){
+        if (e.message != null) {
+            if (e.message == "Geolocation error: Timeout expired.") {
                 console.log(e.message);
-            }else{
-                alert(e.message);
+            } else {
+                console.log(e.message);
             }
         }
-        
+
     }
 
     mymap.on('locationfound', onLocationFound);
@@ -98,33 +103,37 @@
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
         var name = morcyc[i]['name'];
-        var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId : morcyc[i]['_id']  }).addTo(mymap).bindPopup(name).on('click', function (e) {
-            document.getElementById("booking").disabled = false;
-            document.getElementById("repairing").disabled = false;
-            $("#repairing").data('id',e.target.options["morcycId"]);
-            $("#booking").data('id',e.target.options["morcycId"]);
-            console.log("morcycId : "+e.target.options["morcycId"]);
-            if (routing != null) {
-                routing.spliceWaypoints(0, 2);
-                mymap.removeControl(routing);
-            }
-            lat = e.latlng.lat;
-            lng = e.latlng.lng;
-            clickMarker = true;
-            var ways = {
-                waypoints:
-                    [
-                        L.latLng(mylat, mylng),
-                        L.latLng(lat, lng)
-                    ]
-            };
-            // alert(lat + "," + lng);
-            routing = L.Routing.control(ways).addTo(mymap);
-        });
-        console.log("name: " + morcyc[i]['name'] + " " + setArea.contains(m1.getLatLng()));
+        if (morcyc[i]['using'] == "no") {
+            var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'] }).addTo(mymap).bindPopup(name).on('click', function (e) {
+                document.getElementById("booking").disabled = false;
+                document.getElementById("repairing").disabled = false;
+                // console.log(setArea.contains({lat: 13.1195, lng: 100.92055}));
+
+                $("#repairing").data('id', e.target.options["morcycId"]);
+                $("#booking").data('id', e.target.options["morcycId"]);
+                console.log("morcycId : " + e.target.options["morcycId"]);
+                if (routing != null) {
+                    routing.spliceWaypoints(0, 2);
+                    mymap.removeControl(routing);
+                }
+                lat = e.latlng.lat;
+                lng = e.latlng.lng;
+                clickMarker = true;
+                var ways = {
+                    waypoints:
+                        [
+                            L.latLng(mylat, mylng),
+                            L.latLng(lat, lng)
+                        ]
+                };
+                // alert(lat + "," + lng);
+                routing = L.Routing.control(ways).addTo(mymap);
+            });
+            console.log("name: " + morcyc[i]['name'] + " " + setArea.contains(m1.getLatLng()));
+        }
     }
-    function clickRepair(){
-        window.location.replace("/repair/"+$("#repairing").data("id"));
+    function clickRepair() {
+        window.location.replace("/repair/" + $("#repairing").data("id"));
     }
     // $(document).on("click touchstart tap",".morcyc",function(){
     //     var tmp = $(this).data('id');
@@ -132,21 +141,21 @@
     //     document.getElementById("booking").disabled = false;
     //     $("#booking").data('id',tmp);
     // });
-    
-    $(document).on("click touchstart tap","#booking",function(){
-        if(document.getElementById("booking").disabled==false){
-            var morcycID=$("#booking").data("id");
+
+    $(document).on("click touchstart tap", "#booking", function () {
+        if (document.getElementById("booking").disabled == false) {
+            var morcycID = $("#booking").data("id");
             $.ajax({
-                type : "POST",
-                url : "/booking",
-                data : {
+                type: "POST",
+                url: "/booking",
+                data: {
                     '_token': $('input[name=_token]').val(),
-                    morcycID : morcycID
+                    morcycID: morcycID
                 },
-                success : function(data){
-                    if(data){
+                success: function (data) {
+                    if (data) {
                         window.location.replace("/price");
-                    }else{
+                    } else {
                         swal(data);
                     }
                 }
@@ -155,9 +164,9 @@
     });
     function onMapClick(e) {
         document.getElementById("booking").disabled = true;
-        $("#booking").data('id',"");
+        $("#booking").data('id', "");
         document.getElementById("repairing").disabled = true;
-        $("#repairing").data('id',"");
+        $("#repairing").data('id', "");
         lat = e.latlng.lat;
         lng = e.latlng.lng;
         console.log(lat + "," + lng);

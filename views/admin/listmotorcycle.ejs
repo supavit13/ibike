@@ -4,32 +4,33 @@
 <head>
     <% include ../head.ejs %>
 </head>
-
+<% include ../alertscript.ejs %>
 <body>
     <% include ../navbar.ejs %>
-        <H1> รถจักรยานยนต์ทั้งหมด </H1>
+        <H1> Motorcycles </H1>
 
 
         <table class="ui selectable celled table">
             <thead>
                 <tr>
-                    <th>ชื่อ</th>
-                    <th>สถานะ</th>
-                    <th>ตำแหน่ง</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Position</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <!-- <tr>
                     <td>
                         <a href="/listmotorcycle/001">001</a>
                     </td>
                     <td>
-                        ไม่พร้อม
+                        Not ready
                         <div class="ui fitted slider checkbox">
                             <input type="checkbox">
                             <label></label>
                         </div>
-                        พร้อม
+                        Ready
                     </td>
                     <td>X:150.555 Y:200.354</td>
                 </tr>
@@ -56,21 +57,31 @@
                         พร้อม
                     </td>
                     <td>X:150.555 Y:200.354</td>
-                </tr>
+                </tr> -->
                 <% for(var i=0;i<morcyc.length;i++) { %>
-                        <tr>
-                                <td><%= morcyc[i]['motorID'] %></td>
-                                <td>
-                                    ไม่พร้อม
-                                    <div class="ui fitted slider checkbox">
-                                        <input type="checkbox">
-                                        <label></label>
-                                    </div>
-                                    พร้อม
-                                </td>
-                                <td>X:<%= morcyc[i]['latlng']['lat'] %> Y:<%= morcyc[i]['latlng']['lng'] %></td>
-                            </tr>
-                <% } %>
+                    <tr>
+                        <td>
+                            <a href="/admin/motorcycle/<%= morcyc[i]['_id'] %>">
+                                <%= morcyc[i]['_id'] %>
+                            </a>
+                        </td>
+                        <td>
+                            <%= morcyc[i]['name'] %>
+                        </td>
+                        <td>
+                            Not ready
+                            <div class="ui fitted slider checkbox">
+                                <input type="checkbox">
+                                <label></label>
+                            </div>
+                            Ready
+                        </td>
+                        <td>X:
+                            <%= morcyc[i]['latlng']['lat'] %> Y:
+                                <%= morcyc[i]['latlng']['lng'] %>
+                        </td>
+                    </tr>
+                    <% } %>
             </tbody>
         </table>
 

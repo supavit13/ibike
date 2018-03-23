@@ -7,7 +7,15 @@
         measureControl: true
     });
     var polygon = [[21.22794, 90.79102], [3.73271, 90.79102], [4.82826, 115.00488], [21.30985, 115.00488]];
-    var dbzone = JSON.parse('<%- JSON.stringify(zone) %>');
+
+    var json = '<%- JSON.stringify(zone) %>';
+    window.onload = function () {
+        if (json == '') {
+            location.reload();
+        }
+    };
+
+    var dbzone = JSON.parse(json);
     dbzone = dbzone[0]['zone'];
     var setArea = L.polygon(dbzone).addTo(mymap);
     setArea.setStyle({ "fillOpacity": 0, color: 'red' });

@@ -1,6 +1,7 @@
 var express = require('express');
 var login = require("../controllers/LoginController.js");
 var motorcycle = require("../controllers/MotorController.js");
+var user = require("../controllers/UserController.js");
 var validator = require("email-validator");
 var emailExistence = require("email-existence");
 var router = express.Router();
@@ -61,7 +62,8 @@ router.get('/start', function (req, res, next) {
 });
 router.get('/riding', function (req, res, next) {
   if (req.session.userId) {
-    res.render("riding");
+    user.riding(req,res);
+    // res.render("riding");
   } else {
     res.redirect("/")
   }

@@ -44,6 +44,10 @@ var Users = new Schema({
             type: String,
             required :true
         },
+        tumbol: {
+            type: String,
+            required :true
+        },
         moo: {
             type: String,
             required :true
@@ -53,10 +57,6 @@ var Users = new Schema({
             required :true
         },
         country: {
-            type: String,
-            required :true
-        },
-        tumbol: {
             type: String,
             required :true
         }

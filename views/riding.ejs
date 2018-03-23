@@ -4,9 +4,10 @@
 <head>
     <% include head.ejs %>
 </head>
+
 <body>
     <% include navbar.ejs %>
-    <!-- <div id="data"></div> -->
+        <!-- <div id="data"></div> -->
         <div align="center" class="top">
             <div style="display: inline-block; margin:0%; width:29%;">
                 <font size=4>Distance</font>
@@ -25,9 +26,11 @@
             <div style=" display: inline-block; margin:0%; width:29%;">
                 <font size=4>Cost</font>
                 <br>
-                <font size=4 id="cost">0</font> <font size=3 id="cost">Baht</font>
+                <font size=4 id="cost">0</font>
+                <font size=3 id="cost">Baht</font>
                 <br>
-                <font size=2 id="money">0.03</font><font size=2 > B/s</font>
+                <font size=2 id="money">0.03</font>
+                <font size=2> B/s</font>
             </div>
         </div>
         <div id="ridingMap"></div>
@@ -42,10 +45,20 @@
                 <p style="font-size:150%;">Stop</p>
             </a>
         </div>
-
         <script>
             var marker;
             var map;
+            var area = JSON.parse('<%- JSON.stringify(zone) %>');
+            var morcycID = JSON.parse('<%- JSON.stringify(morcycId) %>');
+            var userId = JSON.parse('<%- JSON.stringify(userId) %>');
+            var zone = [];
+            var setZone;
+            console.log(area[0]['zone']);
+            console.log(morcycID);
+            for (var i = 0; i < area[0]['zone'].length; i++) {
+                zone[i] = { lat: parseFloat(area[0]['zone'][i][0]), lng: parseFloat(area[0]['zone'][i][1]) };
+            }
+            console.log(zone);
             function initMap() {
                 var myLatLng = { lat: 13.120, lng: 100.919 };
 
@@ -60,7 +73,17 @@
                     animation: google.maps.Animation.DROP,
                     title: 'you are here'
                 });
+                
                 marker.addListener('click', toggleBounce);
+                setZone = new google.maps.Polygon({
+                    paths: zone,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 3,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0
+                });
+                setZone.setMap(map);
             }
             function toggleBounce() {
                 if (marker.getAnimation() !== null) {
@@ -69,36 +92,39 @@
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                 }
             }
-            
-            setInterval(function(){
+
+            setInterval(function () {
                 var infoWindow = new google.maps.Marker;
 
                 // Try HTML5 geolocation.
                 if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            var pos = {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var pos = {
                             lat: position.coords.latitude,
                             lng: position.coords.longitude
-                            };
-                            marker.setMap(null);
-                            marker = new google.maps.Marker({
-                                position: pos,
-                                map: map,
-                                icon: '/images/user50x50.png',
-                                // animation: google.maps.Animation.DROP,
-                                title: 'you are here'
-                            });
-                            map.setCenter(pos);
-                        }, function() {
-                            handleLocationError(true, marker, map.getCenter());
+                        };
+                        
+                        marker.setMap(null);
+                        marker = new google.maps.Marker({
+                            position: pos,
+                            map: map,
+                            icon: '/images/user50x50.png',
+                            // animation: google.maps.Animation.DROP,
+                            title: 'you are here'
                         });
-                        } else {
-                        // Browser doesn't support Geolocation
-                        handleLocationError(false, marker, map.getCenter());
-                        }
-            },1000);
+                        
+                        map.setCenter(pos);
+                    }, function () {
+                        handleLocationError(true, marker, map.getCenter());
+                    });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, marker, map.getCenter());
+                }
+            }, 1000);
             function handleLocationError(browserHasGeolocation, marker, pos) {
                 marker.setPosition(pos);
+                
                 // alert(browserHasGeolocation ?
                 //                     'Error: The Geolocation service failed.' :
                 //                     'Error: Your browser doesn\'t support geolocation.');
@@ -111,18 +137,18 @@
         <script>
             var timer = new Timer();
             var money = 0.03;
-            var total=0;
+            var total = 0;
             timer.start();
             timer.addEventListener('secondsUpdated', function (e) {
                 var fulltime = timer.getTimeValues().toString();
                 var delTime = fulltime.split(':')[0] + ":" + fulltime.split(':')[1];
                 $('#timer').html(fulltime);
             });
-            setInterval(function(){
+            setInterval(function () {
                 total += money;
                 total = Math.round(total * 100) / 100;
                 $('#cost').html(total);
-            },1000);
+            }, 1000);
             $('#pauseButton').click(function () {
                 // alert(document.getElementById('pauseValue').innerHTML);
                 if (document.getElementById('pauseValue').innerHTML == "Pause") {
@@ -147,13 +173,13 @@
 
         </script>
         <% include netpiescript.ejs %>
-        <script>
-            setInterval(function(){
-                console.log("working");
-                microgear.publish("/working", "1");
-                
-            },1000);
-        </script>
+            <script>
+                setInterval(function () {
+                    console.log("working");
+                    microgear.publish("/working", "1");
+
+                }, 1000);
+            </script>
 </body>
 
 </html>

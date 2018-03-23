@@ -4,26 +4,26 @@
 <head>
     <% include ../head.ejs %>
 </head>
-
+<% include ../alertscript.ejs %>
 <body>
     <% include ../navbar.ejs %>
         <div style="margin: 2%;">
-            <H1> สมาชิกทั้งหมด </H1>
+            <H1> User management system </H1>
             <hr>
 
 
             <ul class="nav nav-tabs">
                 <li id="noneadmit" class="active">
-                    <a href="#">ยังไม่อนุญาต</a>
+                    <a href="#">Pending user</a>
                 </li>
                 <li id="admit">
-                    <a href="#">อนุญาตแล้ว</a>
+                    <a href="#">User</a>
                 </li>
                 <li id="admin">
-                        <a href="#">ผู้ดูแลระบบ</a>
+                        <a href="#">Admin</a>
                 </li>
                 <li id="all">
-                    <a href="#">สมาชิกทั้งหมด</a>
+                    <a href="#">All User</a>
                 </li>
             </ul>
             <div id="tableJS">
@@ -40,7 +40,7 @@
                             <% if(users[i]['pass'] == "Requestor"){ %>
                             <tr>
                                 <td>
-                                    <%= users[i]['_id'] %>
+                                    <a href="/admin/profile/<%= users[i]['_id'] %>"> <%= users[i]['_id'] %> </a>
                                 </td>
                                 <td>
                                     <%= users[i]['firstName'] %>
@@ -50,11 +50,11 @@
                                     <font color="green">
                                         <i class="checkmark icon"></i>
                                     </font>
-                                    <button  id="right" value="<%= users[i]['_id'] %>">อนุญาต</button>
+                                    <button  id="right" value="<%= users[i]['_id'] %>">Accept</button>
                                     <font color="red">
                                         <i class="remove icon"></i>
                                     </font>
-                                    <button  id="wrong" value="<%= users[i]['_id'] %>">ไม่อนุญาต</button>
+                                    <button  id="wrong" value="<%= users[i]['_id'] %>">Reject</button>
                                 </td>
                             </tr>
                             <% } %>
@@ -69,7 +69,7 @@
 
             var users = JSON.parse('<%- JSON.stringify(users) %>');
             console.log(users);
-            var loadUserList = '<% for(var i=0;i<users.length;i++) { %><% if(users[i]["pass"] == "Requestor"){ %><tr><td><%= users[i]["_id"] %></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><font color="green"><i class="checkmark icon"></i></font><button  id="right" value="<%= users[i]["_id"] %>">อนุญาต</button><font color="red"><i class="remove icon"></i></font><button  id="wrong" value="<%= users[i]["_id"] %>">ไม่อนุญาต</button></td></tr><% } %><% } %>';
+            var loadUserList = '<% for(var i=0;i<users.length;i++) { %><% if(users[i]["pass"] == "Requestor"){ %><tr><td><a href="/admin/profile/<%= users[i]["_id"] %>"><%= users[i]["_id"] %></a></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><font color="green"><i class="checkmark icon"></i></font><button  id="right" value="<%= users[i]["_id"] %>">Accpet</button><font color="red"><i class="remove icon"></i></font><button  id="wrong" value="<%= users[i]["_id"] %>">Reject</button></td></tr><% } %><% } %>';
             var noneadmit = [
                 '<table class="ui selectable celled table"><thead><tr><th>Request ID</th><th>Name</th><th>Status</th></tr></thead>',
                 '<tbody>',
@@ -77,16 +77,16 @@
                 '</tbody></table>',
             ].join('');
             var admit = [
-            '<table class="ui selectable celled table"><thead><tr><th>User ID</th><th>Name</th><th>Phone Number</th><th>E-Mail</th><th>Status</th></tr></thead><tbody><% for(var i=0 ; i<users.length ; i++) { %><% if(users[i]["pass"] == "User"){ %><tr><td><%= users[i]["_id"] %></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><%= users[i]["tel"] %></td><td><%= users[i]["email"] %></td><td><%= users[i]["pass"] %></td></tr><% } %><% } %></tbody></table>'
+            '<table class="ui selectable celled table"><thead><tr><th>User ID</th><th>Name</th><th>Phone Number</th><th>E-Mail</th><th>Status</th></tr></thead><tbody><% for(var i=0 ; i<users.length ; i++) { %><% if(users[i]["pass"] == "User"){ %><tr><td><a href="/admin/profile/<%= users[i]["_id"] %>"><%= users[i]["_id"] %></a></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><%= users[i]["tel"] %></td><td><%= users[i]["email"] %></td><td><%= users[i]["pass"] %></td></tr><% } %><% } %></tbody></table>'
             ].join('');
 
             var admin = [
-            '<table class="ui selectable celled table"><thead><tr><th>User ID</th><th>Name</th><th>Phone Number</th><th>E-Mail</th><th>Status</th></tr></thead><tbody><% for(var i=0 ; i<users.length ; i++) { %><% if(users[i]["pass"] == "Admin"){ %><tr><td><%= users[i]["_id"] %></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><%= users[i]["tel"] %></td><td><%= users[i]["email"] %></td><td><%= users[i]["pass"] %></td></tr><% } %><% } %></tbody></table>'
+            '<table class="ui selectable celled table"><thead><tr><th>User ID</th><th>Name</th><th>Phone Number</th><th>E-Mail</th><th>Status</th></tr></thead><tbody><% for(var i=0 ; i<users.length ; i++) { %><% if(users[i]["pass"] == "Admin"){ %><tr><td><a href="/admin/profile/<%= users[i]["_id"] %>"><%= users[i]["_id"] %></a></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><%= users[i]["tel"] %></td><td><%= users[i]["email"] %></td><td><%= users[i]["pass"] %></td></tr><% } %><% } %></tbody></table>'
             ].join('');
 
 
             var all = [
-            '<table class="ui selectable celled table"><thead><tr><th>User ID</th><th>Name</th><th>Phone Number</th><th>E-Mail</th><th>Status</th></tr></thead><tbody><% for(var i=0 ; i<users.length ; i++) { %><tr><td><%= users[i]["_id"] %></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><%= users[i]["tel"] %></td><td><%= users[i]["email"] %></td><td><%= users[i]["pass"] %></td></tr><% } %></tbody></table>'
+            '<table class="ui selectable celled table"><thead><tr><th>User ID</th><th>Name</th><th>Phone Number</th><th>E-Mail</th><th>Status</th></tr></thead><tbody><% for(var i=0 ; i<users.length ; i++) { %><tr><td><a href="/admin/profile/<%= users[i]["_id"] %>"><%= users[i]["_id"] %></a></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><%= users[i]["tel"] %></td><td><%= users[i]["email"] %></td><td><%= users[i]["pass"] %></td></tr><% } %></tbody></table>'
             ].join('');
 
             $("#right").on("click", function () {

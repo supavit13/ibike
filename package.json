@@ -34,7 +34,8 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "s3": "^4.4.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.13.3"

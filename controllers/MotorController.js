@@ -49,7 +49,6 @@ MotorController.plotToMap = function (req, res) {
         }
         else {
             // res.send(users);
-
             res.render("../views/showbike", { morcyc: morcyc, zone: zone });
         }
     });
@@ -60,8 +59,12 @@ MotorController.saveLatlng = function (req, res) {
     for (var i = 0; i < 30; i++) {
         lst[i] = temp['his[' + i + '][lat]'] + "," + temp['his[' + i + '][lng]'];
     }
+    var latlng = {
+        lat : lst[29].split(",")[0],
+        lng : lst[29].split(",")[1]
+    }
     console.log(lst);
-    Motorcycle.findById({ _id: req.body.morcycID }).update({ history: lst }, function (err, result) {
+    Motorcycle.findById({ _id: req.body.morcycID }).update({ history: lst, latlng : latlng }, function (err, result) {
         if (err) console.log(err);
         else {
             console.log(result);
@@ -122,7 +125,7 @@ MotorController.turnOff = function (req, res) {
 }
 MotorController.repairMorcyc = function (req, res) {
     var id = req.params.id;
-    res.render("../views/repair", { id: id });
+    res.render("../views/repair", { id: id, userId:req.session.userId });
 }
 MotorController.saveRepair = function (req, res) {
     console.log(req.body);
@@ -130,6 +133,17 @@ MotorController.saveRepair = function (req, res) {
         if(err) res.send(err);
         else{
             res.send(true);
+        }
+    });
+}
+
+
+MotorController.getmotorcycle = function(req,res){
+    Motorcycle.findById({_id:req.params.id}).exec(function(err,morcyc){
+        if(err){
+            res.send(err);
+        }else{
+            res.render("../views/bikestatus.ejs",{ morcyc : morcyc });
         }
     });
 }

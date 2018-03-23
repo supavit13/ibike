@@ -3,6 +3,7 @@ var User = require("../models/User");
 var moment = require("moment");
 var nodemailer = require('nodemailer');
 var passwordHash = require('password-hash');
+var Zone = require("../models/MotorcycleZone");
 const AWS = require('aws-sdk');
 const BUCKET_NAME = 'morcyc4you';
 const IAM_USER_KEY = 'AKIAJBYSJVCFVHRX77XQ';
@@ -126,6 +127,30 @@ UserController.checkDuplicateEmail = function(req,res){
         }else{
             res.send("Email is exist");
         }
+    });
+}
+
+UserController.getuser=function(req,res){
+    User.findOne({ _id:req.params.id }).exec(function(err,user){
+        if(err){
+            res.redirect("/");
+        }else{
+            console.log(user);
+            res.render("../views/profile.ejs",{user:user});
+        }
+    });
+}
+UserController.riding=function(req,res){
+    Zone.find({}).exec(function (err, zone) {
+        if (err) console.log(err);
+        else {
+            var area = {};
+            for(var i=0;i<zone[0]['zone'].length;i++){
+                area[i] = {lat : zone[0]['zone'][i][0] ,lng : zone[0]['zone'][i][1]};
+            }
+            console.log(area);
+            res.render("../views/riding", { zone : zone, morcycId : req.session.morcycId , userId :  req.session.userId } );
+        }    
     });
 }
 

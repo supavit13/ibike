@@ -5,6 +5,8 @@ var router = express.Router();
 var User = require("../models/User");
 var morcyc = require("../controllers/MotorController.js");
 var admin = require("../controllers/AdminController.js");
+var usercon = require("../controllers/UserController.js");
+
 router.get('/', function (req, res, next) {
     if(req.session.userId){
         User.findById({ _id : req.session.userId}).exec(function(err,user){
@@ -36,17 +38,17 @@ router.get("/listname",function(req,res,next){
     
 });
 router.get("/listmotorcycle",function(req,res,next){
-    if(req.session.userId){
-        User.findById({ _id : req.session.userId}).exec(function(err,user){
-            if(user["pass"] == "Admin"){
-                admin.morcycList(req,res);
-            }else{
-                res.redirect("/");
-            }
-        });
-    }else {
-        res.redirect("/");
-    }
+        if(req.session.userId){
+            User.findById({ _id : req.session.userId}).exec(function(err,user){
+                if(user["pass"] == "Admin"){
+                    admin.morcycList(req,res);
+                }else{
+                    res.redirect("/");
+                }
+            });
+        }else {
+            res.redirect("/");
+        }
     
 });
 router.post("/add",function(req,res){
@@ -59,6 +61,32 @@ router.post("/del",function(req,res){
 router.post("/setZone",function(req,res){
     console.log(req.body.size);
     admin.setZone(req,res);
+});
+router.get("/profile/:id",function(req,res){
+    if(req.session.userId){
+        User.findById({ _id : req.session.userId}).exec(function(err,user){
+            if(user["pass"] == "Admin"){
+                usercon.getuser(req,res);
+            }else{
+                res.redirect("/");
+            }
+        });
+    }else {
+        res.redirect("/");
+    }
+});
+router.get("/motorcycle/:id",function(req,res){
+    if(req.session.userId){
+        User.findById({ _id : req.session.userId}).exec(function(err,user){
+            if(user["pass"] == "Admin"){
+                morcyc.getmotorcycle(req,res);
+            }else{
+                res.redirect("/");
+            }
+        });
+    }else {
+        res.redirect("/");
+    }
 });
 
 module.exports = router;

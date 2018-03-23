@@ -102,7 +102,9 @@
 
 
         <script>
+            
             var id = JSON.parse('<%- JSON.stringify(id) %>');
+            var userId = JSON.parse('<%- JSON.stringify(userId) %>');
             $("#id").val(id);
             $("#id").prop('disabled', true);
             $("#clear").on("click", function () {
@@ -127,6 +129,7 @@
                     data: {
                         '_token': $('input[name=_token]').val(),
                         id: id,
+                        userId : userId,
                         BrakeLight: BrakeLight,
                         Tire: Tire,
                         Dial: Dial,
@@ -139,6 +142,7 @@
                     },
                     success: function (data) {
                         if (data) {
+                            socket.emit('alert', "New report from userId : "+userId + " can see in motorcycleId : "+id);
                             swal("Thank you for help", "", "success")
                                 .then((value) => {
                                     window.location.replace("/showbike");

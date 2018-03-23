@@ -5,6 +5,7 @@ var User = require("../models/User");
 var nodemailer = require('nodemailer');
 var bcrypt = require('bcrypt');
 var AdminController = {};
+
 AdminController.plotToMapAdmin = function (req, res) {
     var zone;
     Zone.find({}).exec(function(err,zs){

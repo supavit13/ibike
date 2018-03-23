@@ -1,5 +1,6 @@
 <script src="https://cdn.netpie.io/microgear.js"></script>
-<script src="https://raw.githubusercontent.com/netpieio/microgear-html5/master/src/index.js"></script>
+
+<!-- <script src="https://raw.githubusercontent.com/netpieio/microgear-html5/master/src/index.js"></script> -->
 <script>
     $("#start").on("click", function () {
         console.log("staaaart");
@@ -23,7 +24,7 @@
     });
     // var ackDevice = "";
     var $his = {};
-    var i =0;
+    var i = 0;
     microgear.on('message', function (topic, msg) {
         console.log("in receive");
         console.log(msg);
@@ -35,16 +36,21 @@
         }
         else {
             console.log(msg.split(",")[0]);
-            var morcycID = "5a8466126e130a1f98aca35f";
             var latlng = {
                 lat: msg.split(",")[0],
                 lng: msg.split(",")[1]
             }
+            var point = new google.maps.LatLng(parseFloat(msg.split(",")[0]), parseFloat(msg.split(",")[1]));
+            if (!google.maps.geometry.poly.containsLocation(point, setZone)) {
+                swal("You out of area");
+                socket.emit('alert', "Report Motorcycle out of area id : "+morcycID +" by userId : "+userId );
+            }
+            
             // $.extend($his,latlng);
             console.log(Object.keys($his).length);
             var len = Object.keys($his).length;
             if (len < 30) {
-                $his[i]=latlng;
+                $his[i] = latlng;
                 i++;
             } else {
                 $.ajax({
@@ -52,17 +58,17 @@
                     url: 'morcyc/getlatlng',
                     data: {
                         '_token': $('input[name=_token]').val(),
-                        morcycID : morcycID,
-                        his : $his
+                        morcycID: morcycID,
+                        his: $his
                     },
                     success: function (data) {
                         console.log(data);
-                        if(data==true){
+                        if (data == true) {
                             console.log("save log succcessed");
                         }
                     }
                 });
-                i=0;
+                i = 0;
                 $his = {};
             }
 
@@ -115,20 +121,20 @@
         //     console.log("conf");
         // }
     });
-    function turnOff(){
+    function turnOff() {
         $.ajax({
-            type : "POST",
-            url : "/morcyc/turnoff",
-            data : {
+            type: "POST",
+            url: "/morcyc/turnoff",
+            data: {
                 '_token': $('input[name=_token]').val()
             },
-            success : function(data){
-                if(data){
+            success: function (data) {
+                if (data) {
                     money = 0;
                     microgear.publish("/startengine", "0");
                     console.log("conf");
                     timer.stop();
-                }else{
+                } else {
                     swal(data);
                 }
             }

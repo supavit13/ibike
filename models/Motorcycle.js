@@ -33,6 +33,10 @@ var MotorSchema = new Schema({
         type: Object,
         required :true
     },
+    plate: {
+        type: String,
+        required :true
+    },
     using: {
         type: String
     },
