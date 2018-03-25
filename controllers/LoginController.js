@@ -34,7 +34,6 @@ LoginController.authenticate = function (req, res) {
                     res.send("User");
                 }
                 else if (user.pass == "PreUser" && result == true) {
-                    req.session.userId = user._id;
                     // console.log("pass session");
                     // res.redirect("/showbike");
                     res.send("PreUser");
