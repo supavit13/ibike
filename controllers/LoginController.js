@@ -32,6 +32,12 @@ LoginController.authenticate = function (req, res) {
                     // console.log("pass session");
                     // res.redirect("/showbike");
                     res.send("User");
+                }
+                else if (user.pass == "PreUser" && result == true) {
+                    req.session.userId = user._id;
+                    // console.log("pass session");
+                    // res.redirect("/showbike");
+                    res.send("PreUser");
                 }else if(result == false){
                     res.send("password is incorrect");
                 }

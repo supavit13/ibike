@@ -7,7 +7,7 @@ var User = require("../models/User");
 //   res.send('respond with a resource');
 // });
 router.get('/:id/verify', function(req, res, next) {
-  User.where({_id:req.params.id}).update({ pass: "User"}, function(err, result) {
+  User.where({_id:req.params.id}).update({ pass: "PreUser"}, function(err, result) {
     res.send('verify complete');
   });
   
