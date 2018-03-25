@@ -95,8 +95,8 @@ AdminController.insertUser = function(req,res){
         var mailOptions = {
             from: 'morcyc4you@gmail.com',
             to: email,
-            subject: '[Morcyc4you]รายงานการสมัครสมาชิก',
-            text: 'คุณได้รับการอนุมัติการใช้งาน Morcyc4you เรียบร้อยแล้ว'
+            subject: '[Morcyc4you]Register complete',
+            text: 'You have approved by admin'
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
@@ -131,8 +131,8 @@ AdminController.deleteUser = function (req, res) {
         var mailOptions = {
             from: 'morcyc4you@gmail.com',
             to: email,
-            subject: '[Morcyc4you]รายงานการสมัครสมาชิก',
-            text: 'คุณถูกปฏิเสธการใช้งาน Morcyc4you เนื่องจากข้อมูลไม่ครบถ้วนหรือเป็นเท็จ หากมีข้อสงสัยโปรดติดต่อ Morcyc4you@gmail.com'
+            subject: '[Morcyc4you]You were rejected',
+            text: 'You have been denied access to Morcyc4you. Because incomplete or false information. If you have any questions, please contact Morcyc4you@gmail.com'
         };
 
         transporter.sendMail(mailOptions, function (error, info) {

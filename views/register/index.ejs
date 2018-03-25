@@ -70,7 +70,7 @@
                         <label>Password
                             <font color="red">*</font>
                         </label>
-                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="password" name="password" id="password" placeholder="Password" required>
                     </div>
 
                     <div class="field">
@@ -78,7 +78,7 @@
                             <font color="red">*</font>
                         </label>
                         <div class="field">
-                            <input type="password" name="passwordConf" placeholder="Confirm Password" required>
+                            <input type="password" name="passwordConf" id="passwordConf" placeholder="Confirm Password" required>
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@
 
 
         <center>
-            <button type="submit" id="submit" class="positive ui button" disabled><font class="check" color="red">Please wait for check email</font></button>
+            <button type="submit" id="submit" class="positive ui button" disabled><font class="check" color="red">Incomplete</font></button>
             <br>
             <br>
         </center>
@@ -224,7 +224,7 @@
 //   xhr.send(file);
 // }
     var email=0;
-    var check = '<font class="check" color="red">Please wait for check email</font>';
+    var check = '<font class="check" color="red">Please check your email</font>';
     var submit = '<font class="check">Submit</font>';
     function emailcheck() {
         document.getElementById("submit").disabled = true;

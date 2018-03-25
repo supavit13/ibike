@@ -40,7 +40,7 @@ app.use(session({
   })
 }));
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', '/images/icon_scooter.png')));
 
 app.use(fileUpload());
 app.use(logger('dev'));

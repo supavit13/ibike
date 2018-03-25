@@ -90,8 +90,8 @@ UserController.create = function (req, res) {
                 var mailOptions = {
                     from: 'morcyc4you@gmail.com',
                     to: user['email'],
-                    subject: '[Morcyc4you]รายงานการสมัครสมาชิก',
-                    text: 'โปรดยืนยันดัวตนผ่านลิ้งต่อไปนี้ https://morcyc4you.ga/users/'+user["_id"]+"/verify"
+                    subject: '[Morcyc4you]Confirm your email',
+                    text: 'Please click this link for confirm your email https://morcyc4you.ga/users/'+user["_id"]+"/verify"
                 };
         
                 transporter.sendMail(mailOptions, function (error, info) {
