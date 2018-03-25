@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                         <% for(var i=0;i<users.length;i++) { %>
-                            <% if(users[i]['pass'] == "Requestor"){ %>
+                            <% if(users[i]['pass'] == "PreUser"){ %>
                             <tr>
                                 <td>
                                     <a href="/admin/profile/<%= users[i]['_id'] %>"> <%= users[i]['_id'] %> </a>
