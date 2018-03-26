@@ -2,13 +2,14 @@
 
 <!-- <script src="https://raw.githubusercontent.com/netpieio/microgear-html5/master/src/index.js"></script> -->
 <script>
+    var mId = JSON.parse('<%- JSON.stringify(mId) %>');
     $("#start").on("click", function () {
         console.log("staaaart");
         if (document.getElementById("checkbox").checked) {
-            microgear.publish("/startengine", "1");
+            microgear.publish("/"+mId+"/startengine", "1");
             console.log("staaaart1");
         } else {
-            microgear.publish("/startengine", "0");
+            microgear.publish("/"+mId+"/startengine", "0");
             console.log("staaaart0");
         }
     });
@@ -80,8 +81,8 @@
     microgear.on('connected', function () {
         microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
         // document.getElementById("data").innerHTML = "Now I am connected with netpie...";
-        microgear.subscribe("/ackDevice");
-        microgear.subscribe("/location");
+        microgear.subscribe("/"+mId+"/ackDevice");
+        microgear.subscribe("/"+mId+"/location");
 
     });
 
@@ -131,7 +132,7 @@
             success: function (data) {
                 if (data) {
                     money = 0;
-                    microgear.publish("/startengine", "0");
+                    microgear.publish("/"+mId+"/startengine", "0");
                     console.log("conf");
                     timer.stop();
                 } else {

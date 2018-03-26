@@ -33,7 +33,7 @@ app.set('view engine', 'ejs');
 
 app.use(session({
   secret: 'ibike',
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   store: new MongoStore({
     mongooseConnection: db
@@ -62,6 +62,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {

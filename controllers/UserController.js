@@ -149,7 +149,7 @@ UserController.riding=function(req,res){
                 area[i] = {lat : zone[0]['zone'][i][0] ,lng : zone[0]['zone'][i][1]};
             }
             console.log(area);
-            res.render("../views/riding", { zone : zone, morcycId : req.session.morcycId , userId :  req.session.userId } );
+            res.render("../views/riding", { zone : zone, morcycId : req.session.morcycId,mId : req.session.morcycId , userId :  req.session.userId } );
         }    
     });
 }

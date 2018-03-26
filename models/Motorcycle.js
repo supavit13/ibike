@@ -37,6 +37,9 @@ var MotorSchema = new Schema({
         type: String,
         required :true
     },
+    code: {
+        type: String
+    },
     using: {
         type: String
     },

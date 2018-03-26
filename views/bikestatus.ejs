@@ -3,169 +3,246 @@
 
 <head>
     <% include head.ejs %>
+        <script src="https://cdn.netpie.io/microgear.js"></script>
 </head>
 <% include alertscript.ejs %>
-<body>
-    <% include navbar.ejs %>
-        <div style="margin:20px;">
-            <h1>
-                <%= morcyc['brand'] %>
-            </h1>
-            <hr>
-            <table class="ui selectable celled table">
-                <thead>
-                    <tr>
-                        <th>Picture</th>
-                        <th>Infomation</th>
-                        <th>Fault</th>
-                        <th>Report</th>
-                        <th>Position Log</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="ui vertical labeled icon buttons">
-                                <button class="ui button" id="img1">
-                                    <i class="id card icon"></i>
-                                    <i class="user icon"></i>
-                                    Front
-                                </button>
-                                <button class="ui button" id="img3">
-                                    <i class="id card outline icon"></i>
-                                    Back
-                                </button>
-                                <button class="ui button" id="img2">
-                                    <i class="id card icon"></i>
-                                    Plate
-                                </button>
-                            </div>
-                        </td>
-                        <td>
-                            <p>
-                                <b>ID : </b>
-                                <%= morcyc['_id'] %>
-                            </p>
-                            <p>
-                                <b>Name : </b>
-                                <%= morcyc['name'] %>
-                            </p>
-                            <p>
-                                <b>Brand : </b>
-                                <%= morcyc['brand'] %>
-                            </p>
-                            <p>
-                                <b>Plate : </b>
-                                <%= morcyc['plate'] %>
-                            </p>
-                            <p>
-                                <b>latitude : </b>
-                                <%= morcyc['latlng']['lat'] %>
-                            </p>
-                            <p>
-                                <b>longitude : </b>
-                                <%= morcyc['latlng']['lng'] %>
-                            </p>
-                            <p>
-                                <b>Using : </b>
-                                <%= morcyc['using'] %>
-                            </p>
-                        </td>
-                        <td>
-                            <p>
-                                <b>อุณหภูมิน้ำหล่อเย็นเครื่อง : </b>
-                                <font color="green">
-                                    <i class="checkmark icon"></i>
-                                </font>
-                            </p>
-                            <p>
-                                <b>ตำแหน่งลิ้นเร่ง : </b>
-                                <font color="green">
-                                    <i class="checkmark icon"></i>
-                                </font>
-                            </p>
-                            <p>
-                                <b>หัวฉีดน้ำมันเชื้อเพลิง : </b>
-                                <font color="green">
-                                    <i class="checkmark icon"></i>
-                                </font>
-                            </p>
-                            <p>
-                                <b>ปริมาณออกซิเจน : </b>
-                                <font color="green">
-                                    <i class="checkmark icon"></i>
-                                </font>
-                            </p>
-                        </td>
-                        <td>
-                            <% if(morcyc['status']!=null) { %>
-                                <p>
-                                    <b>Report by : </b>
-                                    <%= morcyc['status']['userId'] %>
-                                </p>
-                                <p>
-                                    <b>Brake light : </b>
-                                    <%= morcyc['status']['BrakeLight'] %>
-                                </p>
-                                <p>
-                                    <b>Tire : </b>
-                                    <%= morcyc['status']['Tire'] %>
-                                </p>
-                                <p>
-                                    <b>Dial : </b>
-                                    <%= morcyc['status']['Dial'] %>
-                                </p>
-                                <p>
-                                    <b>Brake : </b>
-                                    <%= morcyc['status']['Brake'] %>
-                                </p>
-                                <p>
-                                    <b>Turn Signal : </b>
-                                    <%= morcyc['status']['TurnSignal'] %>
-                                </p>
-                                <p>
-                                    <b>Headlight : </b>
-                                    <%= morcyc['status']['Headlight'] %>
-                                </p>
-                                <p>
-                                    <b>Gasoline : </b>
-                                    <%= morcyc['status']['Gasoline'] %>
-                                </p>
-                                <p>
-                                    <b>Horns : </b>
-                                    <%= morcyc['status']['Horns'] %>
-                                </p>
-                                <p>
-                                    <b>Detail : </b>
-                                    <%= morcyc['status']['Detail'] %>
-                                </p>
-                                <% } %>
-                        </td>
-                        <td>
-                            <% for(var i=0;i<30&&morcyc['history']!=null;i++) { %>
-                                <p>
-                                    <%= morcyc['history'][i] %>
-                                </p>
-                                <% } %>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
 
-            <!-- <div style="height:50%;">
-            <div style="display: inline-block; width:49%;">
-                <img src="{{asset('hqdefault.jpg')}}" width="100%" height="100%">
+    <body>
+        <% include navbar.ejs %>
+            <div style="margin:20px;">
+                <h1>
+                    <%= morcyc['brand'] %>
+                </h1>
+                <hr>
+                <table class="ui selectable celled table">
+                    <thead>
+                        <tr>
+                            <th>Picture</th>
+                            <th>Infomation</th>
+                            <th>Fault</th>
+                            <th>Report</th>
+                            <th>Position Log</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="ui vertical labeled icon buttons">
+                                    <button class="ui button" id="img1">
+                                        <i class="id card icon"></i>
+                                        <i class="user icon"></i>
+                                        Front
+                                    </button>
+                                    <button class="ui button" id="img3">
+                                        <i class="id card outline icon"></i>
+                                        Back
+                                    </button>
+                                    <button class="ui button" id="img2">
+                                        <i class="id card icon"></i>
+                                        Plate
+                                    </button>
+                                </div>
+                            </td>
+                            <td>
+                                <p>
+                                    <b>ID : </b>
+                                    <%= morcyc['_id'] %>
+                                </p>
+                                <p>
+                                    <b>Name : </b>
+                                    <%= morcyc['name'] %>
+                                </p>
+                                <p>
+                                    <b>Brand : </b>
+                                    <%= morcyc['brand'] %>
+                                </p>
+                                <p>
+                                    <b>Plate : </b>
+                                    <%= morcyc['plate'] %>
+                                </p>
+                                <p>
+                                    <b>latitude : </b>
+                                    <p id="lat"><%= morcyc['latlng']['lat'] %></p>
+                                </p>
+                                <p>
+                                    <b>longitude : </b>
+                                    <p id="lng"><%= morcyc['latlng']['lng'] %></p>
+                                </p>
+                                <p>
+                                    <b>Using : </b>
+                                    <%= morcyc['using'] %>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <b>Coolant temperature: </b>
+                                    <font id="status1">
+                                    </font>
+                                </p>
+                                <p>
+                                    <b>Throttle : </b>
+                                    <font id="status2">
+                                    </font>
+                                </p>
+                                <p>
+                                    <b>Fuel injector : </b>
+                                    <font id="status3">
+                                    </font>
+                                </p>
+                                <p>
+                                    <b>Oxygen : </b>
+                                    <font id="status4">
+                                    </font>
+                                </p>
+                            </td>
+                            <td>
+                                <% if(morcyc['status']!=null) { %>
+                                    <p>
+                                        <b>Report by : </b>
+                                        <%= morcyc['status']['userId'] %>
+                                    </p>
+                                    <p>
+                                        <b>Brake light : </b>
+                                        <%= morcyc['status']['BrakeLight'] %>
+                                    </p>
+                                    <p>
+                                        <b>Tire : </b>
+                                        <%= morcyc['status']['Tire'] %>
+                                    </p>
+                                    <p>
+                                        <b>Dial : </b>
+                                        <%= morcyc['status']['Dial'] %>
+                                    </p>
+                                    <p>
+                                        <b>Brake : </b>
+                                        <%= morcyc['status']['Brake'] %>
+                                    </p>
+                                    <p>
+                                        <b>Turn Signal : </b>
+                                        <%= morcyc['status']['TurnSignal'] %>
+                                    </p>
+                                    <p>
+                                        <b>Headlight : </b>
+                                        <%= morcyc['status']['Headlight'] %>
+                                    </p>
+                                    <p>
+                                        <b>Gasoline : </b>
+                                        <%= morcyc['status']['Gasoline'] %>
+                                    </p>
+                                    <p>
+                                        <b>Horns : </b>
+                                        <%= morcyc['status']['Horns'] %>
+                                    </p>
+                                    <p>
+                                        <b>Detail : </b>
+                                        <%= morcyc['status']['Detail'] %>
+                                    </p>
+                                    <% } %>
+                            </td>
+                            <td>
+                                <% for(var i=0;i<30&&morcyc['history']!=null;i++) { %>
+                                    <p>
+                                        <%= morcyc['history'][i] %>
+                                    </p>
+                                    <% } %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <center>
+                    <button class="ui button" id="getstatus">Get Status</button>
+                </center>
+                <script>
+                    var error = "<font id='error' color='red'><i class='ban icon'></i></font>";
+                    var correct = "<font id='correct' color='green'><i class='checkmark icon'></i></font>";
+                    var morcycId = "<%= morcyc['_id'] %>";
+                    $("#getstatus").on("click", function () {
+                        microgear.publish("/"+morcycId+"/getstatus", "1");
+                    });
+                    var APPID = "CMRM";
+                    var APPKEY = "Q22q476p7toHHLD";
+                    var APPSECRET = "x2ttOOD1vJqbqN5M9sJFdJO6Q";
+                    var ALIAS = "web";
+
+                    var microgear = Microgear.create({
+                        key: APPKEY,
+                        secret: APPSECRET,
+                        alias: ALIAS /*  optional  */
+                    });
+                    microgear.on('message', function (topic, msg) {
+                        if(topic == "/CMRM/"+morcycId+"/sendstatus"){
+                            console.log(msg);
+                            var status = msg.split(",")[0];
+                            $("#status1").html("");
+                            $("#status2").html("");
+                            $("#status3").html("");
+                            $("#status4").html("");
+                            if(status[0]=="1"){
+                                $("#status1").append(correct);
+                            }
+                            if(status[1]=="1"){
+                                $("#status2").append(correct);
+                            }
+                            if(status[2]=="1"){
+                                $("#status3").append(correct);
+                            }
+                            if(status[3]=="1"){
+                                $("#status4").append(correct);
+                            }
+                            if(status[0]=="0"){
+                                $("#status1").append(error);
+                            }
+                            if(status[1]=="0"){
+                                $("#status2").append(error);
+                            }
+                            if(status[2]=="0"){
+                                $("#status3").append(error);
+                            }
+                            if(status[3]=="0"){
+                                $("#status4").append(error);
+                            }
+                            document.getElementById("lat").innerHTML = "";
+                            document.getElementById("lng").innerHTML = "";
+                            document.getElementById("lat").innerHTML = msg.split(",")[1];
+                            document.getElementById("lng").innerHTML = msg.split(",")[2];
+                            $.ajax({
+                                type : "POST",
+                                url : "/morcyc/"+morcycId+"/updateCode",
+                                data : {
+                                    '_token': $('input[name=_token]').val(),
+                                    code : msg.split(",")[0],
+                                    lat : msg.split(",")[1],
+                                    lng : msg.split(",")[2]
+                                },
+                                success : function(data){
+                                    if(data){
+                                        swal("Update data","","success");
+                                    }else{
+                                        swal("error");
+                                    }
+                                }
+                            });
+                        }
+                        
+                    });
+
+                    microgear.on('connected', function () {
+                        microgear.setAlias(ALIAS);
+                        microgear.subscribe("/"+morcycId+"/sendstatus");
+                    });
+
+                    microgear.on('present', function (event) {
+                        console.log(event);
+                    });
+
+                    microgear.on('absent', function (event) {
+                        console.log(event);
+                    });
+                    microgear.connect(APPID);
+
+                </script>
+
             </div>
-            <div style="display: inline-block; width:49%;">
-                <p><b>ID : </b>001</p>
-                <p><b>Name : </b>John</p>
-                <p><b>อุณหภูมิน้ำหล่อเย็นเครื่อง : </b>ปกติ</p>
-                <p><b>ตำแหน่งลิ้นเร่ง : </b>ปกติ</p>
-                <p><b>หัวฉีดน้ำมันเชื้อเพลิง : </b>ปกติ</p>
-                <p><b>ปริมาณออกซิเจน : </b>ปกติ</p>
-            </div> -->
-
-        </div>
-</body>
+    </body>
 
 </html>

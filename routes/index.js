@@ -55,7 +55,7 @@ router.get('/price', function (req, res, next) {
 });
 router.get('/start', function (req, res, next) {
   if (req.session.userId) {
-    res.render("start");
+    motorcycle.startengine(req,res);
   } else {
     res.redirect("/")
   }

@@ -147,4 +147,21 @@ MotorController.getmotorcycle = function(req,res){
         }
     });
 }
+
+MotorController.updateCode = function (req, res) {
+    console.log(req.body);
+    var latlng = {
+        lat : req.body.lat,
+        lng : req.body.lng
+    }
+    Motorcycle.findById({ _id: req.params.id }).update({code : req.body.code, latlng : latlng},function(err,morcyc){
+        if(err) res.send(err);
+        else{
+            res.send(true);
+        }
+    });
+}
+MotorController.startengine = function(req,res){
+    res.render("../views/start",{mId : req.session.morcycId});
+}
 module.exports = MotorController;
