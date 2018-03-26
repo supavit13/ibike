@@ -5,8 +5,17 @@
     <% include ../head.ejs %>
 </head>
 <body>
-
+<div align="center" style="margin:5%;">
+    <h1>Congratulations! You're Verified!</h1>
+    <h3>Thank you for verifying email. You can sign in at <a href="/">morcyc4you.ga</a> now.</h3>
+    <h4>if you are not redirected within 5 seconds, <a href="/">click</a></h4>
+</div>
 </body>
+<script>
+    setInterval(function(){
+        window.location.replace("/");
+    },5000);
+</script>
 
 </html>
 
