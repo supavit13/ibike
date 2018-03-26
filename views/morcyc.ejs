@@ -8,7 +8,7 @@
 <body>
     <% include navbar.ejs %>
         <div style="margin: 5%">
-            <form class="ui form" method="POST" action="/morcyc">
+            <form class="ui form" method="POST" action="/morcyc" encType="multipart/form-data">
                 <h1 class="ui dividing header">Add Motorcycle</h1>
 
                 <div class="two fields">
@@ -61,9 +61,13 @@
                     </div>
 
                     <div class="field">
-                        <div class="form-group">
-                            <label for="comment">History:</label>
-                            <textarea class="form-control" rows="5" id="comment" name="History"></textarea>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Plate</label>
+                                <input type="text" name="plate" placeholder="กข167">
+                            </div>
+
+
                         </div>
                     </div>
                 </div>

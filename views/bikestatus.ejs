@@ -29,18 +29,17 @@
                             <td>
                                 <div class="ui vertical labeled icon buttons">
                                     <button class="ui button" id="img1">
-                                        <i class="id card icon"></i>
-                                        <i class="user icon"></i>
-                                        Front
-                                    </button>
-                                    <button class="ui button" id="img3">
-                                        <i class="id card outline icon"></i>
-                                        Back
-                                    </button>
-                                    <button class="ui button" id="img2">
-                                        <i class="id card icon"></i>
+                                        <i class="id card icon"></i><i class="user icon"></i>
                                         Plate
-                                    </button>
+                                      </button>
+                                      <button class="ui button" id="img3">
+                                        <i class="id card outline icon"></i>
+                                        Front
+                                      </button>
+                                      <button class="ui button" id="img2">
+                                        <i class="id card icon"></i>
+                                        Back
+                                      </button>
                                 </div>
                             </td>
                             <td>
@@ -243,6 +242,39 @@
                 </script>
 
             </div>
+
+        <div class="ui modal img1" style="height:50%;">
+            <i class="close icon"></i>
+            <img src="https://s3.amazonaws.com/morcyc4you/motorcycle/<%= morcyc['_id'] %>/<%= morcyc['pictures']['picPlate'] %>" style="max-width:100%; max-height:100%;">
+        </div>
+        <div class="ui modal img2" style="height:50%; z-index:8000">
+                <i class="close icon"></i>
+                <img src="https://s3.amazonaws.com/morcyc4you/motorcycle/<%= morcyc['_id'] %>/<%= morcyc['pictures']['picBack'] %>" style="max-width:100%; max-height:100%;">
+        </div>
+        <div class="ui modal img3" style="height:50%;">
+                <i class="close icon"></i>
+                <img src="https://s3.amazonaws.com/morcyc4you/motorcycle/<%= morcyc['_id'] %>/<%= morcyc['pictures']['picFront'] %>" style="max-width:100%; max-height:100%;">
+        </div>
+
+        <script>
+            $('#img1').click(function(){
+                $('.ui.modal.img1')
+                .modal('show')
+            ;
+            });
+            $('#img2').click(function(){
+                $('.ui.modal.img2')
+                .modal('show')
+            ;
+            });
+            $('#img3').click(function(){
+                $('.ui.modal.img3')
+                .modal('show')
+            ;
+            });
+            
+        </script>
+        
     </body>
 
 </html>

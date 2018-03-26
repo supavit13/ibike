@@ -19,7 +19,7 @@ function uploadToS3(file,location) {
     s3bucket.createBucket(function () {
       var params = {
        Bucket: BUCKET_NAME,
-       Key: location+"/"+file.name,
+       Key: "user/"+location+"/"+file.name,
        Body: file.data,
       };
       s3bucket.upload(params, function (err, data) {
