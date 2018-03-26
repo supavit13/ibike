@@ -9,7 +9,7 @@ var User = require("../models/User");
 router.get('/:id/verify', function(req, res, next) {
   User.where({_id:req.params.id}).update({ pass: "PreUser"}, function(err, result) {
     if(err) res.send(err);
-    else res.render('verfiy',{user : result});
+    else res.render('../views/verify',{user : result});
   });
   
 });
