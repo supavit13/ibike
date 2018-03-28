@@ -29,10 +29,10 @@
     microgear.on('message', function (topic, msg) {
         console.log("in receive");
         console.log(msg);
-        if (msg == "1") {
+        if (msg == "1" && topic == "/"+mId+"/ackDevice") {
             window.location.replace("/riding");
         }
-        else if (msg == "0") {
+        else if (msg == "0" && topic == "/"+mId+"/ackDevice") {
             window.location.href = "/showbike";
         }
         else if(topic == "/CMRM/"+mId+"/location"){
