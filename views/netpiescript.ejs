@@ -53,21 +53,6 @@
             if (len < 30) {
                 $his[i] = latlng;
                 i++;
-                $.ajax({
-                    type: 'POST',
-                    url: 'morcyc/changelatlng',
-                    data: {
-                        '_token': $('input[name=_token]').val(),
-                        morcycID: morcycID,
-                        latlng : latlng
-                    },
-                    success: function (data) {
-                        console.log(data);
-                        if (data == true) {
-                            console.log("save everytime succcessed");
-                        }
-                    }
-                });
             } else {
                 $.ajax({
                     type: 'POST',
