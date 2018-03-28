@@ -35,7 +35,7 @@
         else if (msg == "0") {
             window.location.href = "/showbike";
         }
-        else {
+        else if(topic == "/CMRM/"+mId+"/location"){
             console.log(msg.split(",")[0]);
             var latlng = {
                 lat: msg.split(",")[0],
