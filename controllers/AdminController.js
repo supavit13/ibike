@@ -2,9 +2,31 @@ var mongoose = require("mongoose");
 var Motorcycle = require("../models/Motorcycle");
 var Zone = require("../models/MotorcycleZone");
 var User = require("../models/User");
+var ping = require("../models/ping");
 var nodemailer = require('nodemailer');
 var bcrypt = require('bcrypt');
 var AdminController = {};
+
+AdminController.ping = function(req,res){
+    var msg = req.body.msg;
+    if(msg=="repair")
+    {
+        var datarepair = {
+            motorID: req.body.id,
+            userID: req.body.userId,
+            topic: req.body.msg
+        }
+        var pingping = new ping(datarepair);
+        pingping.save(function (err) {
+            if (err) {
+                console.log(err);
+                res.send(false);
+            } else {
+                res.send(true);
+            }
+        });
+    }
+}
 
 AdminController.plotToMapAdmin = function (req, res) {
     var zone;

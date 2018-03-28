@@ -143,6 +143,19 @@
                     success: function (data) {
                         if (data) {
                             socket.emit('alert', "New report from userId : "+userId + " can see in motorcycleId : "+id);
+                            $.ajax({
+                                    type:"post",
+                                    url:"/admin/ping",
+                                    data:{
+                                            '_token': $('input[name=_token]').val(),
+                                            msg:"repair",
+                                            id:id,
+                                            userId:userId
+                                    },
+                                    success:function(data2){
+                                        console.log("pinggg");
+                                    }
+                            })
                             swal("Thank you for help", "", "success")
                                 .then((value) => {
                                     window.location.replace("/showbike");

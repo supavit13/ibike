@@ -7,6 +7,10 @@ var morcyc = require("../controllers/MotorController.js");
 var admin = require("../controllers/AdminController.js");
 var usercon = require("../controllers/UserController.js");
 
+router.post("/ping",function(req,res){
+    admin.ping(req,res);
+});
+
 router.get('/', function (req, res, next) {
     if(req.session.userId){
         User.findById({ _id : req.session.userId}).exec(function(err,user){
@@ -34,8 +38,6 @@ router.get("/listname",function(req,res,next){
     }else {
         res.redirect("/");
     }
-    
-    
 });
 router.get("/listmotorcycle",function(req,res,next){
         if(req.session.userId){
