@@ -38,4 +38,8 @@ router.post('/morcyc/:id/updateCode',function(req,res){
     morcyc.updateCode(req,res);
 });
 
+router.post('/morcyc/changelatlng',function(req,res){
+    morcyc.changelatlng(req,res);
+});
+
 module.exports = router;

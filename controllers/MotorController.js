@@ -211,4 +211,10 @@ MotorController.updateCode = function (req, res) {
 MotorController.startengine = function(req,res){
     res.render("../views/start",{mId : req.session.morcycId});
 }
+MotorController.changelatlng = function(req,res){
+    Motorcycle.findById({ _id : req.body.morcycID }).update({ latlng : req.body.latlng},function(err,moto){
+        if(err) res.send(err);
+        else res.send(true);
+    });
+}
 module.exports = MotorController;
