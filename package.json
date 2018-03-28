@@ -7,7 +7,7 @@
   },
   "main": "./bin/www",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "aws-sdk": "^2.209.0",

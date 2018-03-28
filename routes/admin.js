@@ -88,5 +88,14 @@ router.get("/motorcycle/:id",function(req,res){
         res.redirect("/");
     }
 });
+router.get('/history', function (req, res, next) {
+    if(req.session.userId){
+        User.find({}).exec(function(err,user){
+            res.render("history",{users:user});
+        });
+    }else {
+        res.redirect("/");
+    }
+});
 
 module.exports = router;

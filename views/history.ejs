@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include head.ejs %>
+</head>
+
+<body>
+    <% include navbar.ejs %>
+    <div style="margin:5%">
+        <h1>History</h1>
+        <div class="ui center aligned segment">
+            <% for(var i=0;i<users.length;i++) { %>
+                <% if(true){ %>
+            <div class="ui button"><%= users[i]['firstName'] %></div>
+            <div class="ui inverted divider"></div>
+            <% } %>
+            <% } %>
+        </div>
+    </div>
+    <!-- <script>
+        var users = JSON.parse('<%- JSON.stringify(users) %>');
+    </script> -->
+</body>
+
+</html>
