@@ -6,10 +6,10 @@
     $("#start").on("click", function () {
         console.log("staaaart");
         if (document.getElementById("checkbox").checked) {
-            microgear.publish("/"+mId+"/startengine", "1");
+            microgear.publish("/" + mId + "/startengine", "1");
             console.log("staaaart1");
         } else {
-            microgear.publish("/"+mId+"/startengine", "0");
+            microgear.publish("/" + mId + "/startengine", "0");
             console.log("staaaart0");
         }
     });
@@ -27,22 +27,24 @@
     var $his = {};
     var state = 0;
     var i = 0;
+    console.log("state " + state);
+    var currentUrl = window.location.href;
+    currentUrl = currentUrl.split("/")[currentUrl.split("/").length - 1];
+    console.log(currentUrl);
+    if (currentUrl == "riding") {
+        state = 1;
+    }
     microgear.on('message', function (topic, msg) {
         console.log("in receive");
         console.log(msg);
-        var currentUrl = window.location.href;
-        currentUrl = currentUrl.split("/")[currentUrl.split("/").length-1];
-        console.log(currentUrl);
-        if(currentUrl == "riding"){
-            state=1;
-        }
+
         if (msg == "1") {
             window.location.replace("/riding");
         }
         else if (msg == "0") {
             window.location.href = "/showbike";
         }
-        else if(topic == "/CMRM/"+mId+"/location"){
+        else if (topic == "/CMRM/" + mId + "/location") {
             console.log(msg.split(",")[0]);
             var latlng = {
                 lat: msg.split(",")[0],
@@ -51,9 +53,9 @@
             var point = new google.maps.LatLng(parseFloat(msg.split(",")[0]), parseFloat(msg.split(",")[1]));
             if (!google.maps.geometry.poly.containsLocation(point, setZone)) {
                 swal("You out of area");
-                socket.emit('alert', "Report Motorcycle out of area id : "+morcycID +" by userId : "+userId );
+                socket.emit('alert', "Report Motorcycle out of area id : " + morcycID + " by userId : " + userId);
             }
-            
+
             // $.extend($his,latlng);
             console.log(Object.keys($his).length);
             var len = Object.keys($his).length;
@@ -88,11 +90,11 @@
     microgear.on('connected', function () {
         microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
         // document.getElementById("data").innerHTML = "Now I am connected with netpie...";
-        microgear.subscribe("/"+mId+"/ackDevice");
-        if(state){
-            microgear.subscribe("/"+mId+"/location");
+        microgear.subscribe("/" + mId + "/ackDevice");
+        if (state) {
+            microgear.subscribe("/" + mId + "/location");
         }
-        
+
 
     });
 
@@ -142,7 +144,7 @@
             success: function (data) {
                 if (data) {
                     money = 0;
-                    microgear.publish("/"+mId+"/startengine", "0");
+                    microgear.publish("/" + mId + "/startengine", "0");
                     console.log("conf");
                     timer.stop();
                 } else {
