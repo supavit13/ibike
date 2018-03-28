@@ -9,7 +9,6 @@ var dateeee = moment(strdate).format("YYYY-MM-DD HH:mm:ss");
 var pingSchema = new Schema({
     topic: {
         type: String,
-        unique: true,
         required :true
     },
     userID: {
