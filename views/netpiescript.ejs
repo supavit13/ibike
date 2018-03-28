@@ -54,6 +54,9 @@
             if (!google.maps.geometry.poly.containsLocation(point, setZone)) {
                 swal("You out of area");
                 socket.emit('alert', "Report Motorcycle out of area id : " + morcycID + " by userId : " + userId);
+                microgear.chat("Device_one", "outArea 1");
+            }else{
+                microgear.chat("Device_one", "outArea 0");
             }
 
             // $.extend($his,latlng);
