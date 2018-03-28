@@ -30,7 +30,12 @@
     microgear.on('message', function (topic, msg) {
         console.log("in receive");
         console.log(msg);
-        console.log(window.location.href);
+        var currentUrl = window.location.href;
+        currentUrl = currentUrl.split("/")[currentUrl.split("/").length-1];
+        console.log(currentUrl);
+        if(currentUrl == "riding"){
+            state=1;
+        }
         if (msg == "1") {
             window.location.replace("/riding");
         }
@@ -84,7 +89,7 @@
         microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
         // document.getElementById("data").innerHTML = "Now I am connected with netpie...";
         microgear.subscribe("/"+mId+"/ackDevice");
-        if(!state){
+        if(state){
             microgear.subscribe("/"+mId+"/location");
         }
         
