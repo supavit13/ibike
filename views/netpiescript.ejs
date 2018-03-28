@@ -25,10 +25,12 @@
     });
     // var ackDevice = "";
     var $his = {};
+    var state = 0;
     var i = 0;
     microgear.on('message', function (topic, msg) {
         console.log("in receive");
         console.log(msg);
+        console.log(window.location.href);
         if (msg == "1") {
             window.location.replace("/riding");
         }
@@ -82,7 +84,10 @@
         microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
         // document.getElementById("data").innerHTML = "Now I am connected with netpie...";
         microgear.subscribe("/"+mId+"/ackDevice");
-        microgear.subscribe("/"+mId+"/location");
+        if(!state){
+            microgear.subscribe("/"+mId+"/location");
+        }
+        
 
     });
 
