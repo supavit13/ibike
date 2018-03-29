@@ -1,11 +1,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var express = require('express');
-var moment = require('moment');
+var moment = require('moment-timezone');
 var strinput = Date.now();
 var strdate = new Date(strinput);
-var dateeee = moment(strdate).format("YYYY-MM-DD HH:mm:ss");
-var THdate = dateeee.split(" ")[0]+" "+(parseInt((dateeee.split(" ")[1]).split(":")[0])+7).toString()+":"+dateeee.split(":")[1]+":"+dateeee.split(":")[2];
+var dateeee = moment(strdate).tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
 
 
 var pingSchema = new Schema({
@@ -18,7 +17,7 @@ var pingSchema = new Schema({
     },
     date: {
         type: String,
-        default: THdate
+        default: dateeee
     },
     motorID: {
         type: String
