@@ -10,9 +10,9 @@
     <div style="margin:5%">
         <h1>History</h1>
         <div class="ui center aligned segment">
-            <% for(var i=0;i<users.length;i++) { %>
+            <% for(var i=0;i<historyy.length;i++) { %>
                 <% if(true){ %>
-            <div class="ui button"><%= users[i]['firstName'] %></div>
+            <div class="ui button"><%= historyy[i]['userID'] %> แจ้งว่า<%= historyy[i]['topic'] %>  MotorID: <%= historyy[i]['motorID'] %> เวลา <%= historyy[i]['date'] %>  </div>
             <div class="ui inverted divider"></div>
             <% } %>
             <% } %>

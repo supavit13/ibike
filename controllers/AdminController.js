@@ -28,6 +28,12 @@ AdminController.ping = function(req,res){
     }
 }
 
+AdminController.Historydata = function (req,res){
+    ping.find({}).exec(function(err,histo){
+        res.render("../views/history",{historyy:histo});
+    })
+}
+
 AdminController.plotToMapAdmin = function (req, res) {
     var zone;
     Zone.find({}).exec(function(err,zs){
