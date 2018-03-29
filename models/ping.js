@@ -5,6 +5,8 @@ var moment = require('moment');
 var strinput = Date.now();
 var strdate = new Date(strinput);
 var dateeee = moment(strdate).format("YYYY-MM-DD HH:mm:ss");
+var THdate = dateeee.split(" ")[0]+" "+(parseInt((dateeee.split(" ")[1]).split(":")[0])+7).toString()+":"+dateeee.split(":")[1]+":"+dateeee.split(":")[2];
+
 
 var pingSchema = new Schema({
     topic: {
@@ -16,7 +18,7 @@ var pingSchema = new Schema({
     },
     date: {
         type: String,
-        default: strdate
+        default: THdate
     },
     motorID: {
         type: String
