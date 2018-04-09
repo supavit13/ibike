@@ -103,12 +103,12 @@
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
         var name = morcyc[i]['name'];
+        
         if (morcyc[i]['using'] != "yes") {
+            // console.log(morcyc[i]['name']+" "+lat+" "+lng);
             var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'] }).addTo(mymap).bindPopup(name).on('click', function (e) {
                 document.getElementById("booking").disabled = false;
                 document.getElementById("repairing").disabled = false;
-                // console.log(setArea.contains({lat: 13.1195, lng: 100.92055}));
-
                 $("#repairing").data('id', e.target.options["morcycId"]);
                 $("#booking").data('id', e.target.options["morcycId"]);
                 console.log("morcycId : " + e.target.options["morcycId"]);
@@ -126,7 +126,6 @@
                             L.latLng(lat, lng)
                         ]
                 };
-                // alert(lat + "," + lng);
                 routing = L.Routing.control(ways).addTo(mymap);
             });
             console.log("name: " + morcyc[i]['name'] + " " + setArea.contains(m1.getLatLng()));
@@ -135,12 +134,6 @@
     function clickRepair() {
         window.location.replace("/repair/" + $("#repairing").data("id"));
     }
-    // $(document).on("click touchstart tap",".morcyc",function(){
-    //     var tmp = $(this).data('id');
-    //     console.log(tmp);
-    //     document.getElementById("booking").disabled = false;
-    //     $("#booking").data('id',tmp);
-    // });
 
     $(document).on("click touchstart tap", "#booking", function () {
         if (document.getElementById("booking").disabled == false) {
@@ -169,7 +162,6 @@
         $("#repairing").data('id', "");
         lat = e.latlng.lat;
         lng = e.latlng.lng;
-        console.log(lat + "," + lng);
         if (routing != null) {
             routing.spliceWaypoints(0, 2);
             mymap.removeControl(routing);
@@ -184,6 +176,7 @@
                     L.latLng(lat, lng)
                 ]
         };
+        console.log(ways);
         // alert(lat + "," + lng);
         routing = L.Routing.control(ways).addTo(mymap);
     }
