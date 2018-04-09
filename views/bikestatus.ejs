@@ -156,7 +156,7 @@
                     var correct = "<font id='correct' color='green'><i class='checkmark icon'></i></font>";
                     var morcycId = "<%= morcyc['_id'] %>";
                     $("#getstatus").on("click", function () {
-                        microgear.publish("/"+morcycId+"/getstatus", "1");
+                        microgear.chat("Device_one", "Admin");
                     });
                     var APPID = "CMRM";
                     var APPKEY = "Q22q476p7toHHLD";
