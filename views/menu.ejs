@@ -3,44 +3,53 @@
 
 <head>
     <% include head.ejs %>
+    <% include mapscript.ejs %>
 </head>
 
 <body>
-    <% include navbar.ejs %>
-        <div class="row">
-
+    <!-- <% include navbar.ejs %> -->
+        <div class="row" style="position: absolute;z-index: 100; width: 100%;">
+            <br>
+                <center><h1 style="text-shadow: 0 0 20px darkgray;">MORCYC4YOU</h1></center>
             <div class="col-md-6">
+                
                 <!-- เว้นบรรทัด -->
                 <div style="margin-top: 10%;"></div>
                 <!-- เว้นบรรทัด -->
                 <center>
                     <img src="/images/tile3.png" style="height: 50%; width: 50%">
                 </center>
+                
             </div>
 
 
-            <div class="col-md-6">
+            <div class="col-md-6" >
                 <!-- เว้นบรรทัด -->
                 <div style="margin-top: 10%;"></div>
                 <!-- เว้นบรรทัด -->
                 <center>
-                    <div class="ui large buttons">
-                        <button class="ui button" id="login" style="border-radius: 5px;">Sign in</button>
-                        <div class="or"></div>
-                        <a href="/register">
-                            <button class="ui button">Register</button>
-                        </a>
-                    </div>
-                    <!-- <form action="/login" method="post"> -->
-                    <div id="fromlogin2"></div>
-                    <!-- </form> -->
-                </center>
+                <div style="background-color: white; width: 70%; padding: 6%; border-radius: 10px; box-shadow: 0 0 20px darkgray;">
+                        
+                                <div class="ui small buttons">
+                                    <button class="ui button" id="login" style="border-radius: 5px;">Sign in</button>
+                                    <div class="or"></div>
+                                    <a href="/register">
+                                        <button class="ui button">Register</button>
+                                    </a>
+                                </div>
+                                <!-- <form action="/login" method="post"> -->
+                                <div id="fromlogin2"></div>
+                                <!-- </form> -->
+                            
+                </div>
+            </center>
+                
 
 
             </div>
 
         </div>
-
+        <div id="mapLogin" style="position: relative; overflow: hidden; z-index: 10;"></div>
 
         <script>
 
@@ -49,8 +58,8 @@
                 '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
                 '<H1> LOG-IN </H1>',
 
-                '<div class="ui left icon input fluid" style="width:230px"><i class="user icon"></i><input type="email" name="email" placeholder="E-mail address" id="email" required></div>', '<br>',
-                '<div class="ui left icon input fluid" style="width:230px"><i class="lock icon"></i><input type="password" name="password" placeholder="Password" id="password" required></div>',
+                '<div class="ui left icon input fluid" style="width:200px"><i class="user icon"></i><input type="email" name="email" placeholder="E-mail address" id="email" required></div>', '<br>',
+                '<div class="ui left icon input fluid" style="width:200px"><i class="lock icon"></i><input type="password" name="password" placeholder="Password" id="password" required></div>',
 
                 '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
 
@@ -105,6 +114,104 @@
             }
 
         </script>
+        
 </body>
+<script>
+    var mymap = L.map('mapLogin', {
+        center: new L.LatLng(13.1192, 100.92066),
+        zoom: 8,
+    });
+    L.gridLayer.googleMutant({
+        minZoom: 6,
+        type: 'roadmap' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+    }).addTo(mymap);
+    var polygon = [[21.22794, 90.79102], [3.73271, 90.79102], [4.82826, 115.00488], [21.30985, 115.00488]];
+
+    var json = '<%- JSON.stringify(zone) %>';
+    window.onload = function () {
+        if (json == '') {
+            location.reload();
+        }
+    };
+    // var json = JSON.parse(htmlDecode("<%= JSON.stringify(zone) %>"));
+    var dbzone = JSON.parse(json);
+    dbzone = dbzone[0]['zone'];
+    console.log(dbzone);
+    var setArea = L.polygon(dbzone).addTo(mymap);
+    setArea.setStyle({ "fillOpacity": 0, color: 'red' });
+    mymap.setMaxBounds(polygon);
+    mymap.addControl(L.control.locate({
+        // iconUrl: '/images/markar.png',
+        locateOptions: {
+            enableHighAccuracy: true
+        }
+    }));
+    var greenIcon = L.icon({
+        iconUrl: '/images/rsz_blue.png',
+        // shadowUrl: 'leaf-shadow.png',
+        iconSize: [42, 94], // size of the icon
+    });
+    var userIcon = L.icon({
+        iconUrl: '/images/user_icon.png',
+        iconSize: [50, 50], // size of the icon
+    });
+
+    var mylat;
+    var mylng;
+    var current_position, current_accuracy;
+
+    function onLocationFound(e) {
+        // if position defined, then remove the existing position marker and accuracy circle from the map
+        if (current_position) {
+            mymap.removeLayer(current_position);
+            // mymap.removeLayer(current_accuracy);
+        }
+
+        var radius = e.accuracy / 2;
+
+        mylat = e.latlng.lat;
+        mylng = e.latlng.lng;
+        current_position = L.marker(e.latlng, { icon: userIcon }).addTo(mymap);
+        // current_position = L.marker(e.latlng, { icon: userIcon }).addTo(mymap)
+        //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+        // current_accuracy = L.circle(e.latlng, radius).addTo(mymap);
+    }
+
+    function onLocationError(e) {
+        if (e.message != null) {
+            if (e.message == "Geolocation error: Timeout expired.") {
+                console.log(e.message);
+            } else {
+                console.log(e.message);
+            }
+        }
+
+    }
+
+    mymap.on('locationfound', onLocationFound);
+    mymap.on('locationerror', onLocationError);
+
+    function locate() {
+        mymap.locate({ setView: true, maxZoom: 10 });
+    }
+
+    setInterval(function () {
+        locate();
+    }, 1000);
+
+    var morcyc = JSON.parse('<%- JSON.stringify(morcyc) %>');
+
+    for (var i = 0; i < morcyc.length; i++) {
+        var lat = parseFloat(morcyc[i]['latlng']['lat']);
+        var lng = parseFloat(morcyc[i]['latlng']['lng']);
+        var name = morcyc[i]['name'];
+        
+        if (morcyc[i]['using'] != "yes") {
+            // console.log(morcyc[i]['name']+" "+lat+" "+lng);
+            var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'] }).addTo(mymap);
+        }
+    }
+</script>
 
 </html>

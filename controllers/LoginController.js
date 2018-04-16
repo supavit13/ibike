@@ -1,5 +1,7 @@
 var mongoose = require("mongoose");
 var User = require("../models/User");
+var Motorcycle = require("../models/Motorcycle");
+var Zone = require("../models/MotorcycleZone");
 var bcrypt = require('bcrypt');
 var LoginController = {};
 LoginController.authenticate = function (req, res) {
@@ -51,12 +53,28 @@ LoginController.authenticate = function (req, res) {
 }
 
 LoginController.checksessions = function (req, res) {
+    var zone;
+    var mc;
+    Zone.find({}).exec(function (err, zs) {
+        if (err) console.log(err);
+        else zone = zs;
+    });
+    console.log(zone);
+    Motorcycle.find({}).exec(function (err, morcyc) {
+        if (err) {
+            console.log("Error:", err);
+        }
+        else {
+            // res.send(users);
+           ms = morcyc;
+        }
+    });
     User.findOne({ _id: req.session.userId }).exec(function (err, user) {
         if (err) {
-            res.render("../views/menu");
+            res.render("../views/menu", { morcyc: ms, zone: zone });
         }
         else if (user == null) {
-            res.render("../views/menu");
+            res.render("../views/menu", { morcyc: ms, zone: zone });
         }
         else if (user['pass'] == "Admin") {
             res.redirect("/admin");
@@ -65,7 +83,7 @@ LoginController.checksessions = function (req, res) {
             res.redirect("/showbike");
         }
         else {
-            res.render("../views/menu");
+            res.render("../views/menu", { morcyc: ms, zone: zone });
         }
 
     });
