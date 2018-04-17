@@ -17,7 +17,6 @@ var pingSchema = new Schema({
     },
     date: {
         type: String,
-        default: dateeee
     },
     motorID: {
         type: String

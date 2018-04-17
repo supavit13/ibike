@@ -5,6 +5,11 @@ var User = require("../models/User");
 var ping = require("../models/ping");
 var nodemailer = require('nodemailer');
 var bcrypt = require('bcrypt');
+
+var moment = require('moment-timezone');
+var strinput = Date.now();
+var strdate = new Date(strinput);
+var dateeee = moment(strdate).tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
 var AdminController = {};
 
 AdminController.ping = function(req,res){
@@ -14,7 +19,8 @@ AdminController.ping = function(req,res){
         var datarepair = {
             motorID: req.body.id,
             userID: req.body.userId,
-            topic: req.body.msg
+            topic: req.body.msg,
+            date: dateeee
         }
         var pingping = new ping(datarepair);
         pingping.save(function (err) {
@@ -30,7 +36,8 @@ AdminController.ping = function(req,res){
         var dataout = {
             motorID: req.session.morcycId,
             userID: req.session.userId,
-            topic: req.body.msg
+            topic: req.body.msg,
+            date: dateeee
         }
         var pingping = new ping(dataout);
         pingping.save(function (err) {
