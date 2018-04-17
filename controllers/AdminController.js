@@ -26,8 +26,23 @@ AdminController.ping = function(req,res){
             }
         });
     }
+    if(msg=="outofarea"){
+        var dataout = {
+            motorID: req.session.morcycId,
+            userID: req.session.userId,
+            topic: req.body.msg
+        }
+        var pingping = new ping(dataout);
+        pingping.save(function (err) {
+            if (err) {
+                console.log(err);
+                res.send(false);
+            } else {
+                res.send(true);
+            }
+        });
+    }
 }
-
 AdminController.Historydata = function (req,res){
     ping.find({}).exec(function(err,histo){
         res.render("../views/history",{historyy:histo});

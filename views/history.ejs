@@ -4,7 +4,16 @@
 <head>
     <% include head.ejs %>
 </head>
-
+<script>
+    var socket = io();
+    socket.on('alert', function(msg){
+        swal(msg);
+    setInterval({
+        
+    },3000);
+    location.reload();
+});
+</script>
 <body>
     <% include navbar.ejs %>
     <div style="margin:5%">

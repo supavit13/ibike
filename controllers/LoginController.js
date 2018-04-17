@@ -54,7 +54,7 @@ LoginController.authenticate = function (req, res) {
 
 LoginController.checksessions = function (req, res) {
     var zone;
-    var mc;
+    var ms;
     Zone.find({}).exec(function (err, zs) {
         if (err) console.log(err);
         else zone = zs;

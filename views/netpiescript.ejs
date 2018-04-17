@@ -52,10 +52,22 @@
             }
             var point = new google.maps.LatLng(parseFloat(msg.split(",")[0]), parseFloat(msg.split(",")[1]));
             if (!google.maps.geometry.poly.containsLocation(point, setZone)) {
-                swal("You out of area");
+                
                 socket.emit('alert', "Report Motorcycle out of area id : " + morcycID + " by userId : " + userId);
                 microgear.chat("Device_one", "outArea 1");
-            }else{
+                $.ajax({
+                    type: "post",
+                    url: "/admin/ping",
+                    data: {
+                        '_token': $('input[name=_token]').val(),
+                        msg: "outofarea"
+                    },
+                    success: function (data) {
+                        console.log("outofarea save");
+                    }
+                });
+                swal("You out of area");
+            } else {
                 microgear.chat("Device_one", "outArea 0");
             }
 
