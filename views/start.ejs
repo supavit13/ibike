@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <% include navbar.ejs %>
+    <!-- <% include navbar.ejs %> -->
         <center>
 
 
@@ -33,14 +33,32 @@
                 </div>
                 <a> ON </a>
             </div>
-
+            <br>
+            <button class="ui button" onclick="cancalBooking()" style="width: 30%">Cancel</button>
 
 
 
         </center>
 
 </body>
-
+<script>
+    function cancalBooking() {
+        $.ajax({
+            type: "POST",
+            url: "/morcyc/turnoff",
+            data: {
+                '_token': $('input[name=_token]').val()
+            },
+            success: function (data) {
+                if (data) {
+                    window.location.replace("/showbike");
+                } else {
+                    swal(data);
+                }
+            }
+        });
+    }
+</script>
 
 
 <% include netpiescript.ejs %>
