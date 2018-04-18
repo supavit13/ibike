@@ -7,12 +7,12 @@ var nodemailer = require('nodemailer');
 var bcrypt = require('bcrypt');
 
 var moment = require('moment-timezone');
-var strinput = Date.now();
-var strdate = new Date(strinput);
-var dateeee = moment(strdate).tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
 var AdminController = {};
 
 AdminController.ping = function(req,res){
+    var strinput = Date.now();
+    var strdate = new Date(strinput);
+    var dateeee = moment(strdate).tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
     var msg = req.body.msg;
     if(msg=="repair")
     {
@@ -33,6 +33,23 @@ AdminController.ping = function(req,res){
         });
     }
     if(msg=="outofarea"){
+        var dataout = {
+            motorID: req.session.morcycId,
+            userID: req.session.userId,
+            topic: req.body.msg,
+            date: dateeee
+        }
+        var pingping = new ping(dataout);
+        pingping.save(function (err) {
+            if (err) {
+                console.log(err);
+                res.send(false);
+            } else {
+                res.send(true);
+            }
+        });
+    }
+    if(msg=="inarea"){
         var dataout = {
             motorID: req.session.morcycId,
             userID: req.session.userId,

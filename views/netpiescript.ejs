@@ -27,6 +27,7 @@
     var $his = {};
     var state = 0;
     var i = 0;
+    var statecheck = 1;
     console.log("state " + state);
     var currentUrl = window.location.href;
     currentUrl = currentUrl.split("/")[currentUrl.split("/").length - 1];
@@ -51,7 +52,7 @@
                 lng: msg.split(",")[1]
             }
             var point = new google.maps.LatLng(parseFloat(msg.split(",")[0]), parseFloat(msg.split(",")[1]));
-            if (!google.maps.geometry.poly.containsLocation(point, setZone)) {
+            if (!google.maps.geometry.poly.containsLocation(point, setZone) && statecheck) {
                 
                 socket.emit('alert', "Report Motorcycle out of area id : " + morcycID + " by userId : " + userId);
                 microgear.chat("Device_one", "outArea 1");
@@ -67,7 +68,22 @@
                     }
                 });
                 swal("You out of area");
-            } else {
+                statecheck = 0;
+            }else if(google.maps.geometry.poly.containsLocation(point, setZone) && !statecheck) {
+                statecheck = 1;
+                $.ajax({
+                    type: "post",
+                    url: "/admin/ping",
+                    data: {
+                        '_token': $('input[name=_token]').val(),
+                        msg: "inarea"
+                    },
+                    success: function (data) {
+                        console.log("inarea save");
+                    }
+                });
+                swal("You in of area");
+                console.log(statecheck);
                 microgear.chat("Device_one", "outArea 0");
             }
 
