@@ -232,7 +232,7 @@ AdminController.polygonToBoard = function(req,res){
             var str="";
             for(var i=0;i<array.length;i++){
                 for(var j=0;j<2;j++){
-                    str+=array[i][j];
+                    str+=array[i][j]+",";
                 }
             }
             res.send(str);
