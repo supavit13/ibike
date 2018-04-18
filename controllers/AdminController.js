@@ -223,6 +223,13 @@ AdminController.deleteUser = function (req, res) {
     });
     res.send(true);
 };
+
+AdminController.polygonToBoard = function(req,res){
+    Zone.find({}).exec(function(err,zs){
+        if(err) res.json(err);
+        else res.json(zs);
+    });
+}
 module.exports = AdminController;
 
 //solution nodejs email

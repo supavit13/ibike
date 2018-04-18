@@ -99,5 +99,9 @@ router.get('/history', function (req, res, next) {
     }
 });
 
+router.get('/getPolygon', function (req, res, next) {
+    admin.polygonToBoard(req,res);
+});
+
 
 module.exports = router;
