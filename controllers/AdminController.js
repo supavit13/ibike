@@ -226,7 +226,7 @@ AdminController.deleteUser = function (req, res) {
 
 AdminController.polygonToBoard = function(req,res){
     Zone.find({}).exec(function(err,zs){
-        if(err) res.json(err);
+        if(err) res.send(err);
         else {
             var array = zs[0]["zone"];
             var str="";
@@ -235,7 +235,7 @@ AdminController.polygonToBoard = function(req,res){
                     str+=array[i][j]+",";
                 }
             }
-            res.send(JSON.stringify(zs[0]));
+            res.send(zs[0]);
         }
     });
 }
