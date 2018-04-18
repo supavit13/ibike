@@ -224,7 +224,7 @@ AdminController.deleteUser = function (req, res) {
     res.send(true);
 };
 
-AdminController.polygonToBoard = function(req,res){
+AdminController.polygonLat = function(req,res){
     Zone.find({}).exec(function(err,zs){
         if(err) res.send(err);
         else {
@@ -232,6 +232,21 @@ AdminController.polygonToBoard = function(req,res){
             var str="";
             for(var i=0;i<array.length;i++){
                 for(var j=0;j<1;j++){
+                    str+=array[i][j]+",";
+                }
+            }
+            res.send(str);
+        }
+    });
+}
+AdminController.polygonLng = function(req,res){
+    Zone.find({}).exec(function(err,zs){
+        if(err) res.send(err);
+        else {
+            var array = zs[0]["zone"];
+            var str="";
+            for(var i=0;i<array.length;i++){
+                for(var j=1;j<2;j++){
                     str+=array[i][j]+",";
                 }
             }

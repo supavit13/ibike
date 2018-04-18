@@ -99,8 +99,11 @@ router.get('/history', function (req, res, next) {
     }
 });
 
-router.get('/getPolygon', function (req, res, next) {
-    admin.polygonToBoard(req,res);
+router.get('/getLat', function (req, res, next) {
+    admin.polygonLat(req,res);
+});
+router.get('/getLng', function (req, res, next) {
+    admin.polygonLng(req,res);
 });
 
 
