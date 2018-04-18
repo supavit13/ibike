@@ -230,7 +230,7 @@ AdminController.polygonToBoard = function(req,res){
         else {
             var array = zs[0]["zone"];
             var str="";
-            for(var i=0;i<array.size();i++){
+            for(var i=0;i<array.length;i++){
                 for(var j=0;j<2;j++){
                     str+=array[i][j];
                 }
