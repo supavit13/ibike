@@ -227,7 +227,7 @@ AdminController.deleteUser = function (req, res) {
 AdminController.polygonToBoard = function(req,res){
     Zone.find({}).exec(function(err,zs){
         if(err) res.json(err);
-        else res.json(zs[0]["zone"]);
+        else res.json(zs);
     });
 }
 module.exports = AdminController;
