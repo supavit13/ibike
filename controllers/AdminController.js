@@ -235,7 +235,7 @@ AdminController.polygonToBoard = function(req,res){
                     str+=array[i][j]+",";
                 }
             }
-            res.json(str);
+            res.send(str);
         }
     });
 }
