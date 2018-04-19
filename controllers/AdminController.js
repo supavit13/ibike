@@ -9,6 +9,11 @@ var bcrypt = require('bcrypt');
 var moment = require('moment-timezone');
 var AdminController = {};
 
+
+
+
+
+
 AdminController.ping = function(req,res){
     var strinput = Date.now();
     var strdate = new Date(strinput);

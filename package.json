@@ -24,6 +24,7 @@
     "express-session": "^1.15.6",
     "gcs-signed-urls": "^1.0.4",
     "leaflet-measure": "^3.0.3",
+    "microgear": "^0.8.1",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
     "mongodb": "^3.0.0-rc0",
