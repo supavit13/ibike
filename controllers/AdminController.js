@@ -262,12 +262,31 @@ AdminController.polygonLng = function(req,res){
 AdminController.checkzone = function(req,res){
     var motorcycID = req.body.data;
     var latlng = req.body.latlng;
-
+    var strinput = Date.now();
+    var strdate = new Date(strinput);
+    var dateeee = moment(strdate).tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
     console.log("in checkzone");
     console.log(motorcycID);
     console.log(latlng);
     console.log(req.body);
-    res.send(true);
+    var dataout = {
+        motorID: motorcycID,
+        userID: "carjacker",
+        topic: "carjacker",
+        date: dateeee
+    }
+    var pingping = new ping(dataout);
+    pingping.save(function (err) {
+        if (err) {
+            console.log(err);
+            res.send(false);
+        } else {
+            res.send(true);
+        }
+    });
+    Motorcycle.where({_id:motorcycID}).update({ latlng: latlng}, function(err, result) {
+        res.send(true);
+    });
    
 }
 module.exports = AdminController;
