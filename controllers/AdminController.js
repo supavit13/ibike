@@ -262,7 +262,6 @@ AdminController.checkzone = function(req,res){
     console.log(motorcycID);
     console.log(latlng);
     console.log(req.body);
-    console.log(req);
    
 }
 module.exports = AdminController;
