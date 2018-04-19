@@ -279,15 +279,15 @@ AdminController.checkzone = function(req,res){
     pingping.save(function (err) {
         if (err) {
             console.log(err);
-            res.send(false);
+            
         } else {
-            res.send(true);
+            
         }
     });
     Motorcycle.where({_id:motorcycID}).update({ latlng: latlng}, function(err, result) {
-        res.send(true);
+        
     });
-   
+    res.send(true);
 }
 module.exports = AdminController;
 
