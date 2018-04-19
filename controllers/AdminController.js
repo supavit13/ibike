@@ -257,6 +257,8 @@ AdminController.polygonLng = function(req,res){
 AdminController.checkzone = function(req,res){
     var motorcycID = req.body.id;
     var latlng = req.body.latlng;
+
+    console.log("in checkzone");
     console.log(motorcycID);
     console.log(latlng);
     console.log(req.body);
