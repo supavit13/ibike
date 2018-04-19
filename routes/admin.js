@@ -107,6 +107,7 @@ router.get('/getLng', function (req, res, next) {
 });
 
 router.post('/checkzone', function (req, res, next) {
+    console.log("before checkzone");
     admin.checkzone(req,res);
 });
 
