@@ -89,6 +89,9 @@ var microgear = MicroGear.create({
 microgear.on('connected', function() {
     console.log('Connected...');
     microgear.setAlias(ALIAS);
+    setInterval(function() {
+      microgear.chat('mygear', 'Hello world.');
+  },1000);
     
 });
 
