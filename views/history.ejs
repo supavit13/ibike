@@ -21,7 +21,7 @@
         <div class="ui center aligned segment">
             <% for(var i=(historyy.length)-1;i>-1;i--) { %>
                 <% if(true){ %>
-            <div class="ui button"><%= historyy[i]['userID'] %> แจ้งว่า<%= historyy[i]['topic'] %>  MotorID: <%= historyy[i]['motorID'] %> เวลา <%= historyy[i]['date'] %>  </div>
+            <a href="/admin/motorcycle/<%= historyy[i]['motorID'] %>"><button class="ui button"><%= historyy[i]['userID'] %> แจ้งว่า<%= historyy[i]['topic'] %>  MotorID: <%= historyy[i]['motorID'] %> เวลา <%= historyy[i]['date'] %>  </button></a>
             <div class="ui inverted divider"></div>
             <% } %>
             <% } %>
