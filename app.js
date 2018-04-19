@@ -74,6 +74,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+setInterval(function(){
+  console.log(loop);
+},1000);
 
 var MicroGear = require('microgear');
 
