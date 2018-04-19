@@ -75,7 +75,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 setInterval(function(){
-  console.log(loop);
+  console.log("loop");
 },1000);
 
 var MicroGear = require('microgear');
