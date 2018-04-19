@@ -106,5 +106,9 @@ router.get('/getLng', function (req, res, next) {
     admin.polygonLng(req,res);
 });
 
+router.post('/checkzone', function (req, res, next) {
+    admin.checkzone(req,res);
+});
+
 
 module.exports = router;

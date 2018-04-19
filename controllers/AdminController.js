@@ -254,6 +254,13 @@ AdminController.polygonLng = function(req,res){
         }
     });
 }
+AdminController.checkzone = function(req,res){
+    var motorcycID = req.body.id;
+    var latlng = req.body.latlng;
+    console.log(motorcycID);
+    console.log(latlng);
+   
+}
 module.exports = AdminController;
 
 //solution nodejs email
