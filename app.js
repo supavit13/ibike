@@ -75,4 +75,31 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+var MicroGear = require('microgear');
+
+const APPID  = "CMRM";
+const KEY    = "Q22q476p7toHHLD";
+const SECRET = "x2ttOOD1vJqbqN5M9sJFdJO6Q";
+const ALIAS = "web";
+var microgear = MicroGear.create({
+    key : KEY,
+    secret : SECRET
+});
+
+microgear.on('connected', function() {
+    console.log('Connected...');
+    microgear.setAlias(ALIAS);
+    
+});
+
+microgear.on('message', function(topic,body) {
+    console.log('incoming : '+topic+' : '+body);
+});
+
+microgear.on('closed', function() {
+    console.log('Closed...');
+});
+
+microgear.connect(APPID);
+
 module.exports = app;
