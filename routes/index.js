@@ -9,11 +9,15 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res, next) {
   // res.render('index', { title: 'Express' });
+  
   login.checksessions(req, res);
   // res.render("menu");
 });
 router.post('/login', function (req, res, next) {
-  if (validator.validate(req.body.email)) {
+  if(req.session.userId){
+    res.send("This account already login");
+  }
+  else if (validator.validate(req.body.email)) {
     // emailExistence.check(req.body.email, function (error, response) {
     //   if (error) res.send("Email does not exist");
     //   else {

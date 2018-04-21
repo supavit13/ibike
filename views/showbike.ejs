@@ -12,8 +12,9 @@
         <div id="map"></div>
         <% include mymap.ejs %>
         <!-- <p id="zone"><%= zone %></p> -->
-        <div>
+        <div >
             <center>
+                <div class="boxBooking"></div>
                 <div class="ui large buttons">
                     <button class="ui primary button" id="booking" data-id="" disabled> Booking </button>
                     <div class="or"></div>
@@ -26,6 +27,23 @@
                 <!-- <button class="ui primary button" onclick="swal('hello')" > alert </button> -->
             </center>
         </div>
+       
+        
 </body>
+<script>
+    function getPlate(){
+        $('.ui.modal.plate')
+                .modal('show')
+            ;
+
+    }
+    function getBrand(){
+        $('.ui.modal.brand')
+                .modal('show')
+            ;
+
+    }
+    
+</script>
 
 </html>

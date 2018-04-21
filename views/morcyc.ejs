@@ -3,99 +3,108 @@
 
 <head>
     <% include head.ejs %>
+    <script src="https://cdn.netpie.io/microgear.js"></script>
 </head>
 <% include alertscript.ejs %>
-<body>
-    <% include navbar.ejs %>
-        <div style="margin: 5%">
-            <form class="ui form" method="POST" action="/morcyc" encType="multipart/form-data">
-                <h1 class="ui dividing header">Add Motorcycle</h1>
 
-                <div class="two fields">
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>ID</label>
-                                <input type="text" name="ID" placeholder="0000xx">
-                            </div>
+    <body>
+        <% include navbar.ejs %>
+            <div style="margin: 5%">
+                <form class="ui form" method="POST" action="/morcyc" encType="multipart/form-data">
+                    <h1 class="ui dividing header">Add Motorcycle</h1>
 
-                            <div class="field">
-                                <label>Name</label>
-                                <input type="text" name="Name" placeholder="ไอ้ติ๋ม">
-                            </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Plate</label>
+                            <input type="text" name="plate" placeholder="กข167">
+                        </div>
+                        <div class="field">
+                            <label>Brand</label>
+                            <input type="text" name="Brand" placeholder="Click I">
+                        </div>
 
+                    </div>
+
+                    <!-- 1 END -->
+
+                    <div class="three fields">
+                        <div class="field">
+                            <label>Lat</label>
+                            <input type="text" name="Lat" id="lat" placeholder="13.000000">
+                        </div>
+
+                        <div class="field">
+                            <label>Lng</label>
+                            <input type="text" name="Lng" id="lng" placeholder="100.000000">
+                        </div>
+                        <div class="field">
+                            <label>Get Position from motorcycle</label>
+                            <input type="button" class="ui button getPos" value="Get Position">
                         </div>
                     </div>
 
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Brand</label>
-                                <input type="text" name="Brand" placeholder="Click I">
-                            </div>
-
-                            <div class="field">
-                                <label>Status</label>
-                                <input type="text" name="Status" placeholder="ปกติ">
-                            </div>
+                    <div>
+                        <div class="file-upload">
+                            1. In front of motorcycle
+                            <br>
+                            <input id="upload" class="file-upload__input" type="file" name="picFront" style="width: 225px">
+                            <br>
+                            <br> 2. Back of motorcycle
+                            <br>
+                            <input id="upload" class="file-upload__input" type="file" name="picBack" style="width: 225px">
+                            <br>
+                            <br> 3.License plate
+                            <br>
+                            <input id="upload" class="file-upload__input" type="file" name="picPlate" style="width: 225px">
                         </div>
                     </div>
-                </div>
-
-                <!-- 1 END -->
-
-                <div class="two fields">
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Lat</label>
-                                <input type="text" name="Lat" placeholder="13.000000">
-                            </div>
-
-                            <div class="field">
-                                <label>Lng</label>
-                                <input type="text" name="Lng" placeholder="100.000000">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
-                                <label>Plate</label>
-                                <input type="text" name="plate" placeholder="กข167">
-                            </div>
+            </div>
 
 
-                        </div>
-                    </div>
-                </div>
+            <center>
+                <button type="submit" class="positive ui button">Save</button>
+                <br>
+                <br>
+            </center>
+            </form>
+    </body>
+    <script>
+        var APPID = "CMRM";
+        var APPKEY = "Q22q476p7toHHLD";
+        var APPSECRET = "x2ttOOD1vJqbqN5M9sJFdJO6Q";
+        var ALIAS = "web";
+        var microgear = Microgear.create({
+            key: APPKEY,
+            secret: APPSECRET,
+            alias: ALIAS /*  optional  */
+        }); 
+        microgear.on('message', function (topic, msg) {
+            console.log("in receive");
+            console.log(msg);
+            if(topic == "/CMRM/recvPos"){
+                $("#lat").attr("value",msg.split(",")[0]);
+                $("#lng").attr("value",msg.split(",")[1]);
+            }
+        });
 
-                <div>
-                    <div class="file-upload">
-                        1.ภาพรถ(หน้า)
-                        <br>
-                        <input id="upload" class="file-upload__input" type="file" name="picFront" style="width: 225px">
-                        <br>
-                        <br> 2.ภาพรถ(หลัง)
-                        <br>
-                        <input id="upload" class="file-upload__input" type="file" name="picBack" style="width: 225px">
-                        <br>
-                        <br> 3.ทะเบียนชัดๆ
-                        <br>
-                        <input id="upload" class="file-upload__input" type="file" name="picPlate" style="width: 225px">
-                    </div>
-                </div>
-        </div>
+        microgear.on('connected', function () {
+            microgear.setAlias(ALIAS);
+            microgear.subscribe("/recvPos");
+        });
 
+        microgear.on('present', function (event) {
+            console.log(event);
+        });
 
-        <center>
-            <button type="submit" class="positive ui button">บันทึก</button>
-            <br>
-            <br>
-        </center>
-        </form>
-</body>
+        microgear.on('absent', function (event) {
+            console.log(event);
+        });
+        microgear.connect(APPID);
+
+        $(".getPos").on("click",function(){
+            microgear.publish("/reqPos", "1");
+        });
+
+    </script>
 
 </html>

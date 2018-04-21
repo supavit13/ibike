@@ -14,8 +14,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Status</th>
+                    <th>Plate</th>
+                    <th>Brand</th>
                     <th>Position</th>
                 </tr>
             </thead>
@@ -66,15 +66,10 @@
                             </a>
                         </td>
                         <td>
-                            <%= morcyc[i]['name'] %>
+                            <%= morcyc[i]['plate'] %>
                         </td>
                         <td>
-                            Not ready
-                            <div class="ui fitted slider checkbox">
-                                <input type="checkbox">
-                                <label></label>
-                            </div>
-                            Ready
+                                <%= morcyc[i]['brand'] %>
                         </td>
                         <td>X:
                             <%= morcyc[i]['latlng']['lat'] %> Y:
@@ -90,6 +85,12 @@
 <script>
     var morcyc = JSON.parse('<%- JSON.stringify(morcyc) %>');
     console.log(morcyc);
+
+    $("#ready").on("change",function(){
+        var data=$(this).val;
+        alert(data);
+
+    })
 </script>
 
 </html>

@@ -102,15 +102,23 @@
     for (var i = 0; i < morcyc.length; i++) {
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
-        var name = morcyc[i]['name'];
+        var name = morcyc[i]['plate'];
         
         if (morcyc[i]['using'] != "yes") {
             // console.log(morcyc[i]['name']+" "+lat+" "+lng);
-            var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'] }).addTo(mymap).bindPopup(name).on('click', function (e) {
+            var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'] , morcycData : morcyc[i] }).addTo(mymap).bindPopup(name).on('click', function (e) {
                 document.getElementById("booking").disabled = false;
                 document.getElementById("repairing").disabled = false;
-                $("#repairing").data('id', e.target.options["morcycId"]);
-                $("#booking").data('id', e.target.options["morcycId"]);
+                var dataid = e.target.options["morcycId"];
+                var morcycData = e.target.options["morcycData"];
+                $("#repairing").data('id', dataid);
+                $("#booking").data('id', dataid);
+                var plate = '<div class="ui modal plate" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/'+dataid+'/'+morcycData['pictures']['picPlate']+'" style="max-width:100%; max-height:100%;">';
+                var brand = '<div class="ui modal brand" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/'+dataid+'/'+morcycData['pictures']['picFront']+'" style="max-width:100%; max-height:100%;">';
+                $(".boxBooking").html("");
+                $("body").append(plate+brand);
+                $(".boxBooking").html("<p>Brand : "+morcycData['brand']+" <button class='ui button' onclick='getBrand()'>view</button></p> <p> License plate : "+morcycData['plate']+" <button class='ui button' onclick='getPlate()'>view</button></p>");
+                
                 console.log("morcycId : " + e.target.options["morcycId"]);
                 if (routing != null) {
                     routing.spliceWaypoints(0, 2);
@@ -129,7 +137,7 @@
                 routing = L.Routing.control(ways).addTo(mymap);
                 // mymap.removeControl(routing);
             });
-            console.log("name: " + morcyc[i]['name'] + " " + setArea.contains(m1.getLatLng()));
+            console.log("plate: " + morcyc[i]['plate'] + " " + setArea.contains(m1.getLatLng()));
         }
     }
     function clickRepair() {
@@ -158,6 +166,7 @@
     });
     function onMapClick(e) {
         document.getElementById("booking").disabled = true;
+        $(".boxBooking").html("");
         $("#booking").data('id', "");
         document.getElementById("repairing").disabled = true;
         $("#repairing").data('id', "");
@@ -184,6 +193,6 @@
     }
     mymap.on('click', onMapClick);
 
-
+    
 
 </script>

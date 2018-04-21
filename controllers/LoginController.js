@@ -5,6 +5,7 @@ var Zone = require("../models/MotorcycleZone");
 var bcrypt = require('bcrypt');
 var LoginController = {};
 LoginController.authenticate = function (req, res) {
+    
     User.findOne({ email: req.body.email }).exec(function (err, user) {
         if (err) {
             res.send("system error");
@@ -15,7 +16,7 @@ LoginController.authenticate = function (req, res) {
             res.send("Email not found");
             // res.redirect("/");
         }
-
+        
         console.log("pass");
         if (user != null) {
             bcrypt.compare(req.body.password, user.password, function (err, result) {
