@@ -113,6 +113,10 @@ router.post('/booking', function (req, res) {
   }
   
 });
+router.get('/awake',function(req,res){
+  console.log("awake");
+  res.send(true);
+});
 
 
 

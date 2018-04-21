@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fileUpload = require('express-fileupload');
-
+var newrelic = require('newrelic')
 
 var mongoose = require('mongoose');
 
@@ -41,7 +41,7 @@ app.use(session({
 }));
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', '/images/icon_scooter.png')));
-
+app.use(newrelic);
 app.use(fileUpload());
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -74,5 +74,4 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 module.exports = app;
