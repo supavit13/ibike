@@ -9,7 +9,7 @@ var debug = require('debug')('ibike:server');
 var http = require('http');
 
 setInterval(function() {
-  http.get("http://ibike.herokuapp.com");
+  http.get("http://ibike.herokuapp.com/awake");
 }, 60000);
 
 /**
