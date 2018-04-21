@@ -136,7 +136,7 @@
 
         <script>
             var timer = new Timer();
-            var money = 0.03;
+            var money = 0.034;
             var total = 0;
             timer.start();
             timer.addEventListener('secondsUpdated', function (e) {
@@ -149,27 +149,7 @@
                 total = Math.round(total * 100) / 100;
                 $('#cost').html(total);
             }, 1000);
-            $('#pauseButton').click(function () {
-                // alert(document.getElementById('pauseValue').innerHTML);
-                if (document.getElementById('pauseValue').innerHTML == "Pause") {
-                    $("#pauseButton").attr("class", "button blue ui");
-                    document.getElementById('pauseValue').innerHTML = "";
-                    document.getElementById('pauseValue').innerHTML = "Continue";
-                    document.getElementById('money').innerHTML = "";
-                    document.getElementById('money').innerHTML = "0.01";
-                    money = 0.01;
-                    // timer.pause();
-                } else if (document.getElementById('pauseValue').innerHTML == "Continue") {
-                    $("#pauseButton").attr("class", "button green ui");
-                    document.getElementById('pauseValue').innerHTML = "";
-                    document.getElementById('pauseValue').innerHTML = "Pause";
-                    document.getElementById('money').innerHTML = "";
-                    document.getElementById('money').innerHTML = "0.03";
-                    money = 0.03;
-                    // timer.start();
-                }
-
-            });
+           
 
         </script>
         <% include netpiescript.ejs %>
@@ -179,6 +159,30 @@
                     microgear.publish("/working", "1");
 
                 }, 1000);
+
+                 $('#pauseButton').click(function () {
+                // alert(document.getElementById('pauseValue').innerHTML);
+                if (document.getElementById('pauseValue').innerHTML == "Pause") {
+                    $("#pauseButton").attr("class", "button blue ui");
+                    document.getElementById('pauseValue').innerHTML = "";
+                    document.getElementById('pauseValue').innerHTML = "Continue";
+                    document.getElementById('money').innerHTML = "";
+                    document.getElementById('money').innerHTML = "0.017";
+                    money = 0.017;
+                    microgear.publish("/" + mId + "/pause", "0");
+                    // timer.pause();
+                } else if (document.getElementById('pauseValue').innerHTML == "Continue") {
+                    $("#pauseButton").attr("class", "button green ui");
+                    document.getElementById('pauseValue').innerHTML = "";
+                    document.getElementById('pauseValue').innerHTML = "Pause";
+                    document.getElementById('money').innerHTML = "";
+                    document.getElementById('money').innerHTML = "0.034";
+                    money = 0.034;
+                    microgear.publish("/" + mId + "/pause", "1");
+                    // timer.start();
+                }
+
+            });
             </script>
 </body>
 

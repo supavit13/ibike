@@ -3,6 +3,7 @@ var User = require("../models/User");
 var Motorcycle = require("../models/Motorcycle");
 var Zone = require("../models/MotorcycleZone");
 var bcrypt = require('bcrypt');
+
 var LoginController = {};
 LoginController.authenticate = function (req, res) {
     
@@ -101,5 +102,7 @@ LoginController.logout = function (req, res) {
         });
     }
 }
+
+
 
 module.exports = LoginController;

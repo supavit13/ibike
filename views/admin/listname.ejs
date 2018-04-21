@@ -50,11 +50,11 @@
                                     <font color="green">
                                         <i class="checkmark icon"></i>
                                     </font>
-                                    <button  id="right" value="<%= users[i]['_id'] %>">Accept</button>
+                                    <button class="ui button"  id="right" value="<%= users[i]['_id'] %>">Accept</button>
                                     <font color="red">
                                         <i class="remove icon"></i>
                                     </font>
-                                    <button  id="wrong" value="<%= users[i]['_id'] %>">Reject</button>
+                                    <button class="ui button"  id="wrong" value="<%= users[i]['_id'] %>">Reject</button>
                                 </td>
                             </tr>
                             <% } %>
@@ -102,7 +102,7 @@
                     },
                     success : function(data){
                         if(data == true){ // if true (1)
-                            alert("Insert successed");
+                            swal("Insert successed");
                             setTimeout(function(){// wait for 1 secs(2)
                                 location.reload(); // then reload the page.(3)
                             }, 1000); 

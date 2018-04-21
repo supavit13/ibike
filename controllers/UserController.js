@@ -3,6 +3,8 @@ var User = require("../models/User");
 var moment = require("moment");
 var nodemailer = require('nodemailer');
 var passwordHash = require('password-hash');
+var generator = require('generate-password');
+var bcrypt = require('bcrypt');
 var Zone = require("../models/MotorcycleZone");
 const AWS = require('aws-sdk');
 const BUCKET_NAME = 'morcyc4you';
@@ -154,5 +156,106 @@ UserController.riding=function(req,res){
     });
 }
 
+UserController.getemail = function(req,res){
+    User.findOne({email : req.body.email}).exec(function(err,user){
+        if(err) res.send(err);
+        var userid=user["_id"];
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'morcyc4you@gmail.com',
+                pass: "kusrc150308"
+            }
+        });
 
+        var mailOptions = {
+            from: 'morcyc4you@gmail.com',
+            to: user['email'],
+            subject: '[Morcyc4you]Confirm your email',
+            text: 'Please click this link for confirm your email https://morcyc4you.ga/users/'+user["_id"]+"/verify"
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+                res.send(error);
+            } else {
+                
+                console.log('Email sent: ' + info.response);
+                // res.send('Email sent: ' + info.response);
+            }
+        });
+    });
+    res.send(true);
+}
+UserController.verify = function(req,res){
+    User.findOne({ _id : req.params.id }).exec(function(err,user){
+        if(user['pass']=="Requestor"){
+            User.where({ _id: req.params.id }).update({ pass: "PreUser" }, function (err, result) {
+                if (err) res.send(err);
+                else res.render('../views/verify', { user: result });
+            });
+        }else{
+            res.redirect("/");
+        }
+    });
+}
+
+UserController.forgetPassword = function(req,res){
+    var password = generator.generate({
+        length: 10,
+        numbers: true
+    });
+    bcrypt.hash(password, 8, function(err, hash) {
+        User.where({email:req.body.email}).update({ password : hash },function(err,result){
+            if(err) res.send(err);
+            else{
+                console.log(password);
+                User.findOne({email:req.body.email}).exec(function(error,user){
+                    if(err) res.send(error);
+                    var transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: 'morcyc4you@gmail.com',
+                            pass: "kusrc150308"
+                        }
+                    });
+                    
+                    var mailOptions = {
+                        from: 'morcyc4you@gmail.com',
+                        to: user['email'],
+                        subject: '[Morcyc4you]You got a new password',
+                        text: 'you password is '+password+' , you should change password for security'
+                    };
+            
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                            res.send(error);
+                        } else {
+                            
+                            console.log('Email sent: ' + info.response);
+                            res.send(true);
+                            // res.send('Email sent: ' + info.response);
+                        }
+                    });
+                });
+                
+            }
+        });
+    });
+    
+    
+    
+}
+UserController.changepassword = function(req,res){    
+    bcrypt.hash(req.body.password,8,function(err,hash){
+        User.where({ _id : req.session.userId}).update({ password : hash },function(err,result){
+            if(err) res.send(err);
+            else res.send(true);
+            
+        });
+
+    });
+}
 module.exports = UserController;

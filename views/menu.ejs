@@ -3,7 +3,7 @@
 
 <head>
     <% include head.ejs %>
-    <% include mapscript.ejs %>
+        <% include mapscript.ejs %>
 </head>
 
 <body>
@@ -11,16 +11,18 @@
     <center>
         <div class="row" style="position: absolute;z-index: 100; width: 100%;">
             <br>
-                <center><h1 style="text-shadow: 0 0 20px darkgray;">MORCYC4YOU</h1></center>
+            <center>
+                <h1 style="text-shadow: 0 0 20px darkgray;">MORCYC4YOU</h1>
+            </center>
             <div class="col-md-6" style="padding-right: unset;">
-                
+
                 <!-- เว้นบรรทัด -->
                 <div style="margin-top: 10%;"></div>
                 <!-- เว้นบรรทัด -->
                 <center>
                     <img src="/images/tile3.png" style="height: 50%; width: 50%">
                 </center>
-                
+
             </div>
 
 
@@ -29,101 +31,160 @@
                 <div style="margin-top: 10%;"></div>
                 <!-- เว้นบรรทัด -->
                 <center>
-                <div style="background-color: white; width: 70%; padding: 6%; border-radius: 10px; box-shadow: 0 0 20px darkgray;">
-                        
-                                <div class="ui small buttons">
-                                    <button class="ui button" id="login" style="border-radius: 5px;">Sign in</button>
-                                    <div class="or"></div>
-                                    <a href="/register">
-                                        <button class="ui button">Register</button>
-                                    </a>
-                                </div>
-                                <!-- <form action="/login" method="post"> -->
-                                <div id="fromlogin2"></div>
-                                <!-- </form> -->
-                            
-                </div>
-            </center>
-                
+                    <div style="background-color: white; width: 70%; padding: 6%; border-radius: 10px; box-shadow: 0 0 20px darkgray;">
+
+                        <div class="ui small buttons">
+                            <button class="ui button" id="login" style="border-radius: 5px;">Sign in</button>
+                            <div class="or"></div>
+                            <a href="/register">
+                                <button class="ui button">Register</button>
+                            </a>
+                        </div>
+                        <!-- <form action="/login" method="post"> -->
+                        <div id="fromlogin2"></div>
+                        <!-- </form> -->
+
+                    </div>
+                </center>
+
 
 
             </div>
 
         </div>
     </center>
-        <div id="mapLogin" style="position: relative; overflow: hidden; z-index: 10;"></div>
+    <div id="mapLogin" style="position: relative; overflow: hidden; z-index: 10;"></div>
 
-        <script>
-            $("body").scroll(function(e){ e.preventDefault()});
+    <script>
+        $("body").scroll(function (e) { e.preventDefault() });
 
-            var fromlogin = [
+        var fromlogin = [
 
-                '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
-                '<H1> LOG-IN </H1>',
+            '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
+            '<H1> LOG-IN </H1>',
 
-                '<div class="ui left icon input fluid" style="width:200px"><i class="user icon"></i><input type="email" name="email" placeholder="E-mail address" id="email" required></div>', '<br>',
-                '<div class="ui left icon input fluid" style="width:200px"><i class="lock icon"></i><input type="password" name="password" placeholder="Password" id="password" required></div>',
+            '<div class="ui left icon input fluid" style="width:200px"><i class="user icon"></i><input type="email" name="email" placeholder="E-mail address" id="email" required></div>', '<br>',
+            '<div class="ui left icon input fluid" style="width:200px"><i class="lock icon"></i><input type="password" name="password" placeholder="Password" id="password" required></div>',
 
-                '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
+            '<!-- เว้นบรรทัด --> <div style="margin-top: 1%;"></div> <!-- เว้นบรรทัด -->',
 
-                '<button type="submit" class="ui fluid button" onclick="submitlogin()" style="width:50%;" id="login2">Submit</button>',
+            '<button type="submit" class="ui fluid button" onclick="submitlogin()" style="width:50%;" id="login2">Submit</button>',
 
-            ].join('');
-            var loginByUser = '<a href="/showbike" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
-            var loginByAdmin = '<a href="/admin" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
+        ].join('');
+        var loginByUser = '<a href="/showbike" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
+        var loginByAdmin = '<a href="/admin" class="ui fluid button" style="width:50%;" id="login2">Login</a>';
 
 
-            $('#login').click(function () {
-                // alert(document.getElementById('pauseValue').innerHTML);
-                if (document.getElementById('fromlogin2').innerHTML == "") {
-                    document.getElementById('fromlogin2').innerHTML = fromlogin;
-                    // timer.pause();
-                } else if (document.getElementById('fromlogin2').innerHTML != "") {
-                    document.getElementById('fromlogin2').innerHTML = "";
-                    // timer.start();
+        $('#login').click(function () {
+            // alert(document.getElementById('pauseValue').innerHTML);
+            if (document.getElementById('fromlogin2').innerHTML == "") {
+                document.getElementById('fromlogin2').innerHTML = fromlogin;
+                // timer.pause();
+            } else if (document.getElementById('fromlogin2').innerHTML != "") {
+                document.getElementById('fromlogin2').innerHTML = "";
+                // timer.start();
+            }
+        });
+        function submitlogin() {
+            var $email = document.getElementById("email").value;
+            var $password = document.getElementById("password").value;
+            $.ajax({
+                type: 'POST',
+                url: '/login',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'email': $email,
+                    'password': $password,
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data == "Admin") { // if true (1)
+                        setTimeout(function () {// wait for 1 secs(2)
+                            window.location.replace("/admin"); // then reload the page.(3)
+                        }, 1);
+                    }
+                    else if (data == "PreUser") { // if true (1)
+                        swal("You have not been approved yet.", "Please keep up the email for a response from the admin.", "info");
+                    } else if (data == "User") {
+                        setTimeout(function () {// wait for 1 secs(2)
+                            window.location.replace("/showbike"); // then reload the page.(3)
+                        }, 1);
+                    } else if (data == "Requestor") {
+                        swal({
+                            title: "Please confirm your email.",
+                            html: "you may see message in spam mail or junk mail, <br>If you don't receive confirm email from morcyc4you, Please click 'OK'",
+                            showCancelButton: true
+                        }).then((result) => {
+                            if (result) {
+                                var email = $("#email").val();
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/users/getemail',
+                                    data: {
+                                        '_token': $('input[name=_token]').val(),
+                                        email: email
+                                    },
+                                    success: function (data) {
+                                        if (data) {
+                                            Swal(
+                                                'Send email success',
+                                                '',
+                                                'success'
+                                            )
+                                        } else {
+                                            swal(data);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else if (data == "password is incorrect") {
+                        swal({
+                            title: data,
+                            html: "if you forget password, Please click 'OK'",
+                            showCancelButton: true
+                        }).then((result) => {
+                            if (result) {
+                                var email = $("#email").val();
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/users/forgetpassword',
+                                    data: {
+                                        '_token': $('input[name=_token]').val(),
+                                        email: email
+                                    },
+                                    success: function (data) {
+                                        if (data) {
+                                            Swal( {
+                                                title : 'Send a new password success',
+                                                html : 'you can see a new password in your email.',
+                                                type: 'success'
+                                            });
+                                        } else {
+                                            swal(data);
+                                        }
+                                    }
+                                });
+                            }
+
+                        });
+                    }
+                    else {
+                        swal("Error", data, "error");
+                    }
                 }
             });
-            function submitlogin() {
-                var $email=document.getElementById("email").value;
-                var $password=document.getElementById("password").value;
-                $.ajax({
-                    type: 'POST',
-                    url: '/login',
-                    data: {
-                        '_token': $('input[name=_token]').val(),
-                        'email': $email,
-                        'password': $password,
-                    },
-                    success: function (data) {
-                        console.log(data);
-                        if (data == "Admin") { // if true (1)
-                            setTimeout(function () {// wait for 1 secs(2)
-                                window.location.replace("/admin"); // then reload the page.(3)
-                            }, 1);
-                        }
-                        else if (data == "PreUser") { // if true (1)
-                            swal("You have not been approved yet.", "Please keep up the email for a response from the admin.", "info");
-                        }else if(data == "User"){
-                            setTimeout(function () {// wait for 1 secs(2)
-                                window.location.replace("/showbike"); // then reload the page.(3)
-                            }, 1);
-                        }else if(data == "Requestor"){
-                            swal("Please confirm your email.", "you may see message in spam mail or junk mail", "info");
-                        }else{
-                            swal("Error", data, "error");
-                        }
-                    }
-                });
-            }
+        }
 
-        </script>
-        
+    </script>
+
 </body>
 <script>
     var mymap = L.map('mapLogin', {
         center: new L.LatLng(13.1192, 100.92066),
         zoom: 8,
-        zoomControl:false
+        zoomControl: false
     });
     L.gridLayer.googleMutant({
         minZoom: 6,
@@ -210,7 +271,7 @@
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
         var name = morcyc[i]['name'];
-        
+
         if (morcyc[i]['using'] != "yes") {
             // console.log(morcyc[i]['name']+" "+lat+" "+lng);
             var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'] }).addTo(mymap);

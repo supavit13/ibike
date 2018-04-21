@@ -113,8 +113,10 @@
                 var morcycData = e.target.options["morcycData"];
                 $("#repairing").data('id', dataid);
                 $("#booking").data('id', dataid);
-                var plate = '<div class="ui modal plate" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/'+dataid+'/'+morcycData['pictures']['picPlate']+'" style="max-width:100%; max-height:100%;">';
-                var brand = '<div class="ui modal brand" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/'+dataid+'/'+morcycData['pictures']['picFront']+'" style="max-width:100%; max-height:100%;">';
+                $(".plate").remove();
+                $(".brand").remove();
+                var plate = '<div class="ui modal plate" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/'+dataid+'/'+morcycData['pictures']['picPlate']+'" style="max-width:100%; max-height:100%;"></div>';
+                var brand = '<div class="ui modal brand" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/'+dataid+'/'+morcycData['pictures']['picFront']+'" style="max-width:100%; max-height:100%;"></div>';
                 $(".boxBooking").html("");
                 $("body").append(plate+brand);
                 $(".boxBooking").html("<p>Brand : "+morcycData['brand']+" <button class='ui button' onclick='getBrand()'>view</button></p> <p> License plate : "+morcycData['plate']+" <button class='ui button' onclick='getPlate()'>view</button></p>");
