@@ -143,7 +143,8 @@
                         swal({
                             title: data,
                             html: "if you forget password, Please click 'OK'",
-                            showCancelButton: true
+                            showCancelButton: true,
+                            type: "warning"
                         }).then((result) => {
                             if (result.value) {
                                 var email = $("#email").val();
