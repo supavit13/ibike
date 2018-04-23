@@ -141,34 +141,10 @@
                     }
                     else if (data == "password is incorrect") {
                         swal({
-                            title: data,
-                            html: "if you forget password, Please click 'OK'",
-                            showCancelButton: true,
-                            type: "warning"
-                        }).then((result) => {
-                            if (result.value) {
-                                var email = $("#email").val();
-                                $.ajax({
-                                    type: "POST",
-                                    url: '/users/forgetpassword',
-                                    data: {
-                                        '_token': $('input[name=_token]').val(),
-                                        email: email
-                                    },
-                                    success: function (data) {
-                                        if (data) {
-                                            Swal( {
-                                                title : 'Send a new password success',
-                                                html : 'you can see a new password in your email.',
-                                                type: 'success'
-                                            });
-                                        } else {
-                                            swal(data);
-                                        }
-                                    }
-                                });
-                            }
-
+                            title: "Oops..",
+                            html: data,
+                            type: "warning",
+                            footer: '<a id="forgetpassword">if you forget password click here</a>',
                         });
                     }
                     else {
@@ -178,6 +154,29 @@
             });
         }
 
+
+        $("#forgetpassword").on("click", function () {
+            var email = $("#email").val();
+            $.ajax({
+                type: "POST",
+                url: '/users/forgetpassword',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    email: email
+                },
+                success: function (data) {
+                    if (data) {
+                        Swal({
+                            title: 'Send a new password success',
+                            html: 'you can see a new password in your email.',
+                            type: 'success'
+                        });
+                    } else {
+                        swal(data);
+                    }
+                }
+            });
+        });
     </script>
 
 </body>
