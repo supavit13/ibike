@@ -144,7 +144,7 @@
                             title: "Oops..",
                             html: data,
                             type: "warning",
-                            footer: '<a href="#" id="forgetpassword">if you forget password click here</a>'
+                            footer: '<button class="ui button" onclick="forgetpassword()">if you forget password click here</button>'
                         });
                     }
                     else {
@@ -154,8 +154,7 @@
             });
         }
 
-
-        $("#forgetpassword").on("click", function () {
+        function forgetpassword(){
             var email = $("#email").val();
             $.ajax({
                 type: "POST",
@@ -176,7 +175,8 @@
                     }
                 }
             });
-        });
+        }
+        
     </script>
 
 </body>
