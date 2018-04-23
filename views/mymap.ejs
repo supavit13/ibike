@@ -127,12 +127,7 @@
                             L.latLng(lat, lng)
                         ]
                 };
-                routing = L.Routing.control({
-                    waypoints: ways,
-                    lineOptions: {
-      styles: [{color: 'white', opacity: 1, weight: 5}]
-   }
-                }).addTo(mymap);
+                routing = L.Routing.control(ways).addTo(mymap);
                 // mymap.removeControl(routing);
             });
             console.log("plate: " + morcyc[i]['plate'] + " " + setArea.contains(m1.getLatLng()));
