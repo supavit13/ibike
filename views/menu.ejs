@@ -5,6 +5,19 @@
     <% include head.ejs %>
         <% include mapscript.ejs %>
 </head>
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    html,
+    body,
+    #mapLogin {
+        height: 100%;
+        width: 100%;
+    }
+</style>
 
 <body>
     <!-- <% include navbar.ejs %> -->
@@ -40,9 +53,7 @@
                                 <button class="ui button">Register</button>
                             </a>
                         </div>
-                        <!-- <form action="/login" method="post"> -->
                         <div id="fromlogin2"></div>
-                        <!-- </form> -->
 
                     </div>
                 </center>
@@ -56,7 +67,7 @@
     <div id="mapLogin" style="position: relative; overflow: hidden; z-index: 10;"></div>
 
     <script>
-        $("body").scroll(function (e) { e.preventDefault() });
+
 
         var fromlogin = [
 
@@ -76,13 +87,10 @@
 
 
         $('#login').click(function () {
-            // alert(document.getElementById('pauseValue').innerHTML);
             if (document.getElementById('fromlogin2').innerHTML == "") {
                 document.getElementById('fromlogin2').innerHTML = fromlogin;
-                // timer.pause();
             } else if (document.getElementById('fromlogin2').innerHTML != "") {
                 document.getElementById('fromlogin2').innerHTML = "";
-                // timer.start();
             }
         });
         function submitlogin() {
@@ -112,8 +120,10 @@
                     } else if (data == "Requestor") {
                         swal({
                             title: "Please confirm your email.",
-                            html: "you may see message in spam mail or junk mail, <br>If you don't receive confirm email from morcyc4you, Please click 'OK'",
-                            showCancelButton: true
+                            html: "you may see message in spam mail or junk mail, <br>If you don't receive confirm email from morcyc4you, Please click 'Don't receive email!'",
+                            showCancelButton: true,
+                            confirmButtonText: "Don't receive email!",
+                            type: "warning"
                         }).then((result) => {
                             if (result.value) {
                                 var email = $("#email").val();
@@ -141,7 +151,7 @@
                     }
                     else if (data == "password is incorrect") {
                         swal({
-                            title: "Oops.. "+data,
+                            title: "Oops.. " + data,
                             html: "if you forget password, Please click 'Forget password!'",
                             showCancelButton: true,
                             confirmButtonText: 'Forget password!',
@@ -158,9 +168,9 @@
                                     },
                                     success: function (data) {
                                         if (data) {
-                                            Swal( {
-                                                title : 'Send a new password success',
-                                                html : 'you can see a new password in your email.',
+                                            Swal({
+                                                title: 'Send a new password success',
+                                                html: 'you can see a new password in your email.',
                                                 type: 'success'
                                             });
                                         } else {
@@ -180,9 +190,6 @@
         }
 
     </script>
-<footer>
-    About me
-</footer>
 </body>
 <script>
     var mymap = L.map('mapLogin', {
@@ -202,19 +209,12 @@
             location.reload();
         }
     };
-    // var json = JSON.parse(htmlDecode("<%= JSON.stringify(zone) %>"));
     var dbzone = JSON.parse(json);
     dbzone = dbzone[0]['zone'];
     console.log(dbzone);
     var setArea = L.polygon(dbzone).addTo(mymap);
     setArea.setStyle({ "fillOpacity": 0, color: 'red' });
     mymap.setMaxBounds(polygon);
-    // mymap.addControl(L.control.locate({
-    //     // iconUrl: '/images/markar.png',
-    //     locateOptions: {
-    //         enableHighAccuracy: true
-    //     }
-    // }));
     var greenIcon = L.icon({
         iconUrl: '/images/rsz_blue.png',
         // shadowUrl: 'leaf-shadow.png',
@@ -233,7 +233,6 @@
         // if position defined, then remove the existing position marker and accuracy circle from the map
         if (current_position) {
             mymap.removeLayer(current_position);
-            // mymap.removeLayer(current_accuracy);
         }
 
         var radius = e.accuracy / 2;
@@ -241,10 +240,6 @@
         mylat = e.latlng.lat;
         mylng = e.latlng.lng;
         current_position = L.marker(e.latlng, { icon: userIcon }).addTo(mymap);
-        // current_position = L.marker(e.latlng, { icon: userIcon }).addTo(mymap)
-        //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-        // current_accuracy = L.circle(e.latlng, radius).addTo(mymap);
     }
 
     function onLocationError(e) {
@@ -277,7 +272,6 @@
         var name = morcyc[i]['name'];
 
         if (morcyc[i]['using'] != "yes") {
-            // console.log(morcyc[i]['name']+" "+lat+" "+lng);
             var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'] }).addTo(mymap);
         }
     }

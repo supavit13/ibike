@@ -19,7 +19,7 @@
 <!-- easytimer -->
 <script src="/javascripts/easytimer.js"></script>
 <!-- easytimer END -->
- 
+
 <!-- sweet alert -->
 <script src="https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 <!-- sweetalert end -->
@@ -33,6 +33,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 <script>var socket = io.connect();</script>
 <!-- socket io end -->
+
+<!-- google translate -->
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- google translate END -->
+
+<!-- unlock -->
+<link rel="stylesheet" href="/stylesheets/unlock.css">
+<script src="/javascripts/unlock.js"></script>
+<!-- unlock END -->
+
+
 
 <!-- W3 -->
 <meta charset="UTF-8">
@@ -55,17 +66,20 @@
     .w3-row-padding img {
         margin-bottom: 12px
     }
+
     /* Set the width of the sidebar to 120px */
 
     .w3-sidebar {
         width: 120px;
         background: #222;
     }
+
     /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
 
     #main {
         margin-left: 120px
     }
+
     /* Remove margins from "page content" on small screens */
 
     @media only screen and (max-width: 600px) {
@@ -87,20 +101,20 @@
 <style>
     /* Always set the map height explicitly to define the size of the div
    * element that contains the map. */
-    #mapLogin{
-        height: 720px;
-        width: 100%;
-    }
+
     #map {
         height: 80%;
+        z-index: 10;
     }
 
     #ridingMap {
         height: 65%;
     }
-    .leaflet-routing-container { 
+
+    .leaflet-routing-container {
         display: none;
     }
+
     /* Optional: Makes the sample page fill the window. */
 
     html,
@@ -125,17 +139,34 @@
         /*background-image: url("bg_17_ZX1000XHFA_GY3_09839-1.jpg");*/
         background-color: #FFFFFF;
     }
-    .morcyc 
-    {
+
+    .morcyc {
         cursor: pointer;
     }
-    #booking{
+
+    #booking {
         cursor: pointer;
     }
+
+    html.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown),
+    body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
+        height: 0;
+    }
+    .bar {
+	margin: 50px;
+	height: 40px;
+    width: 300px;
+    
+}
     /* for ios */
+
 </style>
 <!-- map END -->
-<script>
-    
 
+<!-- google translate script -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+    }
 </script>
+<!-- google translate srcipt END -->

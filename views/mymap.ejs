@@ -12,7 +12,6 @@
         }
     };
 
-    // var json = JSON.parse(htmlDecode("<%= JSON.stringify(zone) %>"));
     var dbzone = JSON.parse(json);
     dbzone = dbzone[0]['zone'];
     console.log(dbzone);
@@ -26,9 +25,7 @@
         type: 'roadmap' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
     }).addTo(mymap);
 
-    // var greenIcon = new LeafIcon({iconUrl: '/images/markar.png'});
     mymap.addControl(L.control.locate({
-        // iconUrl: '/images/markar.png',
         locateOptions: {
             enableHighAccuracy: true
         }
@@ -55,7 +52,6 @@
         // if position defined, then remove the existing position marker and accuracy circle from the map
         if (current_position) {
             mymap.removeLayer(current_position);
-            // mymap.removeLayer(current_accuracy);
         }
 
         var radius = e.accuracy / 2;
@@ -63,10 +59,6 @@
         mylat = e.latlng.lat;
         mylng = e.latlng.lng;
         current_position = L.marker(e.latlng, { icon: userIcon }).addTo(mymap);
-        // current_position = L.marker(e.latlng, { icon: userIcon }).addTo(mymap)
-        //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-        // current_accuracy = L.circle(e.latlng, radius).addTo(mymap);
     }
 
     function onLocationError(e) {
@@ -103,10 +95,9 @@
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
         var name = morcyc[i]['plate'];
-        
+
         if (morcyc[i]['using'] != "yes") {
-            // console.log(morcyc[i]['name']+" "+lat+" "+lng);
-            var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'] , morcycData : morcyc[i] }).addTo(mymap).bindPopup(name).on('click', function (e) {
+            var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'], morcycData: morcyc[i] }).addTo(mymap).bindPopup(name).on('click', function (e) {
                 document.getElementById("booking").disabled = false;
                 document.getElementById("repairing").disabled = false;
                 var dataid = e.target.options["morcycId"];
@@ -115,12 +106,12 @@
                 $("#booking").data('id', dataid);
                 $(".plate").remove();
                 $(".brand").remove();
-                var plate = '<div class="ui modal plate" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/'+dataid+'/'+morcycData['pictures']['picPlate']+'" style="max-width:100%; max-height:100%;"></div>';
-                var brand = '<div class="ui modal brand" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/'+dataid+'/'+morcycData['pictures']['picFront']+'" style="max-width:100%; max-height:100%;"></div>';
+                var plate = '<div class="ui modal plate" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/' + dataid + '/' + morcycData['pictures']['picPlate'] + '" style="max-width:100%; max-height:100%;"></div>';
+                var brand = '<div class="ui modal brand" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/' + dataid + '/' + morcycData['pictures']['picFront'] + '" style="max-width:100%; max-height:100%;"></div>';
                 $(".boxBooking").html("");
-                $("body").append(plate+brand);
-                $(".boxBooking").html("<p>Brand : "+morcycData['brand']+" <button class='ui button' onclick='getBrand()'>view</button></p> <p> License plate : "+morcycData['plate']+" <button class='ui button' onclick='getPlate()'>view</button></p>");
-                
+                $("body").append(plate + brand);
+                $(".boxBooking").html("<p>Brand : " + morcycData['brand'] + " <button class='ui button' onclick='getBrand()'>view</button></p> <p> License plate : " + morcycData['plate'] + " <button class='ui button' onclick='getPlate()'>view</button></p>");
+
                 console.log("morcycId : " + e.target.options["morcycId"]);
                 if (routing != null) {
                     routing.spliceWaypoints(0, 2);
@@ -136,7 +127,12 @@
                             L.latLng(lat, lng)
                         ]
                 };
-                routing = L.Routing.control(ways).addTo(mymap);
+                routing = L.Routing.control({
+                    waypoints: ways,
+                    lineOptions: {
+      styles: [{color: 'white', opacity: 1, weight: 5}]
+   }
+                }).addTo(mymap);
                 // mymap.removeControl(routing);
             });
             console.log("plate: " + morcyc[i]['plate'] + " " + setArea.contains(m1.getLatLng()));
@@ -195,6 +191,6 @@
     }
     mymap.on('click', onMapClick);
 
-    
+
 
 </script>

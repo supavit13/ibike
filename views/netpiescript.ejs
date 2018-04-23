@@ -5,7 +5,7 @@
     var mId = JSON.parse('<%- JSON.stringify(mId) %>');
     $("#start").on("click", function () {
         console.log("staaaart");
-        if (document.getElementById("checkbox").checked) {
+        if (unlockSuccess) {
             microgear.publish("/" + mId + "/startengine", "1");
             console.log("staaaart1");
         } else {
@@ -141,17 +141,20 @@
         console.log("stop");
         swal({
             title: "Do you want to turn off engine?",
-            html: "Please press OK when you want to stop driving and pay money.<br>This invoice included maintenance cost.",
-            icon: "info",
-            buttons: true,
-            dangerMode: true,
+            html: "Please press Stop engine! when you want to stop driving and pay money.<br>This invoice included maintenance cost.",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonText: 'Stop engine!'
         })
             .then((result) => {
                 if (result.value) {
-                    swal("Thank you", {
-                        icon: "success",
+                    swal({
+                        title : "Thank you :)",
+                        type : "success"
                     });
                     turnOff();
+                    document.getElementById("stopButton").disabled = true;
+                    document.getElementById("pauseButton").disabled = true;
                 } else {
                     swal("Continue.");
                 }

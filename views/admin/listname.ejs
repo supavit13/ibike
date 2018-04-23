@@ -69,7 +69,7 @@
 
             var users = JSON.parse('<%- JSON.stringify(users) %>');
             console.log(users);
-            var loadUserList = '<% for(var i=0;i<users.length;i++) { %><% if(users[i]["pass"] == "Requestor"){ %><tr><td><a href="/admin/profile/<%= users[i]["_id"] %>"><%= users[i]["_id"] %></a></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><font color="green"><i class="checkmark icon"></i></font><button  id="right" value="<%= users[i]["_id"] %>">Accpet</button><font color="red"><i class="remove icon"></i></font><button  id="wrong" value="<%= users[i]["_id"] %>">Reject</button></td></tr><% } %><% } %>';
+            var loadUserList = '<% for(var i=0;i<users.length;i++) { %><% if(users[i]["pass"] == "Requestor"||users[i]["pass"] == "PreUser"){ %><tr><td><a href="/admin/profile/<%= users[i]["_id"] %>"><%= users[i]["_id"] %></a></td><td><%= users[i]["firstName"] %> <%= users[i]["lastName"] %></td><td><font color="green"><i class="checkmark icon"></i></font><button  id="right" value="<%= users[i]["_id"] %>">Accpet</button><font color="red"><i class="remove icon"></i></font><button  id="wrong" value="<%= users[i]["_id"] %>">Reject</button></td></tr><% } %><% } %>';
             var noneadmit = [
                 '<table class="ui selectable celled table"><thead><tr><th>Request ID</th><th>Name</th><th>Status</th></tr></thead>',
                 '<tbody>',
