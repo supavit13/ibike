@@ -146,8 +146,8 @@
             buttons: true,
             dangerMode: true,
         })
-            .then((willDelete) => {
-                if (willDelete) {
+            .then((result) => {
+                if (result.value) {
                     swal("Thank you", {
                         icon: "success",
                     });

@@ -115,7 +115,7 @@
                             html: "you may see message in spam mail or junk mail, <br>If you don't receive confirm email from morcyc4you, Please click 'OK'",
                             showCancelButton: true
                         }).then((result) => {
-                            if (result) {
+                            if (result.value) {
                                 var email = $("#email").val();
                                 $.ajax({
                                     type: "POST",
@@ -145,7 +145,7 @@
                             html: "if you forget password, Please click 'OK'",
                             showCancelButton: true
                         }).then((result) => {
-                            if (result) {
+                            if (result.value) {
                                 var email = $("#email").val();
                                 $.ajax({
                                     type: "POST",
