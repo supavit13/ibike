@@ -3,6 +3,7 @@
 
 <head>
     <% include head.ejs %>
+
 </head>
 
 <body>
@@ -16,26 +17,21 @@
             <a id="start" style="display: none;">
                 <img src="/images/start1.gif" onmouseover="  src = '/images/start2.gif'  " onmouseout="  src = '/images/start1.gif'  " style="width: 80%">
             </a>
-            
-                    <div class="slideUnlock bar"></div>
-            
-            
+
+            <div id="slider">
+                <div id="slider_bg"></div>
+                <span id="label">>></span>
+                <span id="labelTip">Slide To Unlock</span>
+            </div>
+
+
         </div>
 
         <!-- เว้นบรรทัด -->
         <div style="margin-top: 1%;"></div>
         <!-- เว้นบรรทัด -->
 
-        <!-- <div style="width:250px; border:5px double #336699">
-            <br>
-            <a> OFF </a>
-            <div class="ui fitted toggle checkbox">
-                <input type="checkbox" id="checkbox">
-                <label></label>
-            </div>
-            <a> ON </a>
-        </div> -->
-        
+
         <br>
         <button class="ui button" onclick="cancalBooking()" style="width: 30%">Cancel</button>
 
@@ -45,20 +41,19 @@
 
 </body>
 <script>
+
     var unlockSuccess = false;
-    $(".slideUnlock").slideToUnlock({
-        height : 50,
-        width : 200,
-        bgColor: "#ff0000",
-        textColor : "#000",
-		succColor : '#00ff00',        
-        progressColor : "#ffff00",
-        succTextColor : '#000',
-        successFunc: function () {
+    $(function () {
+        var slider = new SliderUnlock("#slider", {
+            successLabelTip: "Unlock successfully",
+            duration:  200
+        }, function () {
             unlockSuccess = true;
-            $("#start").attr("style","");
-        }
-    });
+            $("#start").attr("style", "");
+        });
+
+        slider.init();
+    })
     function cancalBooking() {
         $.ajax({
             type: "POST",
