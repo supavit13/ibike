@@ -152,9 +152,8 @@
     body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
         height: 0;
     }
-    
-    /* for ios */
 
+    /* for ios */
 </style>
 <!-- map END -->
 
@@ -163,5 +162,11 @@
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
     }
+
+    $(function () {
+        $("a").click(function() {
+            window.onbeforeunload = null;
+        });
+    });
 </script>
 <!-- google translate srcipt END -->
