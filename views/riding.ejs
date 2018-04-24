@@ -169,6 +169,7 @@
                     document.getElementById('money').innerHTML = "";
                     document.getElementById('money').innerHTML = "0.017";
                     money = 0.017;
+                    turnOff("pause");
                     microgear.publish("/" + mId + "/pause", "0");
                     // timer.pause();
                 } else if (document.getElementById('pauseValue').innerHTML == "Continue") {

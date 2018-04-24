@@ -135,13 +135,12 @@ MotorController.searchMorcyc = function (req, res) {
     });
 }
 MotorController.turnOff = function (req, res) {
-
     if (req.session.morcycId != null) {
         var userId = req.session.userId;
-        Motorcycle.findById({ _id: req.session.morcycId }).update({ using: "no" }, function (err, result) {
+        Motorcycle.findById({ _id: req.session.morcycId }).update({ using: "no" , latlng : req.body.latlng }, function (err, result) {
             // console.log("sss");
             if (err) res.send(err);
-            else {
+            else if(req.body.msg == "stop"){
                 User.find({ bookingID: req.session.morcycId }).update({ bookingID: "" }, function (err, user) {
                     // console.log("sss222");
                     if (err) res.send(err);
@@ -161,6 +160,8 @@ MotorController.turnOff = function (req, res) {
 
                 });
 
+            }else{
+                
             }
         });
         // req.session.userId = userId;

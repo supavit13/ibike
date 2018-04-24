@@ -28,6 +28,7 @@
     var state = 0;
     var i = 0;
     var statecheck = 1;
+    var latlng;
     console.log("state " + state);
     var currentUrl = window.location.href;
     currentUrl = currentUrl.split("/")[currentUrl.split("/").length - 1];
@@ -47,7 +48,7 @@
         }
         else if (topic == "/CMRM/" + mId + "/location") {
             console.log(msg.split(",")[0]);
-            var latlng = {
+            latlng = {
                 lat: msg.split(",")[0],
                 lng: msg.split(",")[1]
             }
@@ -152,7 +153,11 @@
                         title : "Thank you :)",
                         type : "success"
                     });
-                    turnOff();
+                    turnOff("stop");
+                    money = 0;
+                    microgear.publish("/" + mId + "/startengine", "0");
+                    console.log("stopengine");
+                    timer.stop();
                     document.getElementById("stopButton").disabled = true;
                     document.getElementById("pauseButton").disabled = true;
                 } else {
@@ -168,19 +173,18 @@
         //     console.log("conf");
         // }
     });
-    function turnOff() {
+    function turnOff(msg) {
         $.ajax({
             type: "POST",
             url: "/morcyc/turnoff",
             data: {
-                '_token': $('input[name=_token]').val()
+                '_token': $('input[name=_token]').val(),
+                latlng : latlng,
+                msg : msg
             },
             success: function (data) {
                 if (data) {
-                    money = 0;
-                    microgear.publish("/" + mId + "/startengine", "0");
-                    console.log("conf");
-                    timer.stop();
+                    
                 } else {
                     swal(data);
                 }
