@@ -28,9 +28,10 @@
     mymap.addControl(L.control.locate({
         locateOptions: {
             enableHighAccuracy: true
-        }
+        },
+        position : 'bottomright'
     }));
-
+    L.Control.Zoom({ position: 'bottomright' }).addTo(map);
 
 
 
