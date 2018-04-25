@@ -143,6 +143,12 @@ MotorController.turnOff = function (req, res) {
     console.log(latlng);
     if (req.session.morcycId != null) {
         var userId = req.session.userId;
+        if(req.body.msg=="cancelBooking"){
+            Motorcycle.findById({ _id: req.session.morcycId }).update({ using : "no"},function(err,result){
+                if(err) res.send(err);
+                res.send(true);
+            });
+        }
         Motorcycle.findById({ _id: req.session.morcycId }).update({ using: "no" , latlng : latlng }, function (err, result) {
             // console.log("sss");
             if (err) res.send(err);

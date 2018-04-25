@@ -59,7 +59,8 @@
             type: "POST",
             url: "/morcyc/turnoff",
             data: {
-                '_token': $('input[name=_token]').val()
+                '_token': $('input[name=_token]').val(),
+                msg : "cancelBooking"
             },
             success: function (data) {
                 if (data) {
