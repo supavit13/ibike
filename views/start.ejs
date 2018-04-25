@@ -57,10 +57,9 @@
     function cancalBooking() {
         $.ajax({
             type: "POST",
-            url: "/morcyc/turnoff",
+            url: "/morcyc/cancelBooking",
             data: {
                 '_token': $('input[name=_token]').val(),
-                msg : "cancelBooking"
             },
             success: function (data) {
                 if (data) {
