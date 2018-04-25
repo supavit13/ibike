@@ -135,6 +135,7 @@ MotorController.searchMorcyc = function (req, res) {
     });
 }
 MotorController.turnOff = function (req, res) {
+    console.log(req.body);
     if (req.session.morcycId != null) {
         var userId = req.session.userId;
         Motorcycle.findById({ _id: req.session.morcycId }).update({ using: "no" , latlng : req.body.latlng }, function (err, result) {
