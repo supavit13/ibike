@@ -113,8 +113,8 @@
                 swal({
                     title : "MENU",
                     html : "<p>Brand : " + morcycData['brand'] + " <button class='ui button' onclick='getBrand()'>view</button></p> <p> License plate : " + morcycData['plate'] + " <button class='ui button' onclick='getPlate()'>view</button></p>"+
-                    "<a href='/repair/"+dataid+"'><button class='ui primary button' id='repairing' onclick='clickRepair()'>Repair</button></a><br>"+
-                    "<button class='ui primary button' id='booking' data-id="+dataid+">Booking</button><br>"+
+                    "<a href='/repair/"+dataid+"'><button class='ui primary button' id='repairing' onclick='clickRepair()'>Repair</button></a><br><br>"+
+                    "<button class='ui primary button' id='booking' data-id="+dataid+">Booking</button><br><br>"+
                     "<a href='/users/changepassword'><button class='ui primary button'>Change your password</button></a>"
                 });
                 console.log("morcycId : " + e.target.options["morcycId"]);
