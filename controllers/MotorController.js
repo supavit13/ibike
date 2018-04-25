@@ -136,9 +136,14 @@ MotorController.searchMorcyc = function (req, res) {
 }
 MotorController.turnOff = function (req, res) {
     console.log(req.body);
+    var latlng = {
+        lat : req.body.latlng['lat'],
+        lng : req.body.latlng['lng']
+    };
+    console.log(latlng);
     if (req.session.morcycId != null) {
         var userId = req.session.userId;
-        Motorcycle.findById({ _id: req.session.morcycId }).update({ using: "no" , latlng : req.body.latlng }, function (err, result) {
+        Motorcycle.findById({ _id: req.session.morcycId }).update({ using: "no" , latlng : latlng }, function (err, result) {
             // console.log("sss");
             if (err) res.send(err);
             else if(req.body.msg == "stop"){
