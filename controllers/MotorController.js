@@ -136,6 +136,7 @@ MotorController.searchMorcyc = function (req, res) {
 }
 
 MotorController.cancelBooking = function(req,res){
+    console.log("cancel");
     Motorcycle.findById({ _id: req.session.morcycId }).update({ using : "no"},function(err,result){
         if(err) res.send(err);
         res.send(true);
