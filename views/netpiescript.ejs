@@ -46,7 +46,10 @@
             window.location.replace("/riding");
         }
         else if (msg == "0") {
-            window.location.href = "/showbike";
+            turnOff("stop");
+            setInterval(function(){
+                window.location.href = "/showbike";
+            },5000);
         }
         else if(topic == "/CMRM/" + mId + "/timeused"){
             timeused = parseInt(msg.split(" ")[0]);
@@ -164,7 +167,6 @@
                     microgear.publish("/" + mId + "/startengine", "0");
                     console.log("stopengine");
                     timer.stop();
-                    turnOff("stop");
                     document.getElementById("stopButton").disabled = true;
                     document.getElementById("pauseButton").disabled = true;
                 } else {
