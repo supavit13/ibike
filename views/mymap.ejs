@@ -99,12 +99,8 @@
 
         if (morcyc[i]['using'] != "yes") {
             var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'], morcycData: morcyc[i] }).addTo(mymap).bindPopup(name).on('click', function (e) {
-                document.getElementById("booking").disabled = false;
-                document.getElementById("repairing").disabled = false;
                 var dataid = e.target.options["morcycId"];
                 var morcycData = e.target.options["morcycData"];
-                $("#repairing").data('id', dataid);
-                $("#booking").data('id', dataid);
                 $(".plate").remove();
                 $(".brand").remove();
                 var plate = '<div class="ui modal plate" style="height:50%;"><i class="close icon"></i><img src="https://s3.amazonaws.com/morcyc4you/motorcycle/' + dataid + '/' + morcycData['pictures']['picPlate'] + '" style="max-width:100%; max-height:100%;"></div>';
