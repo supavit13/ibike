@@ -101,9 +101,6 @@
             var m1 = L.marker([lat, lng], { icon: greenIcon, morcycId: morcyc[i]['_id'], morcycData: morcyc[i] }).addTo(mymap).bindPopup(name).on('click', function (e) {
                 var dataid = e.target.options["morcycId"];
                 var morcycData = e.target.options["morcycData"];
-                $(".plate").remove();
-                $(".brand").remove();
-                $("body").append(plate + brand);
                 swal({
                     title : "MENU",
                     html : "<div class='ui two column grid'>"+
@@ -167,7 +164,6 @@
         }
     });
     function onMapClick(e) {
-        $(".boxBooking").html("");
         $("#booking").data('id', "");
         $("#repairing").data('id', "");
         lat = e.latlng.lat;
