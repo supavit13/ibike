@@ -29,6 +29,8 @@
     var i = 0;
     var statecheck = 1;
     var latlng;
+    var timeused = 0;
+    var timepause =0;
     console.log("state " + state);
     var currentUrl = window.location.href;
     currentUrl = currentUrl.split("/")[currentUrl.split("/").length - 1];
@@ -45,6 +47,10 @@
         }
         else if (msg == "0") {
             window.location.href = "/showbike";
+        }
+        else if(topic == "/CMRM/" + mId + "/timeused"){
+            timeused = parseInt(msg.split(" ")[0]);
+            timepause = parseInt(msg.split(" ")[1]);
         }
         else if (topic == "/CMRM/" + mId + "/location") {
             console.log(msg.split(",")[0]);
@@ -123,6 +129,7 @@
         microgear.setAlias(ALIAS); /* alias can be renamed anytime with this function */
         // document.getElementById("data").innerHTML = "Now I am connected with netpie...";
         microgear.subscribe("/" + mId + "/ackDevice");
+        microgear.subscribe("/" + mId + "/timeused");
         if (state) {
             microgear.subscribe("/" + mId + "/location");
         }
@@ -153,11 +160,11 @@
                         title : "Thank you :)",
                         type : "success"
                     });
-                    turnOff("stop");
                     money = 0;
                     microgear.publish("/" + mId + "/startengine", "0");
                     console.log("stopengine");
                     timer.stop();
+                    turnOff("stop");
                     document.getElementById("stopButton").disabled = true;
                     document.getElementById("pauseButton").disabled = true;
                 } else {
@@ -175,13 +182,17 @@
     });
     function turnOff(msg) {
         console.log(latlng);
+        var cost = Math.ceil(((timeused-timepause)*0.034) + (timepause*0.017));
         $.ajax({
             type: "POST",
             url: "/morcyc/turnoff",
             data: {
                 '_token': $('input[name=_token]').val(),
                 latlng : latlng,
-                msg : msg
+                msg : msg,
+                time : timeused,
+                cost : cost
+
             },
             success: function (data) {
                 if (data) {

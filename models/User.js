@@ -12,58 +12,58 @@ var Users = new Schema({
     },
     firstName: {
         type: String,
-        required :true
+        required: true
     },
     lastName: {
         type: String,
-        required :true
+        required: true
     },
     tel: {
         type: String,
-        required :true
+        required: true
     },
     email: {
         type: String,
         unique: true,
-        required :true
+        required: true
     },
     password: {
         type: String,
-        required :true
+        required: true
     },
     address: {
         postcode: {
             type: Number,
-            required :true
+            required: true
         },
         province: {
             type: String,
-            required :true
+            required: true
         },
         district: {
             type: String,
-            required :true
+            required: true
         },
         tumbol: {
             type: String,
-            required :true
+            required: true
         },
         moo: {
             type: String,
-            required :true
+            required: true
         },
         number: {
             type: String,
-            required :true
+            required: true
         },
         country: {
             type: String,
-            required :true
+            required: true
         }
     },
     license: {
         type: Object,
-        required :true
+        required: true
     },
     pass: {
         type: String,
@@ -76,32 +76,23 @@ var Users = new Schema({
         type: String,
         default: dateeee
     },
+    wallet: {
+        type: Number
+    },
     historyUser: {
-            dateUse: {
-                type: String,
-                default: dateeee
-            },
-            IDmorcyc: {
-                type: String
-            },
-            time: {
-                type: String
-            },
-            money: {
-                type: String
-            }
+        type: Object
     }
 });
 Users.pre('save', function (next) {
     var user = this;
     bcrypt.hash(user.password, 8, function (err, hash) {
-      if (err) {
-        return next(err);
-      }
-      user.password = hash;
-      next();
+        if (err) {
+            return next(err);
+        }
+        user.password = hash;
+        next();
     })
-  });
+});
 
 
 module.exports = mongoose.model('Users', Users);

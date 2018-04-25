@@ -11,33 +11,23 @@
         <table class="ui selectable celled table">
             <thead>
               <tr>
-                <th>วัน/เวลา</th>
-                <th>IDรถ</th>
-                <th>จำนวน</th>
-                <th>เป็นจำนวนเงิน</th>
+                <th>Date/Time</th>
+                <th>MorcycID</th>
+                <th>Time</th>
+                <th>Cost</th>
+                <th>Balance</th>
               </tr>
             </thead>
             <tbody>
-                <% for(var i=0;i<(Hisuser.length);i++) { %>
+                <% for(var i=0;i<(Hisuser['historyUser']).length;i++) { %>
               <tr>
-                <td><%= Hisuser[i]['historyUser']['dateUse'] %></td>
-                <td><%= Hisuser[i]['historyUser']['IDmorcyc'] %></td>
-                <td><%= Hisuser[i]['historyUser']['time'] %></td>
-                <td><%= Hisuser[i]['historyUser']['money'] %></td>
+                <td><%= Hisuser['historyUser'][i]['dateUse'] %></td>
+                <td><%= Hisuser['historyUser'][i]['IDmorcyc'] %></td>
+                <td><%= Hisuser['historyUser'][i]['time'] %></td>
+                <td><%= Hisuser['historyUser'][i]['cost'] %></td>
+                <td><%= Hisuser['historyUser'][i]['balance'] %></td>
               </tr>
                 <% } %>
-              <tr>
-                <td>Jamie</td>
-                <td>Approved</td>
-                <td>Requires call</td>
-                <td>Requires call</td>
-              </tr>
-              <tr>
-                <td>Jill</td>
-                <td>Denied</td>
-                <td>None</td>
-                <td>Requires call</td>
-              </tr>
             </tbody>
           </table>
     </div>
