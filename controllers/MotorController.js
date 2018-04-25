@@ -154,38 +154,38 @@ MotorController.turnOff = function (req, res) {
         var userId = req.session.userId;
         Motorcycle.findById({ _id: req.session.morcycId }).update({ using: "no", latlng: latlng }, function (err, result) {
             console.log(req.session.morcycId);
-            // if (err) console.log(err);
-            // else if (req.body.msg == "stop") {
-            //     var strinput = Date.now();
-            //     var strdate = new Date(strinput);
-            //     var dateeee = moment(strdate).tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
-            //     var wallet = 0;
-            //     User.find({ _id : req.session.userId}).exec(function(err,users){
-            //         if(err) console.log(err);
-            //         wallet = parseInt(users['wallet']) - parseInt(req.body.cost);
-            //     });
-            //     var data = {
-            //         dateUse : dateeee , 
-            //         time : parseInt(req.body.time) , 
-            //         IDmorcyc: req.session.morcycId, 
-            //         cost: parseInt(req.body.cost),
-            //         balance : wallet
-            //     };
-            //     User.findOneAndUpdate({ bookingID: req.session.morcycId },{ $push : { historyUser : data } }, function (err, user) {
-            //         // console.log("sss222");
-            //         if (err) console.log(err);
-            //         else {
-            //             req.session.morcycId = "";
-            //         }
+            if (err) console.log(err);
+            else if (req.body.msg == "stop") {
+                var strinput = Date.now();
+                var strdate = new Date(strinput);
+                var dateeee = moment(strdate).tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
+                var wallet = 0;
+                User.find({ _id : req.session.userId}).exec(function(err,users){
+                    if(err) console.log(err);
+                    wallet = parseInt(users['wallet']) - parseInt(req.body.cost);
+                });
+                var data = {
+                    dateUse : dateeee , 
+                    time : parseInt(req.body.time) , 
+                    IDmorcyc: req.session.morcycId, 
+                    cost: parseInt(req.body.cost),
+                    balance : wallet
+                };
+                User.findOneAndUpdate({ bookingID: req.session.morcycId },{ $push : { historyUser : data } }, function (err, user) {
+                    // console.log("sss222");
+                    if (err) console.log(err);
+                    else {
+                        req.session.morcycId = "";
+                    }
 
-            //     });
-            //     User.findOneAndUpdate({ _id : req.session.userId},{ $set: { bookingID : "", wallet : wallet } },function(err,usr){
-            //         if(err) console.log(err);
-            //     });
+                });
+                User.findOneAndUpdate({ _id : req.session.userId},{ $set: { bookingID : "", wallet : wallet } },function(err,usr){
+                    if(err) console.log(err);
+                });
 
-            // } else {
+            } else {
 
-            // }
+            }
         });
         // req.session.userId = userId;
         // res.send(req.session.userId);

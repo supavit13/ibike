@@ -49,7 +49,7 @@
             turnOff("stop");
             setInterval(function(){
                 window.location.href = "/showbike";
-            },5000);
+            },3000);
         }
         else if(topic == "/CMRM/" + mId + "/timeused"){
             timeused = parseInt(msg.split(" ")[0]);
