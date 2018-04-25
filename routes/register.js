@@ -23,7 +23,6 @@ router.post('/emailcheck', function (req, res) {
           if (error) res.send("Domain email is incorrect");
           else {
               user.checkDuplicateEmail(req,res);
-            // res.send("Email is correct");
           }
         });
       } else {

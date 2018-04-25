@@ -9,31 +9,21 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res, next) {
   // res.render('index', { title: 'Express' });
-  
+
   login.checksessions(req, res);
-  // res.render("menu");
 });
 router.post('/login', function (req, res, next) {
-  if(req.session.userId){
+  if (req.session.userId) {
     res.send("This account already login");
   }
   else if (validator.validate(req.body.email)) {
-    // emailExistence.check(req.body.email, function (error, response) {
-    //   if (error) res.send("Email does not exist");
-    //   else {
-        console.log("email exist");
-        login.authenticate(req, res);
-    //   }
-    // });
+    console.log("email exist");
+    login.authenticate(req, res);
   } else {
     res.send("Invalid email");
   }
-  
-  // res.render('index', { title: 'Express' });
 });
 router.get('/netpie', function (req, res, next) {
-  // res.render('index', { title: 'Express' });
-  
   if (req.session.userId) {
     res.render("netpiedata");
   } else {
@@ -59,67 +49,54 @@ router.get('/price', function (req, res, next) {
 });
 router.get('/start', function (req, res, next) {
   if (req.session.userId) {
-    motorcycle.startengine(req,res);
+    motorcycle.startengine(req, res);
   } else {
     res.redirect("/")
   }
 });
 router.get('/riding', function (req, res, next) {
   if (req.session.userId) {
-    user.riding(req,res);
+    user.riding(req, res);
     // res.render("riding");
   } else {
     res.redirect("/")
   }
 });
-// router.get('/listname', function (req, res, next) {
-//   res.render("listname");
-// });
-router.get('/listname/001', function (req, res, next) {
-  res.render("profile");
-});
-// router.get('/listmotorcycle', function (req, res, next) {
-//   res.render("listmotorcycle");
-// });
-router.get('/listmotorcycle/001', function (req, res, next) {
-  res.render("bikestatus");
-});
-// router.get('/morcyc', function (req, res, next) {
-//   res.render("morcyc");
-// });
+
 router.get('/logout', function (req, res, next) {
   if (req.session.userId) {
     login.logout(req, res);
   } else {
     res.redirect("/")
   }
-  
+
 });
-// router.post("/", function (req, res, next) {
-//   console.log('right2222');
-// });
 router.get('/repair/:id', function (req, res) {
   if (req.session.userId) {
-    motorcycle.repairMorcyc(req,res);
+    motorcycle.repairMorcyc(req, res);
   } else {
     res.redirect("/")
   }
 });
 router.post('/booking', function (req, res) {
   if (req.session.userId) {
-    motorcycle.searchMorcyc(req,res);
+    motorcycle.searchMorcyc(req, res);
   } else {
     res.redirect("/")
   }
-  
+
 });
-router.get('/awake',function(req,res){
+router.get('/awake', function (req, res) {
   console.log("awake");
   res.send(true);
 });
 
 router.get('/historyUser', function (req, res) {
-  user.historyUser(req,res);
+  if (req.session.userId) {
+    user.historyUser(req, res);
+  } else {
+    res.redirect("/");
+  }
 });
 
 
