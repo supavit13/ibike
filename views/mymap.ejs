@@ -111,7 +111,7 @@
                 $(".boxBooking").html("");
                 $("body").append(plate + brand);
                 $(".boxBooking").html("<p>Brand : " + morcycData['brand'] + " <button class='ui button' onclick='getBrand()'>view</button></p> <p> License plate : " + morcycData['plate'] + " <button class='ui button' onclick='getPlate()'>view</button></p>");
-
+                swal(e.target.options["morcycId"]);
                 console.log("morcycId : " + e.target.options["morcycId"]);
                 if (routing != null) {
                     routing.spliceWaypoints(0, 2);
