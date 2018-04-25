@@ -160,9 +160,9 @@ MotorController.turnOff = function (req, res) {
                 var strdate = new Date(strinput);
                 var dateeee = moment(strdate).tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
                 var wallet = 0;
-                User.find({ _id : req.session.userId}, function(err,users){
+                User.find({ _id : req.session.userId}).exec(function(err,users){
                     if(err) console.log(err);
-                    wallet = parseInt(users['wallet']) - parseInt(req.body.cost);
+                    wallet = users['wallet'] - parseInt(req.body.cost);
                 });
                 var data = {
                     dateUse : dateeee , 
