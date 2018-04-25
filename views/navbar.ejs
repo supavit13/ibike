@@ -5,17 +5,27 @@
     <center>
         <div id="google_translate_element"></div>
     </center>
-    <div id="batteryLevel" style="padding: auto;">
+    <div id="batteryLevel" class="ui item" style="padding: auto;">
         
     </div>
     <div class="right menu">
-        <a href="/logout" class="ui item">
+        <!-- <a href="/logout" class="ui item">
             Logout
-        </a>
+        </a> -->
+        <font size="5"><i class="cogs icon"></i></font>
+        
     </div>
 </div>
 
 <script>
+    $(".menu").on("click",function(){
+        swal({
+            title : "MENU",
+            html : "<a href='/users/changepassword'><button class='ui button'>Change password</button></a><br><br>"+
+            "<a href='/historyUser'><button class='ui button'>History</button></a><br><br>"+
+            "<a href='/logout'><button class='ui button'>Logout</button></a>"
+        });
+    });
     navigator.getBattery().then(function (battery) {
         function updateAllBatteryInfo() {
             updateChargeInfo();
