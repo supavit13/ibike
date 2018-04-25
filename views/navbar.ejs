@@ -5,7 +5,7 @@
     <center>
         <div id="google_translate_element"></div>
     </center>
-    <div id="batteryLevel">
+    <div id="batteryLevel" style="padding: auto;">
         
     </div>
     <div class="right menu">
@@ -43,11 +43,11 @@
                 + battery.level * 100 + "%");
             var batt = battery.level * 100;
             if(batt>=50){
-                $("#batteryLevel").html("<font color='green'><i class='battery full icon'></i></font>");
+                $("#batteryLevel").html("<font color='green' size='5'><i class='battery full icon'></i></font>");
             }else if(batt>30 && batt <50){
-                $("#batteryLevel").html("<font color='orange'><i class='battery half icon'></i></font>");
+                $("#batteryLevel").html("<font color='orange' size='5'><i class='battery half icon'></i></font>");
             }else{
-                $("#batteryLevel").html("<font color='red'><i class='battery quarter icon'></i></font>");
+                $("#batteryLevel").html("<font color='red' size='5'><i class='battery quarter icon'></i></font>");
             }
             
         }
