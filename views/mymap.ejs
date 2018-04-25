@@ -111,7 +111,10 @@
                 $(".boxBooking").html("");
                 $("body").append(plate + brand);
                 $(".boxBooking").html("<p>Brand : " + morcycData['brand'] + " <button class='ui button' onclick='getBrand()'>view</button></p> <p> License plate : " + morcycData['plate'] + " <button class='ui button' onclick='getPlate()'>view</button></p>");
-                swal(e.target.options["morcycId"]);
+                swal({
+                    title : "MENU",
+                    html : plate+"<br>"+brand+"<button class='ui primary button' id='repairing' onclick='clickRepair()' data-id="+dataid+">Repair</button><br><button class='ui primary button' id='booking' data-id="+dataid+" >Booking</button><br><a href='/users/changepassword'><button class='ui primary button'> Change your password </button></a>"
+                });
                 console.log("morcycId : " + e.target.options["morcycId"]);
                 if (routing != null) {
                     routing.spliceWaypoints(0, 2);
