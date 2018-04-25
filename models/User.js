@@ -75,6 +75,21 @@ var Users = new Schema({
     date: {
         type: String,
         default: dateeee
+    },
+    historyUser: {
+            dateUse: {
+                type: String,
+                default: dateeee
+            },
+            IDmorcyc: {
+                type: String
+            },
+            time: {
+                type: String
+            },
+            money: {
+                type: String
+            }
     }
 });
 Users.pre('save', function (next) {

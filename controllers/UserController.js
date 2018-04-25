@@ -142,6 +142,14 @@ UserController.getuser=function(req,res){
         }
     });
 }
+UserController.historyUser = function(req,res){
+    User.find({}).exec(function(err,hitoryuser){
+        if (err) console.log(err);
+        else {
+            res.render("../views/historyUser" , { Hisuser : hitoryuser } );
+        }
+    });
+}
 UserController.riding=function(req,res){
     Zone.find({}).exec(function (err, zone) {
         if (err) console.log(err);
