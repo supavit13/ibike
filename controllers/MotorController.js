@@ -137,8 +137,8 @@ MotorController.searchMorcyc = function (req, res) {
 MotorController.turnOff = function (req, res) {
     console.log(req.body);
     var latlng = {
-        lat : req.body.latlng.lat,
-        lng : req.body.latlng.lng
+        lat : req.body['latlng[lat]'],
+        lng : req.body['latlng[lng]']
     };
     console.log(latlng);
     if (req.session.morcycId != null) {
