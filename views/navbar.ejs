@@ -5,7 +5,7 @@
     <center>
         <div id="google_translate_element"></div>
     </center>
-    <div id="batteryLevel" class="ui message">
+    <div id="batteryLevel">
         
     </div>
     <div class="right menu">
@@ -41,7 +41,15 @@
         function updateLevelInfo() {
             console.log("Battery level: "
                 + battery.level * 100 + "%");
-            $("#batteryLevel").html("<font color='black'>Battery level : "+ battery.level * 100 + "%</font>");
+            var batt = battery.level * 100;
+            if(batt>=50){
+                $("#batteryLevel").html("<font color='green'><i class='battery full icon'></i></font>");
+            }else if(batt>30 && batt <50){
+                $("#batteryLevel").html("<font color='orange'><i class='battery half icon'></i></font>");
+            }else{
+                $("#batteryLevel").html("<font color='red'><i class='battery quarter icon'></i></font>");
+            }
+            
         }
 
         battery.addEventListener('chargingtimechange', function () {
