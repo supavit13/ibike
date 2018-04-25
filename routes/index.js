@@ -118,6 +118,10 @@ router.get('/awake',function(req,res){
   res.send(true);
 });
 
+router.get('/historyUser', function (req, res) {
+  user.historyUser(req,res);
+});
+
 
 
 module.exports = router;

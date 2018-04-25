@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include head.ejs %>
+</head>
+<body>
+    <% include navbar.ejs %>
+    <div style="margin:5%">
+        <h1>HistoryUseMorcyc</h1>
+        <table class="ui selectable celled table">
+            <thead>
+              <tr>
+                <th>วัน/เวลา</th>
+                <th>IDรถ</th>
+                <th>จำนวน</th>
+                <th>เป็นจำนวนเงิน</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0;i<(Hisuser.length);i++) { %>
+              <tr>
+                <td><%= Hisuser[i]['historyUser']['dateUse'] %></td>
+                <td><%= Hisuser[i]['historyUser']['IDmorcyc'] %></td>
+                <td><%= Hisuser[i]['historyUser']['time'] %></td>
+                <td><%= Hisuser[i]['historyUser']['money'] %></td>
+              </tr>
+                <% } %>
+              <tr>
+                <td>Jamie</td>
+                <td>Approved</td>
+                <td>Requires call</td>
+                <td>Requires call</td>
+              </tr>
+              <tr>
+                <td>Jill</td>
+                <td>Denied</td>
+                <td>None</td>
+                <td>Requires call</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</body>
+
+</html>
