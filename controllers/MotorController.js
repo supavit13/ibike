@@ -162,7 +162,7 @@ MotorController.turnOff = function (req, res) {
                 var wallet = 0;
                 User.find({ _id : req.session.userId}).exec(function(err,users){
                     if(err) console.log(err);
-                    wallet = users['wallet'] - parseInt(req.body.cost);
+                    wallet = parseInt(users['wallet']) - parseInt(req.body.cost);
                 });
                 var data = {
                     dateUse : dateeee , 
