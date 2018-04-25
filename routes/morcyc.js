@@ -22,30 +22,30 @@ router.get('/morcyc', function (req, res, next) {
     
 });
 router.post('/morcyc', function (req, res) {
-    if(res.session.userId) morcyc.create(req, res);
-    else res.redirect("/");
+    morcyc.create(req, res);
+    
     
 });
 router.post('/morcyc/getlatlng', function (req, res) {
-    if(res.session.userId) morcyc.saveLatlng(req,res);
-    else res.redirect("/");
+    morcyc.saveLatlng(req,res);
+    
 });
 router.post('/morcyc/turnoff', function (req, res) {
-    if(res.session.userId) morcyc.turnOff(req,res);
-    else res.redirect("/");
+    morcyc.turnOff(req,res);
+    
 });
 router.post('/repair',function(req,res){
-    if(res.session.userId) morcyc.saveRepair(req,res);
-    else res.redirect("/");
+    morcyc.saveRepair(req,res);
+    
 });
 router.post('/morcyc/cancelBooking', function (req, res) {
-    if(res.session.userId) morcyc.cancelBooking(req,res);
-    else res.redirect("/");
+    morcyc.cancelBooking(req,res);
+    
 });
 
 router.post('/morcyc/:id/updateCode',function(req,res){
-    if(res.session.userId) morcyc.updateCode(req,res);
-    else res.redirect("/");
+    morcyc.updateCode(req,res);
+    
 });
 
 
