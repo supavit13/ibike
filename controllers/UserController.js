@@ -148,6 +148,8 @@ UserController.historyUser = function(req,res){
         if (err) console.log(err);
         else if(hitoryuser['historyUser']!=null){
             res.render("../views/historyUser" , { Hisuser : hitoryuser[0] } );
+        }else{
+            res.redirect("/");
         }
     });
 }
