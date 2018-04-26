@@ -46,8 +46,6 @@ MotorController.create = function (req, res) {
     var name3 = passwordHash.generate(file3.split(".")[0]) + "." + file3.split(".")[1];
 
     var datamorcyc = {
-        motorID: req.body.ID,
-        name: req.body.Name,
         brand: req.body.Brand,
         latlng: {
             lat: req.body.Lat,
@@ -68,7 +66,7 @@ MotorController.create = function (req, res) {
             res.render("../views/morcyc.ejs");
         } else {
             console.log("Successfully created a MotorcycDATA.");
-            Motorcycle.findOne({ motorID: req.body.ID }).exec(function (err, morcyc) {
+            Motorcycle.findOne({ plate: req.body.plate }).exec(function (err, morcyc) {
                 req.files.picFront.name = name1;
                 req.files.picBack.name = name2;
                 req.files.picPlate.name = name3;
