@@ -12,7 +12,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://admin:admin@ds032887.mlab.com:32887/morcyc4you')
+mongoose.connect('mongodb://admin:admin@ds023088.mlab.com:23088/morcyc4you2')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
   var db = mongoose.connection;
