@@ -21,11 +21,11 @@
             <tbody>
                 <% for(var i=0;i<(Hisuser['historyUser']).length;i++) { %>
               <tr>
-                <td><%= Hisuser['historyUser'][i]['dateUse'] %></td>
-                <td><%= Hisuser['historyUser'][i]['IDmorcyc'] %></td>
-                <td><%= Hisuser['historyUser'][i]['time'] %></td>
-                <td><%= Hisuser['historyUser'][i]['cost'] %></td>
-                <td><%= Hisuser['historyUser'][i]['balance'] %></td>
+                <td><%= Hisuser['historyUser'][0][i]['dateUse'] %></td>
+                <td><%= Hisuser['historyUser'][0][i]['IDmorcyc'] %></td>
+                <td><%= Hisuser['historyUser'][0][i]['time'] %></td>
+                <td><%= Hisuser['historyUser'][0][i]['cost'] %></td>
+                <td><%= Hisuser['historyUser'][0][i]['balance'] %></td>
               </tr>
                 <% } %>
             </tbody>
