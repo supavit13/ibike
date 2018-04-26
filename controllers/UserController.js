@@ -144,9 +144,9 @@ UserController.getuser=function(req,res){
 }
 UserController.historyUser = function(req,res){
     User.find({ _id : req.session.userId}).exec(function(err,hitoryuser){
-        console.log(hitoryuser['historyUser']);
+        console.log(hitoryuser[0]['historyUser']);
         if (err) console.log(err);
-        else if(hitoryuser['historyUser']!=null){
+        else if(hitoryuser[0]['historyUser']!=null){
             res.render("../views/historyUser" , { Hisuser : hitoryuser[0] } );
         }else{
             res.redirect("/");
