@@ -146,7 +146,7 @@ UserController.historyUser = function(req,res){
     User.find({ _id : req.session.userId}).exec(function(err,hitoryuser){
         console.log(hitoryuser['historyUser']);
         if (err) console.log(err);
-        else {
+        else if(hitoryuser['historyUser']!=null){
             res.render("../views/historyUser" , { Hisuser : hitoryuser[0] } );
         }
     });
