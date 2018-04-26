@@ -107,7 +107,9 @@
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
         var name = morcyc[i]['plate'];
-        var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click');
+        var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click',function(){
+            
+        });
         console.log("plate: " + name + " " + setArea.contains(m1.getLatLng()));
     }
 

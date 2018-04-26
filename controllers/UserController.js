@@ -144,9 +144,10 @@ UserController.getuser=function(req,res){
 }
 UserController.historyUser = function(req,res){
     User.find({ _id : req.session.userId}).exec(function(err,hitoryuser){
+        console.log(hitoryuser[0].historyUser[0]);
         if (err) console.log(err);
         else {
-            res.render("../views/historyUser" , { Hisuser : hitoryuser } );
+            res.render("../views/historyUser" , { Hisuser : hitoryuser[0] } );
         }
     });
 }

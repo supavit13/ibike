@@ -7,50 +7,38 @@ var morcyc = require("../controllers/MotorController.js");
 var admin = require("../controllers/AdminController.js");
 var usercon = require("../controllers/UserController.js");
 
+function requiresLoginAdmin(req, res, next) {
+    if (req.session && req.session.userId) {
+        User.findById({ _id: req.session.userId }).exec(function (err, user) {
+            if (user["pass"] == "Admin") {
+                return next();
+            } else {
+                var err = new Error("You don't have permission for this.");
+                err.status = 401;
+                return next(err);
+            }
+        });
+    } else {
+        var err = new Error('You must be logged in to view this page.');
+        err.status = 401;
+        return next(err);
+    }
+}
+
 router.post("/ping", function (req, res) {
     admin.ping(req, res);
 });
-
-router.get('/', function (req, res, next) {
-    if (req.session.userId) {
-        User.findById({ _id: req.session.userId }).exec(function (err, user) {
-            if (user["pass"] == "Admin") {
-                admin.plotToMapAdmin(req, res);
-            } else {
-                res.redirect("/");
-            }
-        });
-    } else {
-        res.redirect("/");
-    }
-
-
+router.get('/morcyc',requiresLoginAdmin, function (req, res, next) {
+    res.render("morcyc");
 });
-router.get("/listname", function (req, res, next) {
-    if (req.session.userId) {
-        User.findById({ _id: req.session.userId }).exec(function (err, user) {
-            if (user["pass"] == "Admin") {
-                admin.userList(req, res);
-            } else {
-                res.redirect("/");
-            }
-        });
-    } else {
-        res.redirect("/");
-    }
+router.get('/', requiresLoginAdmin, function (req, res, next) {
+    admin.plotToMapAdmin(req, res);
 });
-router.get("/listmotorcycle", function (req, res, next) {
-    if (req.session.userId) {
-        User.findById({ _id: req.session.userId }).exec(function (err, user) {
-            if (user["pass"] == "Admin") {
-                admin.morcycList(req, res);
-            } else {
-                res.redirect("/");
-            }
-        });
-    } else {
-        res.redirect("/");
-    }
+router.get("/listname", requiresLoginAdmin, function (req, res, next) {
+    admin.userList(req, res);
+});
+router.get("/listmotorcycle", requiresLoginAdmin, function (req, res, next) {
+    admin.morcycList(req, res);
 
 });
 router.post("/add", function (req, res) {
@@ -64,45 +52,15 @@ router.post("/setZone", function (req, res) {
     console.log(req.body.size);
     admin.setZone(req, res);
 });
-router.get("/profile/:id", function (req, res) {
-    if (req.session.userId) {
-        User.findById({ _id: req.session.userId }).exec(function (err, user) {
-            if (user["pass"] == "Admin") {
-                usercon.getuser(req, res);
-            } else {
-                res.redirect("/");
-            }
-        });
-    } else {
-        res.redirect("/");
-    }
+router.get("/profile/:id",requiresLoginAdmin, function (req, res) {
+    usercon.getuser(req, res);
 });
-router.get("/motorcycle/:id", function (req, res) {
-    if (req.session.userId) {
-        User.findById({ _id: req.session.userId }).exec(function (err, user) {
-            if (user["pass"] == "Admin") {
-                morcyc.getmotorcycle(req, res);
-            } else {
-                res.redirect("/");
-            }
-        });
-    } else {
-        res.redirect("/");
-    }
+router.get("/motorcycle/:id",requiresLoginAdmin, function (req, res) {
+    morcyc.getmotorcycle(req, res);
 });
 
-router.get('/history', function (req, res, next) {
-    if (req.session.userId) {
-        User.findById({ _id: req.session.userId }).exec(function (err, user) {
-            if (user["pass"] == "Admin") {
-                admin.Historydata(req, res);
-            } else {
-                res.redirect("/");
-            }
-        });
-    } else {
-        res.redirect("/");
-    }
+router.get('/history',requiresLoginAdmin, function (req, res, next) {
+    admin.Historydata(req, res);
 });
 
 router.get('/getLat', function (req, res, next) {

@@ -5,11 +5,17 @@ var user = require("../controllers/UserController.js");
 var validator = require("email-validator");
 var emailExistence = require("email-existence");
 var router = express.Router();
-
+function requiresLogin(req, res, next) {
+  if (req.session && req.session.userId) {
+      return next();
+  } else {
+      var err = new Error('You must be logged in to view this page.');
+      err.status = 401;
+      return next(err);
+  }
+}
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  // res.render('index', { title: 'Express' });
-
   login.checksessions(req, res);
 });
 router.post('/login', function (req, res, next) {
@@ -23,67 +29,27 @@ router.post('/login', function (req, res, next) {
     res.send("Invalid email");
   }
 });
-router.get('/netpie', function (req, res, next) {
-  if (req.session.userId) {
-    res.render("netpiedata");
-  } else {
-    res.redirect("/")
-  }
-});
-router.get('/showbike', function (req, res, next) {
-  if (req.session.userId) {
-    motorcycle.plotToMap(req, res);
-  } else {
-    res.redirect("/")
-  }
+router.get('/showbike',requiresLogin, function (req, res, next) {
+  motorcycle.plotToMap(req, res);
 
 });
 
-router.get('/price', function (req, res, next) {
-  if (req.session.userId) {
-    res.render("price");
-  } else {
-    res.redirect("/")
-  }
-
+router.get('/start',requiresLogin, function (req, res, next) {
+  motorcycle.startengine(req, res);
 });
-router.get('/start', function (req, res, next) {
-  if (req.session.userId) {
-    motorcycle.startengine(req, res);
-  } else {
-    res.redirect("/")
-  }
-});
-router.get('/riding', function (req, res, next) {
-  if (req.session.userId) {
-    user.riding(req, res);
-    // res.render("riding");
-  } else {
-    res.redirect("/")
-  }
+router.get('/riding',requiresLogin, function (req, res, next) {
+  user.riding(req, res);
 });
 
-router.get('/logout', function (req, res, next) {
-  if (req.session.userId) {
-    login.logout(req, res);
-  } else {
-    res.redirect("/")
-  }
+router.get('/logout',requiresLogin, function (req, res, next) {
+  login.logout(req, res);
 
 });
-router.get('/repair/:id', function (req, res) {
-  if (req.session.userId) {
-    motorcycle.repairMorcyc(req, res);
-  } else {
-    res.redirect("/")
-  }
+router.get('/repair/:id',requiresLogin, function (req, res) {
+  motorcycle.repairMorcyc(req, res);
 });
 router.post('/booking', function (req, res) {
-  if (req.session.userId) {
-    motorcycle.searchMorcyc(req, res);
-  } else {
-    res.redirect("/")
-  }
+  motorcycle.searchMorcyc(req, res);
 
 });
 router.get('/awake', function (req, res) {
@@ -91,12 +57,8 @@ router.get('/awake', function (req, res) {
   res.send(true);
 });
 
-router.get('/historyUser', function (req, res) {
-  if (req.session.userId) {
-    user.historyUser(req, res);
-  } else {
-    res.redirect("/");
-  }
+router.get('/historyUser',requiresLogin, function (req, res) {
+  user.historyUser(req, res);
 });
 
 

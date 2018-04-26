@@ -150,7 +150,7 @@ MotorController.turnOff = function (req, res) {
         lng: req.body['latlng[lng]']
     };
     console.log(latlng);
-    if (req.session.morcycId != null) {
+    if (req.session.morcycId!=null) {
         var userId = req.session.userId;
         Motorcycle.findById({ _id: req.session.morcycId }).update({ using: "no", latlng: latlng }, function (err, result) {
             console.log(req.session.morcycId);
@@ -159,30 +159,30 @@ MotorController.turnOff = function (req, res) {
                 var strinput = Date.now();
                 var strdate = new Date(strinput);
                 var dateeee = moment(strdate).tz("Asia/Bangkok").format("YYYY-MM-DD HH:mm:ss");
-                var wallet = 0;
-                User.find({ _id : req.session.userId}).exec(function(err,users){
+                
+                User.findOne({ _id : req.session.userId}).exec(function(err,users){
                     if(err) console.log(err);
-                    wallet = parseInt(users['wallet']) - parseInt(req.body.cost);
+                    var wallet = parseInt(users['wallet']) - parseInt(req.body.cost);
+                    console.log(wallet);
+                    console.log(parseInt(users['wallet']));
+                    var data = {
+                        dateUse : dateeee , 
+                        time : req.body.time , 
+                        IDmorcyc: req.session.morcycId, 
+                        cost: req.body.cost,
+                        balance : wallet
+                    };
+                    User.findOneAndUpdate({ _id : req.session.userId },{ $push : { historyUser : data } }, function (err, user) {
+                        if (err) console.log(err);
+                        else {
+                            req.session.morcycId = "";
+                        }
+    
+                    });
+                    User.findOneAndUpdate({ _id : req.session.userId},{ $set: { bookingID : "", wallet : wallet } },function(err,usr){
+                        if(err) console.log(err);
+                    });
                 });
-                var data = {
-                    dateUse : dateeee , 
-                    time : parseInt(req.body.time) , 
-                    IDmorcyc: req.session.morcycId, 
-                    cost: parseInt(req.body.cost),
-                    balance : wallet
-                };
-                User.findOneAndUpdate({ bookingID: req.session.morcycId },{ $push : { historyUser : data } }, function (err, user) {
-                    // console.log("sss222");
-                    if (err) console.log(err);
-                    else {
-                        req.session.morcycId = "";
-                    }
-
-                });
-                User.findOneAndUpdate({ _id : req.session.userId},{ $set: { bookingID : "", wallet : wallet } },function(err,usr){
-                    if(err) console.log(err);
-                });
-
             } else {
 
             }
@@ -191,7 +191,7 @@ MotorController.turnOff = function (req, res) {
         // res.send(req.session.userId);
         res.send(true);
     } else {
-        res.send("user null");
+        res.send("bad request");
     }
 }
 MotorController.repairMorcyc = function (req, res) {

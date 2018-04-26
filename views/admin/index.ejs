@@ -11,63 +11,11 @@
 <% include ../alertscript.ejs %>
 <body>
     <% include ../navbar.ejs %>
-        <!-- Portfolio Section -->
-        <h2 class="w3-text-light">ADMIN</h2>
-        <hr style="width:200px" class="w3-opacity">
 
 
         <div id="map"></div>
         <% include ../mymapAdmin.ejs %>
-        <!-- <script>
 
-            function initMap() {
-                var myLatLng = { lat: 13.120, lng: 100.919 };
-
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 16,
-                    center: myLatLng
-                });
-
-                var marker = new google.maps.Marker({
-                    position: { lat: 13.120, lng: 100.919 },
-                    map: map,
-                    title: '001'
-                });
-                var marker = new google.maps.Marker({
-                    position: { lat: 13.116, lng: 100.922 },
-                    map: map,
-                    title: '002'
-                });
-                var marker = new google.maps.Marker({
-                    position: { lat: 13.121, lng: 100.920 },
-                    map: map,
-                    title: '003'
-                });
-            }
-        </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3gga67g_fXhRofEIdiQOXv8Yqf9vDkdc&callback=initMap">
-        </script> -->
-
-
-        <center>
-            <div class="ui large buttons" style="margin-bottom: 5%">
-                <a href="admin/listmotorcycle">
-                    <button class="ui button">Motorcycle list</button>
-                </a>
-                <div class="or"></div>
-                <a href="admin/listname">
-                    <button class="ui button">Member list</button>
-                </a>
-                <div class="or"></div>
-                <a href="/morcyc">
-                    <button class="ui button">Add motorcycle</button>
-                </a>
-                <div class="or"></div>
-                <a href="/admin/history">
-                    <button class="ui button">History log</button>
-                </a>
-            </div>
-        </center>
 
 </body>
 

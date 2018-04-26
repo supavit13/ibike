@@ -2,10 +2,15 @@ var express = require('express');
 var router = express.Router();
 var users = require("../controllers/UserController.js");
 
-/* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
+function requiresLogin(req, res, next) {
+  if (req.session && req.session.userId) {
+      return next();
+  } else {
+      var err = new Error('You must be logged in to view this page.');
+      err.status = 401;
+      return next(err);
+  }
+}
 router.get('/:id/verify', function (req, res, next) {
   users.verify(req,res);
 });
@@ -15,18 +20,10 @@ router.post('/getemail',function(req,res){
 router.post('/forgetpassword',function(req,res){
   users.forgetPassword(req,res);
 });
-router.get('/changepassword',function(req,res){
-  if (req.session.userId) {
+router.get('/changepassword',requiresLogin,function(req,res){
     res.render('../views/changepassword');
-  } else {
-    res.redirect("/")
-  }
 });
-router.post('/changepassword',function(req,res){
-  if (req.session.userId) {
-    users.changepassword(req,res);
-  } else {
-    res.redirect("/")
-  }
+router.post('/changepassword',requiresLogin,function(req,res){
+  users.changepassword(req,res);
 });
 module.exports = router;

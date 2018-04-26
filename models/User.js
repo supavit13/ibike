@@ -77,7 +77,7 @@ var Users = new Schema({
         default: dateeee
     },
     wallet: {
-        type: Number
+        type: String
     },
     historyUser: {
         type: Object
