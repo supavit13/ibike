@@ -75,7 +75,7 @@ router.post('/checkzone', function (req, res, next) {
     admin.checkzone(req, res);
 });
 router.get('/topup/:id/:money',requiresLoginAdmin,function(req,res){
-    user.topup(req,res);
+    usercon.topup(req,res);
   });
 
 module.exports = router;
