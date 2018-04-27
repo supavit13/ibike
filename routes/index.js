@@ -64,7 +64,7 @@ router.post('/booking', function (req, res) {
   motorcycle.searchMorcyc(req, res);
 
 });
-router.post('/topup/:id/:money',function(req,res){
+router.get('/topup/:id/:money',function(req,res){
   user.topup(req,res);
 })
 
