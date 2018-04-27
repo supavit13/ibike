@@ -74,6 +74,8 @@ router.post('/checkzone', function (req, res, next) {
     console.log("before checkzone");
     admin.checkzone(req, res);
 });
-
+router.get('/topup/:id/:money',requiresLoginAdmin,function(req,res){
+    user.topup(req,res);
+  });
 
 module.exports = router;
