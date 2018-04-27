@@ -32,7 +32,15 @@
         },
         success: function (data) {
             console.log(data);
-            $("#walletdata").html("Wallet : "+data+" Bath");
+            $("#walletdata").html("Wallet : " + data + " Bath");
+            if (parseInt(data) < 50) {
+                swal({
+                    title: "Alert",
+                    html: "Your balance less than 50 bath. please contract administrator for topup",
+                    type: "info"
+                });
+            }
+
         }
     });
     function findadmin(msg) {
