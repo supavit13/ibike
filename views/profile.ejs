@@ -32,7 +32,7 @@
                         </p>
 
                         <p>
-                            <b>bookingID : </b>
+                            <b>BookingID : </b>
                             <%= user['bookingID'] %>
                         </p>
                         <p>
@@ -43,32 +43,40 @@
                             <b>Rank : </b>
                             <%= user['pass'] %>
                         </p>
+                        <p>
+                            <b>Country : </b>
+                            <%= user['address']['country'] %>
+                        </p>
 
                     </div>
                     <div class="column">
                         <p>
-                            <b>เบอร์ติดต่อ : </b>
+                            <b>Tel : </b>
                             <%= user['tel'] %>
                         </p>
                         <p>
-                            <b>บ้านเลขที่ : </b>
+                            <b>House no. : </b>
                             <%= user['address']['number'] %>
                         </p>
                         <p>
-                            <b>หมู่ : </b>
+                            <b>Vilage no. : </b>
                             <%= user['address']['moo'] %>
                         </p>
                         <p>
-                            <b>ตำบล : </b>
+                            <b>Sub-distrct : </b>
                             <%= user['address']['tumbol'] %>
                         </p>
                         <p>
-                            <b>อำเภอ : </b>
+                            <b>District : </b>
                             <%= user['address']['district'] %>
                         </p>
                         <p>
-                            <b>จังหวัด : </b>
+                            <b>Provice : </b>
                             <%= user['address']['province'] %>
+                        </p>
+                        <p>
+                            <b>Postcode : </b>
+                            <%= user['address']['postcode'] %>
                         </p>
                     </div>
                 </div>
@@ -111,20 +119,20 @@
 
                 $('#img1').click(function () {
                     swal({
-                        title : "Card and your self",
-                        html : '<img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picOwn %>" style="max-width:100%; max-height:100%;">'
+                        title: "Card and your self",
+                        html: '<img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picOwn %>" style="max-width:100%; max-height:100%;">'
                     });
                 });
                 $('#img2').click(function () {
                     swal({
-                        title : "Back of card",
-                        html : '<img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picBack %>" style="max-width:100%; max-height:100%;">'
+                        title: "Back of card",
+                        html: '<img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picBack %>" style="max-width:100%; max-height:100%;">'
                     });
                 });
                 $('#img3').click(function () {
                     swal({
-                        title : "In front of card",
-                        html : '<img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picFront %>" style="max-width:100%; max-height:100%;">'
+                        title: "In front of card",
+                        html: '<img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picFront %>" style="max-width:100%; max-height:100%;">'
                     });
                 });
 
