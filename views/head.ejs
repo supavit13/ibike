@@ -153,9 +153,6 @@
     body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
         height: 0;
     }
-    .js-cance.cancel {
-        display: none !important;
-    }
     /* for ios */
 </style>
 <!-- map END -->
@@ -168,6 +165,8 @@
     // window.onbeforeunload = function () {
     //     return 'Are you sure you want to leave?';
     // };
-
+    $(".js-cancel.cancel").on("click",function(){
+        location.reload();
+    })
 </script>
 <!-- google translate srcipt END -->
