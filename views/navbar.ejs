@@ -31,14 +31,20 @@
         if (url.find(findadmin) == "admin") {
             swal({
                 title: "MENU",
-                html: "<a href='/'><button class='ui primary button'>Home</button></a><br><br>" +
+                html: "<div class='ui two column grid'>" +
+                    "<div class='column'>" +
+                    "<a href='/'><button class='ui primary button'>Home</button></a><br><br>" +
                     "<a href='/users/changepassword'><button class='ui primary button'>Change password</button></a><br><br>" +
                     "<a href='/historyUser'><button class='ui primary button'>History</button></a><br><br>" +
                     "<a href='/admin/history'><button class='ui primary button'>Log</button></a><br><br>" +
+                    "</div>" +
+                    "<div class='column'>" +
                     "<a href='/admin/listname'><button class='ui primary button'>Member list</button></a><br><br>" +
                     "<a href='/admin/listmotorcycle'><button class='ui primary button'>Motorcycle list</button></a><br><br>" +
                     "<a href='/admin/morcyc'><button class='ui primary button'>Add motorcycle</button></a><br><br>" +
-                    "<a href='/logout'><button class='ui primary button'>Logout</button></a>",
+                    "<a href='/logout'><button class='ui primary button'>Logout</button></a>" +
+                    "</div>" +
+                    "</div>",
                 showConfirmButton: false,
                 showCancelButton: true
             });
