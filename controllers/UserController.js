@@ -275,4 +275,10 @@ UserController.topup = function(req,res){
         else res.send("TopUp Successfully!!");
     });
 }
+UserController.getwallet = function(req,res){
+    User.find({ _id : req.session.userId}).exec(function(err,user){
+        if(err) console.log(err);
+        else res.send(user.wallet);
+    });
+}
 module.exports = UserController;

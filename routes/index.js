@@ -65,6 +65,10 @@ router.post('/booking', function (req, res) {
 
 });
 
+router.post('/getwallet', function (req, res) {
+  user.getwallet(req, res);
+});
+
 
 
 module.exports = router;

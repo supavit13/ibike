@@ -8,7 +8,10 @@
         <!-- <a href="/logout" class="ui item">
             Logout
         </a> -->
-        <div id="batteryLevel" class="ui item" style="padding: auto;">
+        <div id="walletdata" class="ui item">
+
+        </div>
+        <div id="batteryLevel" class="ui item">
 
         </div>
         <div class="ui item setting">
@@ -21,6 +24,16 @@
 </div>
 
 <script>
+    $.ajax({
+        type: "POST",
+        url: "/getwallet",
+        data: {
+            '_token': $('input[name=_token]').val()
+        },
+        success: function (data) {
+            $("#walletdata").html(data);
+        }
+    });
     function findadmin(msg) {
         return msg == "admin";
     }
@@ -87,12 +100,12 @@
                 + battery.level * 100 + "%");
             var batt = battery.level * 100;
             if (batt >= 50) {
-                $("#batteryLevel").html("<font color='green' size='8'><i class='battery full icon'></i></font>");
+                $("#batteryLevel").html("<font color='green' size='6'><i class='battery full icon'></i></font>");
             } else if (batt > 30 && batt < 50) {
-                $("#batteryLevel").html("<font color='orange' size='8'><i class='battery half icon'></i></font>");
+                $("#batteryLevel").html("<font color='orange' size='6'><i class='battery half icon'></i></font>");
             } else {
                 swal("Battery low!!");
-                $("#batteryLevel").html("<font color='red' size='8'><i class='battery quarter icon'></i></font>");
+                $("#batteryLevel").html("<font color='red' size='6'><i class='battery quarter icon'></i></font>");
             }
 
         }
