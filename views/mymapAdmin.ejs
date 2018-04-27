@@ -124,7 +124,7 @@
     }
     mymap.on('click', onMapClick);
     mymap.on('measurefinish', function (evt) {
-        console.log($(this).text());
+        console.log($(this).attr("class"));
         writeResults(evt);
     });
     function writeResults(results) {
