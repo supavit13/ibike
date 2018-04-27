@@ -278,7 +278,7 @@ UserController.topup = function(req,res){
 UserController.getwallet = function(req,res){
     User.findOne({ _id : req.session.userId}).exec(function(err,user){
         console.log(user);
-        console.log(user.wall);
+        console.log(user.wallet);
         if(err) console.log(err);
         else res.send(user.wallet);
     });
