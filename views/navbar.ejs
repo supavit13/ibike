@@ -24,6 +24,7 @@
 </div>
 
 <script>
+    var walletdata;
     $.ajax({
         type: "POST",
         url: "/getwallet",
@@ -32,6 +33,7 @@
         },
         success: function (data) {
             console.log(data);
+            walletdata = parseInt(data);
             $("#walletdata").html("Wallet : " + data + " Bath");
             if (parseInt(data) < 50) {
                 swal({
@@ -43,6 +45,7 @@
 
         }
     });
+    console.log(walletdata);
     function findadmin(msg) {
         return msg == "admin";
     }
