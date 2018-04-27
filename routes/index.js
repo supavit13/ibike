@@ -60,7 +60,13 @@ router.get('/awake', function (req, res) {
 router.get('/historyUser',requiresLogin, function (req, res) {
   user.historyUser(req, res);
 });
+router.post('/booking', function (req, res) {
+  motorcycle.searchMorcyc(req, res);
 
+});
+router.post('/topup/:id/:money',function(req,res){
+  user.topup(req,res);
+})
 
 
 module.exports = router;

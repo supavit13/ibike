@@ -269,4 +269,10 @@ UserController.changepassword = function(req,res){
 
     });
 }
+UserController.topup = function(req,res){
+    User.where({ _id : req.params.id }).update({ wallet : req.params.money },function(err,result){
+        if(err) console.log(err);
+        else res.send("TopUp Successfully!!");
+    });
+}
 module.exports = UserController;
