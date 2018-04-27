@@ -29,17 +29,18 @@
                             <td>
                                 <div class="ui vertical labeled icon buttons">
                                     <button class="ui button" id="img1">
-                                        <i class="id card icon"></i><i class="user icon"></i>
+                                        <i class="id card icon"></i>
+                                        <i class="user icon"></i>
                                         Plate
-                                      </button>
-                                      <button class="ui button" id="img3">
+                                    </button>
+                                    <button class="ui button" id="img3">
                                         <i class="id card outline icon"></i>
                                         Front
-                                      </button>
-                                      <button class="ui button" id="img2">
+                                    </button>
+                                    <button class="ui button" id="img2">
                                         <i class="id card icon"></i>
                                         Back
-                                      </button>
+                                    </button>
                                 </div>
                             </td>
                             <td>
@@ -61,11 +62,15 @@
                                 </p>
                                 <p>
                                     <b>latitude : </b>
-                                    <p id="lat"><%= morcyc['latlng']['lat'] %></p>
+                                    <p id="lat">
+                                        <%= morcyc['latlng']['lat'] %>
+                                    </p>
                                 </p>
                                 <p>
                                     <b>longitude : </b>
-                                    <p id="lng"><%= morcyc['latlng']['lng'] %></p>
+                                    <p id="lng">
+                                        <%= morcyc['latlng']['lng'] %>
+                                    </p>
                                 </p>
                                 <p>
                                     <b>Using : </b>
@@ -169,35 +174,35 @@
                         alias: ALIAS /*  optional  */
                     });
                     microgear.on('message', function (topic, msg) {
-                        if(topic == "/CMRM/"+morcycId+"/sendstatus"){
+                        if (topic == "/CMRM/" + morcycId + "/sendstatus") {
                             console.log(msg);
                             var status = msg.split(",")[0];
                             $("#status1").html("");
                             $("#status2").html("");
                             $("#status3").html("");
                             $("#status4").html("");
-                            if(status[0]=="1"){
+                            if (status[0] == "1") {
                                 $("#status1").append(correct);
                             }
-                            if(status[1]=="1"){
+                            if (status[1] == "1") {
                                 $("#status2").append(correct);
                             }
-                            if(status[2]=="1"){
+                            if (status[2] == "1") {
                                 $("#status3").append(correct);
                             }
-                            if(status[3]=="1"){
+                            if (status[3] == "1") {
                                 $("#status4").append(correct);
                             }
-                            if(status[0]=="0"){
+                            if (status[0] == "0") {
                                 $("#status1").append(error);
                             }
-                            if(status[1]=="0"){
+                            if (status[1] == "0") {
                                 $("#status2").append(error);
                             }
-                            if(status[2]=="0"){
+                            if (status[2] == "0") {
                                 $("#status3").append(error);
                             }
-                            if(status[3]=="0"){
+                            if (status[3] == "0") {
                                 $("#status4").append(error);
                             }
                             document.getElementById("lat").innerHTML = "";
@@ -205,29 +210,29 @@
                             document.getElementById("lat").innerHTML = msg.split(",")[1];
                             document.getElementById("lng").innerHTML = msg.split(",")[2];
                             $.ajax({
-                                type : "POST",
-                                url : "/morcyc/"+morcycId+"/updateCode",
-                                data : {
+                                type: "POST",
+                                url: "/morcyc/" + morcycId + "/updateCode",
+                                data: {
                                     '_token': $('input[name=_token]').val(),
-                                    code : msg.split(",")[0],
-                                    lat : msg.split(",")[1],
-                                    lng : msg.split(",")[2]
+                                    code: msg.split(",")[0],
+                                    lat: msg.split(",")[1],
+                                    lng: msg.split(",")[2]
                                 },
-                                success : function(data){
-                                    if(data){
-                                        swal("Update data","","success");
-                                    }else{
+                                success: function (data) {
+                                    if (data) {
+                                        swal("Update data", "", "success");
+                                    } else {
                                         swal("error");
                                     }
                                 }
                             });
                         }
-                        
+
                     });
 
                     microgear.on('connected', function () {
                         microgear.setAlias(ALIAS);
-                        microgear.subscribe("/"+morcycId+"/sendstatus");
+                        microgear.subscribe("/" + morcycId + "/sendstatus");
                     });
 
                     microgear.on('present', function (event) {
@@ -243,38 +248,29 @@
 
             </div>
 
-        <div class="ui modal img1" style="height:50%;">
-            <i class="close icon"></i>
-            <img src="https://s3.amazonaws.com/morcyc4you/motorcycle/<%= morcyc['_id'] %>/<%= morcyc['pictures']['picPlate'] %>" style="max-width:100%; max-height:100%;">
-        </div>
-        <div class="ui modal img2" style="height:50%; z-index:8000">
-                <i class="close icon"></i>
-                <img src="https://s3.amazonaws.com/morcyc4you/motorcycle/<%= morcyc['_id'] %>/<%= morcyc['pictures']['picBack'] %>" style="max-width:100%; max-height:100%;">
-        </div>
-        <div class="ui modal img3" style="height:50%;">
-                <i class="close icon"></i>
-                <img src="https://s3.amazonaws.com/morcyc4you/motorcycle/<%= morcyc['_id'] %>/<%= morcyc['pictures']['picFront'] %>" style="max-width:100%; max-height:100%;">
-        </div>
 
-        <script>
-            $('#img1').click(function(){
-                $('.ui.modal.img1')
-                .modal('show')
-            ;
-            });
-            $('#img2').click(function(){
-                $('.ui.modal.img2')
-                .modal('show')
-            ;
-            });
-            $('#img3').click(function(){
-                $('.ui.modal.img3')
-                .modal('show')
-            ;
-            });
-            
-        </script>
-        
+            <script>
+                $('#img1').click(function () {
+                    swal({
+                        title: "Plate",
+                        html: '<img src="https://s3.amazonaws.com/morcyc4you/motorcycle/<%= morcyc._id %>/<%= morcyc.pictures.picPlate %>" style="max-width:100%; max-height:100%;">'
+                    });
+                });
+                $('#img2').click(function () {
+                    swal({
+                        title: "Back",
+                        html: '<img src="https://s3.amazonaws.com/morcyc4you/motorcycle/<%= morcyc._id %>/<%= morcyc.pictures.picBack %>" style="max-width:100%; max-height:100%;">'
+                    });
+                });
+                $('#img3').click(function () {
+                    swal({
+                        title: "Front",
+                        html: '<img src="https://s3.amazonaws.com/morcyc4you/motorcycle/<%= morcyc._id %>/<%= morcyc.pictures.picFront %>" style="max-width:100%; max-height:100%;">'
+                    });
+                });
+
+            </script>
+
     </body>
 
 </html>
