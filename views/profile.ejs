@@ -72,6 +72,7 @@
                         </p>
                     </div>
                 </div>
+                <hr>
                 <center>
                     <div class="ui vertical labeled icon buttons">
                         <button class="ui button" id="img1">
@@ -91,49 +92,40 @@
                 </center>
             </div>
 
-            <div class="ui modal img1" style="height:50%;">
+            <!-- <div class="ui modal img1" style="height:50%;">
                 <i class="close icon"></i>
-                <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user['_id'] %>/<%= user['license']['picOwn'] %>" style="max-width:100%; max-height:100%;">
+                <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picOwn %>" style="max-width:100%; max-height:100%;">
             </div>
             <div class="ui modal img2" style="height:50%; z-index:8000">
                 <i class="close icon"></i>
-                <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user['_id'] %>/<%= user['license']['picBack'] %>" style="max-width:100%; max-height:100%;">
+                <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picBack %>" style="max-width:100%; max-height:100%;">
             </div>
             <div class="ui modal img3" style="height:50%;">
                 <i class="close icon"></i>
-                <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user['_id'] %>/<%= user['license']['picFront'] %>" style="max-width:100%; max-height:100%;">
-            </div>
-            <!-- <div style="height:50%;">
-    <div style="display: inline-block; width:49%;">
-        <img src="{{asset('hqdefault.jpg')}}" width="100%" height="100%">
-    </div>
-    <div style="display: inline-block; width:49%;">
-        <p><b>ID : </b>001</p>
-        <p><b>Name : </b>John</p>
-        <p><b>อุณหภูมิน้ำหล่อเย็นเครื่อง : </b>ปกติ</p>
-        <p><b>ตำแหน่งลิ้นเร่ง : </b>ปกติ</p>
-        <p><b>หัวฉีดน้ำมันเชื้อเพลิง : </b>ปกติ</p>
-        <p><b>ปริมาณออกซิเจน : </b>ปกติ</p>
-    </div> -->
-
+                <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picFront %>" style="max-width:100%; max-height:100%;">
+            </div> -->
 
             </div>
 
             <script>
+
                 $('#img1').click(function () {
-                    $('.ui.modal.img1')
-                        .modal('show')
-                        ;
+                    swal({
+                        title : "Card and your self",
+                        html : '<img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picOwn %>" style="max-width:100%; max-height:100%;">'
+                    });
                 });
                 $('#img2').click(function () {
-                    $('.ui.modal.img2')
-                        .modal('show')
-                        ;
+                    swal({
+                        title : "Back of card",
+                        html : '<img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picBack %>" style="max-width:100%; max-height:100%;">'
+                    });
                 });
                 $('#img3').click(function () {
-                    $('.ui.modal.img3')
-                        .modal('show')
-                        ;
+                    swal({
+                        title : "In front of card",
+                        html : '<img src="https://s3.amazonaws.com/morcyc4you/user/<%= user._id %>/<%= user.license.picFront %>" style="max-width:100%; max-height:100%;">'
+                    });
                 });
 
             </script>
