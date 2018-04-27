@@ -31,6 +31,7 @@
             '_token': $('input[name=_token]').val()
         },
         success: function (data) {
+            console.log(data);
             $("#walletdata").html(data);
         }
     });
