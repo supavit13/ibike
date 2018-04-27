@@ -1,53 +1,109 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <% include head.ejs %>
 </head>
 <% include alertscript.ejs %>
-<body>
-    <% include navbar.ejs %>
-    <h1 ><%= user['firstName'] %> <%= user['lastName'] %></h1>
-<hr>
-            <div style="margin:5%">
-                <p><b>Name : </b><%= user['firstName'] %> <%= user['lastName'] %></p>
-                <p><b>E-Mail : </b><%= user['email'] %></p>
-                <p><b>เบอร์ติดต่อ : </b><%= user['tel'] %></p>
-                <p><b>บ้านเลขที่ : </b><%= user['address']['number'] %></p>
-                <p><b>หมู่ : </b><%= user['address']['moo'] %></p>
-                <p><b>ตำบล : </b><%= user['address']['tumbol'] %></p>
-                <p><b>อำเภอ : </b><%= user['address']['district'] %></p>
-                <p><b>จังหวัด : </b><%= user['address']['province'] %></p>
-                <center>
-                        <div class="ui vertical labeled icon buttons">
-                                <button class="ui button" id="img1">
-                                  <i class="id card icon"></i><i class="user icon"></i>
-                                  รูปคู่
-                                </button>
-                                <button class="ui button" id="img3">
-                                  <i class="id card outline icon"></i>
-                                  รูปหน้า
-                                </button>
-                                <button class="ui button" id="img2">
-                                  <i class="id card icon"></i>
-                                  รูปหลัง
-                                </button>
-                        </div>
-                </center>
-                </div>
 
-<div class="ui modal img1" style="height:50%;">
-    <i class="close icon"></i>
-    <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user['_id'] %>/<%= user['license']['picOwn'] %>" style="max-width:100%; max-height:100%;">
-</div>
-<div class="ui modal img2" style="height:50%; z-index:8000">
-        <i class="close icon"></i>
-        <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user['_id'] %>/<%= user['license']['picBack'] %>" style="max-width:100%; max-height:100%;">
-</div>
-<div class="ui modal img3" style="height:50%;">
-        <i class="close icon"></i>
-        <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user['_id'] %>/<%= user['license']['picFront'] %>" style="max-width:100%; max-height:100%;">
-</div>
-<!-- <div style="height:50%;">
+    <body>
+        <% include navbar.ejs %>
+            <h1>
+                <%= user['firstName'] %>
+                    <%= user['lastName'] %>
+            </h1>
+            <hr>
+            <div style="margin:5%">
+                <div class="ui two column grid">
+
+                    <div class="column">
+                        <p>
+                            <b>ID : </b>
+                            <%= user['_id'] %>
+                        </p>
+                        <p>
+                            <b>Name : </b>
+                            <%= user['firstName'] %>
+                                <%= user['lastName'] %>
+                        </p>
+                        <p>
+                            <b>E-Mail : </b>
+                            <%= user['email'] %>
+                        </p>
+
+                        <p>
+                            <b>bookingID : </b>
+                            <%= user['bookingID'] %>
+                        </p>
+                        <p>
+                            <b>Wallet : </b>
+                            <%= user['wallet'] %> Baht
+                        </p>
+                        <p>
+                            <b>Rank : </b>
+                            <%= user['pass'] %>
+                        </p>
+
+                    </div>
+                    <div class="column">
+                        <p>
+                            <b>เบอร์ติดต่อ : </b>
+                            <%= user['tel'] %>
+                        </p>
+                        <p>
+                            <b>บ้านเลขที่ : </b>
+                            <%= user['address']['number'] %>
+                        </p>
+                        <p>
+                            <b>หมู่ : </b>
+                            <%= user['address']['moo'] %>
+                        </p>
+                        <p>
+                            <b>ตำบล : </b>
+                            <%= user['address']['tumbol'] %>
+                        </p>
+                        <p>
+                            <b>อำเภอ : </b>
+                            <%= user['address']['district'] %>
+                        </p>
+                        <p>
+                            <b>จังหวัด : </b>
+                            <%= user['address']['province'] %>
+                        </p>
+                    </div>
+                </div>
+                <center>
+                    <div class="ui vertical labeled icon buttons">
+                        <button class="ui button" id="img1">
+                            <i class="id card icon"></i>
+                            <i class="user icon"></i>
+                            รูปคู่
+                        </button>
+                        <button class="ui button" id="img3">
+                            <i class="id card outline icon"></i>
+                            รูปหน้า
+                        </button>
+                        <button class="ui button" id="img2">
+                            <i class="id card icon"></i>
+                            รูปหลัง
+                        </button>
+                    </div>
+                </center>
+            </div>
+
+            <div class="ui modal img1" style="height:50%;">
+                <i class="close icon"></i>
+                <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user['_id'] %>/<%= user['license']['picOwn'] %>" style="max-width:100%; max-height:100%;">
+            </div>
+            <div class="ui modal img2" style="height:50%; z-index:8000">
+                <i class="close icon"></i>
+                <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user['_id'] %>/<%= user['license']['picBack'] %>" style="max-width:100%; max-height:100%;">
+            </div>
+            <div class="ui modal img3" style="height:50%;">
+                <i class="close icon"></i>
+                <img src="https://s3.amazonaws.com/morcyc4you/user/<%= user['_id'] %>/<%= user['license']['picFront'] %>" style="max-width:100%; max-height:100%;">
+            </div>
+            <!-- <div style="height:50%;">
     <div style="display: inline-block; width:49%;">
         <img src="{{asset('hqdefault.jpg')}}" width="100%" height="100%">
     </div>
@@ -59,28 +115,29 @@
         <p><b>หัวฉีดน้ำมันเชื้อเพลิง : </b>ปกติ</p>
         <p><b>ปริมาณออกซิเจน : </b>ปกติ</p>
     </div> -->
-    
 
-</div>
 
-<script>
-    $('#img1').click(function(){
-        $('.ui.modal.img1')
-        .modal('show')
-    ;
-    });
-    $('#img2').click(function(){
-        $('.ui.modal.img2')
-        .modal('show')
-    ;
-    });
-    $('#img3').click(function(){
-        $('.ui.modal.img3')
-        .modal('show')
-    ;
-    });
-    
-</script>
-    
-</body>
+            </div>
+
+            <script>
+                $('#img1').click(function () {
+                    $('.ui.modal.img1')
+                        .modal('show')
+                        ;
+                });
+                $('#img2').click(function () {
+                    $('.ui.modal.img2')
+                        .modal('show')
+                        ;
+                });
+                $('#img3').click(function () {
+                    $('.ui.modal.img3')
+                        .modal('show')
+                        ;
+                });
+
+            </script>
+
+    </body>
+
 </html>
