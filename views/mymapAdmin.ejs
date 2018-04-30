@@ -34,7 +34,7 @@
         locateOptions: {
             enableHighAccuracy: true
         },
-        position : 'bottomright'
+        position: 'bottomright'
     }));
     mymap.zoomControl.setPosition('bottomright');
     mymap.measureControl.setPosition('bottomleft');
@@ -103,13 +103,16 @@
     // locate();
     setInterval(function () {
         locate();
+        if ($(".js-cancel") != null) {
+            $(".js-cancel").remove();
+        }
     }, 1000);
     for (var i = 0; i < morcyc.length; i++) {
         var lat = parseFloat(morcyc[i]['latlng']['lat']);
         var lng = parseFloat(morcyc[i]['latlng']['lng']);
         var name = morcyc[i]['plate'];
-        var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click',function(){
-            
+        var m1 = L.marker([lat, lng], { icon: greenIcon }).addTo(mymap).bindPopup(name).on('click', function () {
+
         });
         console.log("plate: " + name + " " + setArea.contains(m1.getLatLng()));
     }
@@ -137,29 +140,39 @@
                 arrayArea[i] = [area[i]['lat'], area[i]['lng']];
             }
             console.log(arrayArea);
+            swal({
+                title: "Do you want to save this area?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Save!'
+            }).then((result) => {
+                if (result.value) {
+                    mymap.removeLayer(setArea);
+                    var $zone = arrayArea;
+                    setArea = L.polygon(arrayArea).addTo(mymap);
+                    setArea.setStyle({ "fillOpacity": 0, color: 'red' });
 
-            mymap.removeLayer(setArea);
-            var $zone = arrayArea;
-            setArea = L.polygon(arrayArea).addTo(mymap);
-            setArea.setStyle({ "fillOpacity": 0, color: 'red' });
-            $.ajax({
-                type: 'POST',
-                url: '/admin/setZone',
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    zone: $zone,
-                    size: sizeArea
-                },
-                success: function (data) {
-                    if (data == true) { // if true (1)
-                        swal("set area complete");
-                        setTimeout(function () {// wait for 1 secs(2)
-                            location.reload(); // then reload the page.(3)
-                        }, 5000);
-                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/setZone',
+                        data: {
+                            '_token': $('input[name=_token]').val(),
+                            zone: $zone,
+                            size: sizeArea
+                        },
+                        success: function (data) {
+                            if (data == true) { // if true (1)
+                                swal("set area complete");
+                                setTimeout(function () {// wait for 1 secs(2)
+                                    location.reload(); // then reload the page.(3)
+                                }, 5000);
+                            }
+                        }
+                    });
                 }
             });
-        }else{
+
+        } else {
             swal("it's not area, you must add point more than 2 points");
         }
 

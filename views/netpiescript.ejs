@@ -30,7 +30,7 @@
     var statecheck = 1;
     var latlng;
     var timeused = 0;
-    var timepause =0;
+    var timepause = 0;
     console.log("state " + state);
     var currentUrl = window.location.href;
     currentUrl = currentUrl.split("/")[currentUrl.split("/").length - 1];
@@ -47,11 +47,11 @@
         }
         else if (msg == "0") {
             turnOff("stop");
-            setInterval(function(){
+            setInterval(function () {
                 window.location.href = "/showbike";
-            },3000);
+            }, 3000);
         }
-        else if(topic == "/CMRM/" + mId + "/timeused"){
+        else if (topic == "/CMRM/" + mId + "/timeused") {
             timeused = parseInt(msg.split(" ")[0]);
             timepause = parseInt(msg.split(" ")[1]);
         }
@@ -63,7 +63,7 @@
             }
             var point = new google.maps.LatLng(parseFloat(msg.split(",")[0]), parseFloat(msg.split(",")[1]));
             if (!google.maps.geometry.poly.containsLocation(point, setZone) && statecheck) {
-                
+
                 socket.emit('alert', "Report Motorcycle out of area id : " + morcycID + " by userId : " + userId);
                 microgear.chat("Device_one", "outArea 1");
                 $.ajax({
@@ -79,7 +79,7 @@
                 });
                 swal("You out of area");
                 statecheck = 0;
-            }else if(google.maps.geometry.poly.containsLocation(point, setZone) && !statecheck) {
+            } else if (google.maps.geometry.poly.containsLocation(point, setZone) && !statecheck) {
                 statecheck = 1;
                 $.ajax({
                     type: "post",
@@ -159,16 +159,26 @@
         })
             .then((result) => {
                 if (result.value) {
-                    swal({
-                        title : "Thank you :)",
-                        type : "success"
-                    });
-                    money = 0;
-                    microgear.publish("/" + mId + "/startengine", "0");
-                    console.log("stopengine");
-                    timer.stop();
-                    document.getElementById("stopButton").disabled = true;
-                    document.getElementById("pauseButton").disabled = true;
+                    console.log(latlng);
+                    if (latlng != null) {
+                        swal({
+                            title: "Thank you :)",
+                            type: "success"
+                        });
+                        money = 0;
+                        microgear.publish("/" + mId + "/startengine", "0");
+                        console.log("stopengine");
+                        timer.stop();
+                        document.getElementById("stopButton").disabled = true;
+                        document.getElementById("pauseButton").disabled = true;
+                    }
+                    else{
+                        swal({
+                            title: "Failed",
+                            html: "Stop engine too fast!, You can't stop engine until GPS get your position",
+                            type: "warning"
+                        });
+                    }
                 } else {
                     swal("Continue.");
                 }
@@ -184,21 +194,21 @@
     });
     function turnOff(msg) {
         console.log(latlng);
-        var cost = Math.ceil(((timeused-timepause)*0.034) + (timepause*0.017));
+        var cost = Math.ceil(((timeused - timepause) * 0.034) + (timepause * 0.017));
         $.ajax({
             type: "POST",
             url: "/morcyc/turnoff",
             data: {
                 '_token': $('input[name=_token]').val(),
-                latlng : latlng,
-                msg : msg,
-                time : timeused,
-                cost : cost
+                latlng: latlng,
+                msg: msg,
+                time: timeused,
+                cost: cost
 
             },
             success: function (data) {
                 if (data) {
-                    
+
                 } else {
                     swal(data);
                 }

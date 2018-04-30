@@ -45,6 +45,11 @@
             </button>
         </div>
         <script>
+            swal({
+                title : "Alert",
+                html : "Please don't close the window because your connection, maybe loses",
+                type : "warning"
+            });
             var marker;
             var map;
             var area = JSON.parse('<%- JSON.stringify(zone) %>');
@@ -146,7 +151,7 @@
             setInterval(function () {
                 total += money;
                 total = Math.round(total * 100) / 100;
-                $('#cost').html(total);
+                $('#cost').html(Math.ceil(total));
             }, 1000);
            
 
