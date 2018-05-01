@@ -143,7 +143,14 @@
     }
 
     $(document).on("click touchstart tap", "#booking", function () {
-        if (document.getElementById("booking").disabled == false) {
+        if(walletdata <= 0 ){
+            swal({
+                title : "Alert",
+                html : "Money not enough",
+                type: "warning"
+            });
+        }
+        else if (document.getElementById("booking").disabled == false) {
             var morcycID = $("#booking").data("id");
             $.ajax({
                 type: "POST",

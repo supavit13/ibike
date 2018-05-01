@@ -48,6 +48,7 @@ UserController.create = function (req, res) {
         email: req.body.email,
         tel: req.body.tel,
         password: req.body.password,
+        wallet : "50",
         address: {
             number: req.body.number,
             moo: req.body.moo,
