@@ -78,4 +78,8 @@ router.get('/topup/:id/:money',requiresLoginAdmin,function(req,res){
     usercon.topup(req,res);
   });
 
+router.get('/setno/:id',requiresLoginAdmin,function(req,res){
+    admin.setno(req,res);
+  });
+
 module.exports = router;

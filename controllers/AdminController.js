@@ -361,6 +361,17 @@ AdminController.polygonLng = function (req, res) {
         }
     });
 }
+AdminController.setno = function (req, res) {
+    Motorcycle.where({ _id : req.params.id }).update({using : "no"},function (err, morcyc) {
+        if (err) {
+            console.log("Error:", err);
+        }
+        else {
+            // res.send(users);
+            res.send("Set no complete.");
+        }
+    });
+}
 AdminController.checkzone = function (req, res) {
     var motorcycID = req.body.data;
     var latlng = req.body.latlng;
