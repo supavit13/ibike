@@ -3,10 +3,14 @@
 
 <head>
     <% include head.ejs %>
-    <script src="https://cdn.netpie.io/microgear.js"></script>
+        <script src="https://cdn.netpie.io/microgear.js"></script>
 </head>
 <% include alertscript.ejs %>
-<div><br><br><br></div>
+    <div>
+        <br>
+        <br>
+        <br>
+    </div>
 
     <body>
         <% include navbar.ejs %>
@@ -70,42 +74,17 @@
             </form>
     </body>
     <script>
-        var APPID = "CMRM";
-        var APPKEY = "Q22q476p7toHHLD";
-        var APPSECRET = "x2ttOOD1vJqbqN5M9sJFdJO6Q";
-        var ALIAS = "web";
-        var microgear = Microgear.create({
-            key: APPKEY,
-            secret: APPSECRET,
-            alias: ALIAS /*  optional  */
-        }); 
-        microgear.on('message', function (topic, msg) {
-            console.log("in receive");
-            console.log(msg);
-            if(topic == "/CMRM/recvPos"){
-                $("#lat").attr("value",msg.split(",")[0]);
-                $("#lng").attr("value",msg.split(",")[1]);
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                console.log("Geolocation is not supported by this browser.");
             }
-        });
-
-        microgear.on('connected', function () {
-            microgear.setAlias(ALIAS);
-            microgear.subscribe("/recvPos");
-        });
-
-        microgear.on('present', function (event) {
-            console.log(event);
-        });
-
-        microgear.on('absent', function (event) {
-            console.log(event);
-        });
-        microgear.connect(APPID);
-
-        $(".getPos").on("click",function(){
-            microgear.publish("/reqPos", "1");
-        });
-
+        }
+        function showPosition(position) {
+            $("#lat").text(position.coords.latitude);
+            $("#lng").text(position.coords.longitude);
+        }
     </script>
 
 </html>
