@@ -78,6 +78,8 @@
             }
         }
         function showPosition(position) {
+            console.log(position.coords.latitude);
+            console.log(position.coords.longitude);
             $("#lat").val(position.coords.latitude);
             $("#lng").val(position.coords.longitude);
         }
