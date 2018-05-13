@@ -8,7 +8,7 @@ ______________________________________________
 ______________________________________________
 
 ## Import database
-1. นำไฟล์ .json ใน mongodb ไป import เข้า mongodb บน mlab
+1. นำไฟล์ .json ใน mongodb ไป import เข้า mongodb บน mlab สามารถทำตามได้จาก [Quick-Start Guide to mLab](https://docs.mlab.com/)
 2. แก้ไขไฟล์ app.js บรรทัดที่ 15 ให้นำ url บน mlab มาใส่
 ______________________________________________
 
@@ -20,4 +20,4 @@ ______________________________________________
 ______________________________________________
 
 ## Run Web app on heroku
-- รันบน Heroku สามารถทำได้ตามลิ้งนี้ https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction
+- รันบน Heroku สามารถทำได้ตามลิ้งนี้ [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction)
