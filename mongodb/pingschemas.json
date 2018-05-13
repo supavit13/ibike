@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5ade18472070b200147042fa"},"motorID":"5adb11ec69f27824686bcf08","userID":"5a93a5552e3c1400147ba026","topic":"repair","date":"2018-04-24 00:30:47","__v":0}
+{"_id":{"$oid":"5adf1d84d140c50014872290"},"motorID":"5a8fde523b210c00146bc0d3","userID":"5addbef04b52c80014ba0ee7","topic":"repair","date":"2018-04-24 19:05:24","__v":0}
+{"_id":{"$oid":"5adf6cc2cf401c00140f8f31"},"motorID":"5a8fde523b210c00146bc0d3","userID":"5addbef04b52c80014ba0ee7","topic":"outofarea","date":"2018-04-25 00:43:30","__v":0}
+{"_id":{"$oid":"5adf6cf9cf401c00140f8f32"},"motorID":"5a8fde523b210c00146bc0d3","userID":"5addbef04b52c80014ba0ee7","topic":"inarea","date":"2018-04-25 00:44:25","__v":0}
+{"_id":{"$oid":"5ae21514d510d400146ebde7"},"motorID":"5a8fde523b210c00146bc0d3","userID":"5ae20e5a33f26f0014657393","topic":"repair","date":"2018-04-27 01:06:12","__v":0}
