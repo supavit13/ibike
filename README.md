@@ -1,4 +1,4 @@
-# ibike or Morcyc4you
+# Morcyc4you
 เว็บบริการเช่ารถจักรยานยนต์ Motorcycle rental
 ______________________________________________
 
@@ -8,7 +8,7 @@ ______________________________________________
 ______________________________________________
 
 ## Import database
-1. นำไฟล์ .json ใน mongodb ไป import เข้า mongodb บน mlab สามารถทำตามได้จาก [Quick-Start Guide to mLab](https://docs.mlab.com/)
+1. นำไฟล์ .json ใน mongodb ไป import เข้า mongodb บน mlab สามารถทำได้ตามลิ้งนี้ [Quick-Start Guide to mLab](https://docs.mlab.com/)
 2. แก้ไขไฟล์ app.js บรรทัดที่ 15 ให้นำ url บน mlab มาใส่
 ______________________________________________
 
